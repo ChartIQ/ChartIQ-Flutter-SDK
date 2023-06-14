@@ -1,0 +1,30 @@
+<svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 25"
+    id="vector">
+    <path
+        id="path"
+        d="M 7.429 15.961 L 4.381 15.961 L 4.381 11.517 L 7.429 11.517 Z"
+        fill="#53627c"
+        fill-rule="evenodd"/>
+    <path
+        id="path_1"
+        d="M 19.619 15.963 L 16.571 15.963 L 16.571 7.815 L 19.619 7.815 Z"
+        fill="#53627c"
+        fill-rule="evenodd"/>
+    <path
+        id="path_2"
+        d="M 10.475 19.667 L 7.427 19.667 L 7.427 15.963 L 10.475 15.963 Z"
+        fill="#53627c"
+        fill-rule="evenodd"/>
+    <path
+        id="path_3"
+        d="M 13.524 15.964 L 10.476 15.964 L 10.476 3.371 L 13.524 3.371 Z"
+        fill="#53627c"
+        fill-rule="evenodd"/>
+    <path
+        id="path_4"
+        d="M 16.572 22.629 L 13.524 22.629 L 13.524 15.962 L 16.572 15.962 Z"
+        fill="#53627c"
+        fill-rule="evenodd"/>
+</svg>

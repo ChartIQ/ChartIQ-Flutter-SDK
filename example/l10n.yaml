@@ -1,0 +1,7 @@
+arb-dir: assets/translations
+template-arb-file: app_en.arb
+output-dir: lib/gen/localization
+output-localization-file: app_localizations.gen.dart
+synthetic-package: false
+nullable-getter: false
+output-class: L

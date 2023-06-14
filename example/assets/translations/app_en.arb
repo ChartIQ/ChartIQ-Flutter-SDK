@@ -1,0 +1,82 @@
+{
+  "settings": "Settings",
+  "cancel": "Cancel",
+  "chartPreferences": "Chart Preferences",
+  "languagePreferences": "Language Preferences",
+  "settingsOptions": "{option, select, logScale {Log Scale} invertYAxis {Invert Y-Axis} extendHours {Extend Hours} other {-}}",
+  "@settingsOptions": {
+    "placeholders": {
+      "option": {
+        "type": "String"
+      }
+    }
+  },
+  "language": "Language",
+  "intervals": "Intervals",
+  "pageSettingsInputLanguage": "{locale, select, en {English} de {German} fr {French} ru {Russian} it {Italian} es {Spanish} pt {Portuguese} hu {Hungarian} zh {Chinese} ja {Japanese} ar {Arabic} other {-}}",
+  "@pageSettingsInputLanguage": {
+    "placeholders": {
+      "locale": {
+        "type": "String"
+      }
+    }
+  },
+  "search": "Search",
+  "typeToStartSearching": "Type to start searching",
+  "symbolsNotFound": "Symbols not found",
+  "tryAnotherSymbolOrApplyCurrent": "Try another symbol to type in or apply current request",
+  "apply": "Apply",
+  "symbolFilter": "{filter, select, all {All} stocks {Stocks} forex {Forex} indexes {Indexes} funds {Funds} futures {Futures} other {-}}",
+  "@symbolFilter": {
+    "placeholders": {
+      "filter": {
+        "type": "String"
+      }
+    }
+  },
+  "timeUnits": "{time, select, day {day} minute {minute} month {month} week {week} second {second} hour {hour} other {-}}",
+  "@timeUnits": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "timeUnitsShort": "{time, select, day {D} minute {m} month {M} week {W} second {s} hour {H} other {-}}",
+  "@timeUnitsShort": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "compareSymbols": "Compare Symbols",
+  "noSymbolsToCompare": "No Symbols to compare yet",
+  "addSymbol": "Add Symbol",
+  "add": "Add",
+  "remove": "Remove",
+  "selectColor": "Select Color",
+  "delete": "Delete",
+  "clone": "Clone",
+  "chartStyle": "Chart Style",
+  "drawingToolCategoryTitle": "{category, select, all {All} favorites {Favourites} text {Text} statistics {Statistics} technicals {Technicals} fibonacci {Fibonacci} markings {Markings} lines {Lines} other {-}}",
+  "@drawingToolCategoryTitle": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "drawingToolSectionTitle": "{category, select, main {Main tools} other {Other tools}}",
+  "@drawingToolSectionTitle": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+
+  "selectLineType": "Select Line Type",
+
+  "save": "Save"
+}

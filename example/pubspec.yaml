@@ -1,0 +1,54 @@
+name: example
+description: Example of ChatIQ SDK
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=2.18.5 <3.0.0'
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.5
+  chartiq_flutter_sdk:
+    path: ..
+  flutter_svg: ^2.0.5
+  modal_bottom_sheet: ^3.0.0-pre
+  flutter_slidable: ^3.0.0
+  provider: ^6.0.5
+  # network
+  dio: ^5.1.1
+  json_annotation: ^4.8.0
+  retrofit: ^4.0.1
+  logger: any
+  # localization
+  flutter_localizations:
+    sdk: flutter
+  intl: ^0.17.0
+  shared_preferences: ^2.1.0
+  uuid: ^3.0.7
+  connectivity_plus: ^4.0.1
+
+dev_dependencies:
+  flutter_lints: ^2.0.1
+  retrofit_generator: ^6.0.0+2
+  build_runner: any
+  json_serializable: ^6.6.1
+  flutter_gen_runner: ^5.3.0
+
+flutter_gen:
+  colors:
+    inputs:
+      - assets/color/colors.xml
+  integrations:
+    flutter_svg: true
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/icons/
+    - assets/icons/chart_style/
+    - assets/icons/drawing_tools/
+    - assets/icons/line_types/

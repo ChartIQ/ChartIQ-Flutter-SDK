@@ -1,0 +1,23 @@
+{
+  "settings": "Paramètres",
+  "cancel": "Cancel",
+  "chartPreferences": "Préférences de graphique",
+  "languagePreferences": "Préférences de langue",
+  "settingsOptions": "{option, select, longScale {Longue échelle} invertYAxis {Inverser l'axe Y} extendHours {Étendre les heures} other {-}}",
+  "@settingsOptions": {
+    "placeholders": {
+      "option": {
+        "type": "String"
+      }
+    }
+  },
+  "language": "Langue",
+  "pageSettingsInputLanguage": "{locale, select, en {English} de {German} fr {French} ru {Russian} it {Italian} es {Spanish} pt {Portuguese} hu {Hungarian} zh {Chinese} ja {Japanese} ar {Arabic} other {-}}",
+  "@pageSettingsInputLanguage": {
+    "placeholders": {
+      "locale": {
+        "type": "String"
+      }
+    }
+  }
+}
