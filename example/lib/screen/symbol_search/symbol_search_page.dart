@@ -37,6 +37,7 @@ class _SymbolSearchPageState extends State<SymbolSearchPage> {
       }),
       body: CustomScrollView(
         physics: const BottomSheetScrollPhysics(),
+        keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         slivers: [
           SliverPersistentHeader(
             pinned: true,

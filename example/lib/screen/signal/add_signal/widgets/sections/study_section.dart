@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/widgets/custom_separated_list_view.dart';
 import 'package:example/common/widgets/list_tiles/custom_text_list_tile.dart';
 import 'package:example/common/widgets/modals/app_bottom_sheet.dart';
@@ -43,9 +43,11 @@ class _StudySectionState extends State<StudySection> {
 
     if (!mounted) return;
     if (newStudy != null && newStudy.isNotEmpty) {
-      final study = await vm.chartIQController.signal.addSignalStudy(
-        newStudy[0].shortName,
-      );
+      if (SignalStudyInfoModel.instance.studies.isNotEmpty) {
+        await vm.chartIQController.study.removeStudy(SignalStudyInfoModel.instance.studies.first);
+      }
+      final study =
+          await vm.chartIQController.signal.addSignalStudy(newStudy[0]);
       SignalStudyInfoModel.instance.studies.add(study);
       vm.selectedStudy = study;
       vm.clearConditions();
@@ -56,7 +58,7 @@ class _StudySectionState extends State<StudySection> {
   Future<void> _onConfigureStudy(BuildContext context, Study study) async {
     final vm = context.read<AddSignalVM>();
 
-    final simplified = await Navigator.of(context).push<StudySimplified?>(
+    final simplified = await Navigator.of(context).push<dynamic>(
       MaterialPageRoute(
         builder: (_) {
           return ChangeNotifierProvider<StudyParametersVM>(

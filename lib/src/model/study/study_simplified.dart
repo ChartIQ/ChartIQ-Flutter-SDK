@@ -10,7 +10,7 @@ class StudySimplified {
   Map<String, String>? outputs;
 
   /// The type of study, which can be used as a look up in the StudyLibrary
-  final String type;
+  final String? type;
 
   StudySimplified({
     required this.studyName,

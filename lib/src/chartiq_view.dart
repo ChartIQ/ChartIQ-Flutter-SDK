@@ -1,12 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
-import 'package:chartiq_flutter_sdk/src/measure_size.dart';
-import 'package:chartiq_flutter_sdk/src/model/chart_available_model.dart';
-import 'package:chartiq_flutter_sdk/src/model/data_pull_model.dart';
-import 'package:chartiq_flutter_sdk/src/model/measure_model.dart';
-import 'package:chartiq_flutter_sdk/src/model/message_type.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/src/model/chart_available_model.dart';
+import 'package:chart_iq/src/model/data_pull_model.dart';
+import 'package:chart_iq/src/model/measure_model.dart';
+import 'package:chart_iq/src/model/message_type.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -61,8 +60,6 @@ class _ChartIQViewState extends State<ChartIQView> {
   final StreamController<bool> _onChartAvailable = StreamController.broadcast();
   final StreamController<String> _onMeasureListener =
       StreamController.broadcast();
-  bool _viewCreated = false;
-  Size _webViewSize = Size.zero;
 
   @override
   void initState() {
@@ -71,19 +68,7 @@ class _ChartIQViewState extends State<ChartIQView> {
 
   @override
   Widget build(BuildContext context) {
-    return MeasureSize(
-      onChange: (size) {
-        if (!_viewCreated) {
-          _webViewSize = size;
-        } else {
-          _channel.invokeMethod('setWebViewSize', [
-            size.width,
-            size.height,
-          ]);
-        }
-      },
-      child: _buildWebView(),
-    );
+    return _buildWebView();
   }
 
   Widget _buildWebView() {
@@ -124,6 +109,8 @@ class _ChartIQViewState extends State<ChartIQView> {
       final String type = map["type"];
       final MessageType messageType =
           MessageType.values.firstWhere((e) => e.name == type);
+      bool isCurrent = ModalRoute.of(context)?.isCurrent ?? false;
+      _channel.invokeMethod("changeAvailability", isCurrent);
       switch (messageType) {
         case MessageType.pullInitialData:
           final DataPullModel dataPullModel = DataPullModel.fromJson(map);
@@ -157,14 +144,6 @@ class _ChartIQViewState extends State<ChartIQView> {
   }
 
   _onChartReady() async {
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      _channel.invokeMethod('setWebViewSize', [
-        _webViewSize.width,
-        _webViewSize.height,
-      ]);
-    }
-    _viewCreated = true;
-    await Future.delayed(const Duration(seconds: 2));
     widget.onChartIQViewCreated?.call(_controllerForChartIQ);
   }
 

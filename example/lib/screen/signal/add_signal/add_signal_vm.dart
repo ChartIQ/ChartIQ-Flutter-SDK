@@ -1,9 +1,10 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/const/const.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/data/model/condition_item.dart';
 import 'package:example/data/model/picker_color.dart';
 import 'package:example/screen/signal/signal_extensions.dart';
+import 'package:example/screen/signal/signal_study_info_model.dart';
 import 'package:example/screen/studies/utils/study_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -47,6 +48,14 @@ class AddSignalVM extends ChangeNotifier {
   set selectedStudy(Study? study) {
     _selectedStudy = study;
     notifyListeners();
+  }
+
+  bool canShowAppearanceForCondition(ConditionItem? condition) {
+    if (selectedJoiner == SignalJoiner.or || conditions.isEmpty) {
+      return true;
+    } else {
+      return condition == conditions.first;
+    }
   }
 
   Study? get selectedStudy => _selectedStudy;
@@ -113,43 +122,71 @@ class AddSignalVM extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onStudyEdited(StudySimplified simplified) async {
-    selectedStudy = selectedStudy?.copyWithSimplified(simplified);
-    conditions = await Future.wait(
-      conditions.map((e) async {
-        return ConditionItem(
-          condition: e.condition.copyWithIndicators(
-            leftIndicator: e.condition.leftIndicator.replaceFirst(
-              selectedStudy!.shortName,
-              simplified.studyName,
+  void onStudyEdited(dynamic simplified) async {
+    final previousStudyShortName = selectedStudy?.shortName;
+    if (simplified is StudySimplified) {
+      selectedStudy = selectedStudy?.copyWithSimplified(simplified);
+      conditions = await Future.wait(
+        conditions.map((e) async {
+          final f = ConditionItem(
+            condition: e.condition.copyWithIndicators(
+              leftIndicator: e.condition.leftIndicator.replaceAll(
+                previousStudyShortName!,
+                simplified.studyName,
+              ),
+              rightIndicator: e.condition.rightIndicator.replaceAll(
+                previousStudyShortName,
+                simplified.studyName,
+              ),
             ),
-            rightIndicator: e.condition.rightIndicator?.replaceFirst(
-              selectedStudy!.shortName,
-              simplified.studyName,
+            title: e.title,
+            description: e.description,
+            uuid: e.uuid,
+            displayColor: await _checkDisplayColor(e.condition),
+          );
+          return f;
+        }).toList(),
+      );
+    } else if (simplified is Study) {
+      selectedStudy = simplified;
+      conditions = await Future.wait(
+        conditions.map((e) async {
+          var leftIndicator = "";
+          var rightIndicator = "";
+          simplified.outputs?.forEach((key, value) {
+            if (value is String) {
+              if (e.condition.leftIndicator.contains(value)) {
+                leftIndicator = key;
+              }
+              if (e.condition.rightIndicator.contains(value)) {
+                rightIndicator = key;
+              }
+            }
+          });
+          final f = ConditionItem(
+            condition: e.condition.copyWithIndicators(
+              leftIndicator: leftIndicator,
+              rightIndicator: rightIndicator,
             ),
-          ),
-          title: e.title,
-          description: e.description,
-          uuid: e.uuid,
-          displayColor: await _checkDisplayColor(e.condition),
-        );
-      }).toList(),
-    );
-
+            title: e.title,
+            description: e.description,
+            uuid: e.uuid,
+            displayColor: await _checkDisplayColor(e.condition),
+          );
+          return f;
+        }).toList(),
+      );
+    }
+    SignalStudyInfoModel.instance.studies.add(selectedStudy!);
     notifyListeners();
   }
 
   void _processConditionsItems() async {
     conditions = await Future.wait(
       conditions.mapIndexed((e, i) async {
-        late String rightIndicator;
-        if (e.condition.rightIndicator == null) {
-          rightIndicator = '';
-        } else {
-          rightIndicator =
-              double.tryParse(e.condition.rightIndicator!)?.toString() ??
-                  StudyExtension.splitName(e.condition.rightIndicator!)[0];
-        }
+        String rightIndicator =
+            double.tryParse(e.condition.rightIndicator)?.toString() ??
+                StudyExtension.splitName(e.condition.rightIndicator)[0];
 
         final description =
             '${StudyExtension.splitName(e.condition.leftIndicator)[0]} '

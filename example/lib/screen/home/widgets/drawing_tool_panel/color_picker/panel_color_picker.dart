@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:example/common/const/const.dart';
 import 'package:example/common/widgets/color_picker_item.dart';
 import 'package:example/common/widgets/spacing.dart';
@@ -27,13 +29,20 @@ class _PanelColorPickerState extends State<PanelColorPicker> {
     (index) => GlobalKey(),
   );
 
+  PickerColor? _selectedColor;
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final indexOfSelectedColor =
-          _colors.indexOf(widget.selectedColor ?? _colors.first);
+      inspect(widget.selectedColor);
+      final indexOfSelectedColor = _colors.indexOf(
+          widget.selectedColor?.getPickerColorWithAuto(context) ??
+              _colors.first);
       if (indexOfSelectedColor != -1) {
+        setState(() {
+          _selectedColor = _colors[indexOfSelectedColor];
+        });
         Scrollable.ensureVisible(
           keys[indexOfSelectedColor].currentContext!,
           alignment: 0.5,
@@ -68,7 +77,7 @@ class _PanelColorPickerState extends State<PanelColorPicker> {
                         padding: const EdgeInsets.all(6),
                         key: keys[index],
                         color: color,
-                        isSelected: widget.selectedColor == color,
+                        isSelected: _selectedColor == color,
                         onTap: () => widget.onColorSelected?.call(color),
                       ),
                     );

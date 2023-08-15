@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:example/common/widgets/custom_separated_list_view.dart';
 import 'package:example/common/widgets/list_tiles/custom_text_list_tile.dart';
 import 'package:example/common/widgets/modals/app_bottom_sheet.dart';
@@ -26,6 +24,7 @@ class _ConditionsSectionState extends State<ConditionsSection> {
     final newCondition = await _showConditionPage(
       context,
       "${vm.conditions.length + 1} Condition",
+      showAppearance: vm.canShowAppearanceForCondition(null),
       isEdit: false,
     );
 
@@ -43,11 +42,11 @@ class _ConditionsSectionState extends State<ConditionsSection> {
       context,
       condition.title,
       condition: condition,
+      showAppearance: vm.canShowAppearanceForCondition(condition),
       isEdit: true,
     );
 
     if (!mounted || newCondition == null) return;
-    inspect(newCondition);
     vm.updateCondition(newCondition);
   }
 
@@ -55,6 +54,7 @@ class _ConditionsSectionState extends State<ConditionsSection> {
     BuildContext context,
     String title, {
     ConditionItem? condition,
+    required bool showAppearance,
     required bool isEdit,
   }) async {
     final vm = context.read<AddSignalVM>();
@@ -64,6 +64,7 @@ class _ConditionsSectionState extends State<ConditionsSection> {
         isEdit: isEdit,
         condition: condition,
         chartIQController: vm.chartIQController,
+        showAppearance: showAppearance,
         study: vm.selectedStudy!,
       ),
       child: AddConditionPage(title: title),
@@ -114,7 +115,7 @@ class _ConditionsSectionState extends State<ConditionsSection> {
           ),
           CustomTextListTile.widgetTitle(
             titleWidget: const Text(
-              'Add condition',
+              'Add Condition',
               style: TextStyle(
                 color: ColorName.mountainMeadow,
               ),

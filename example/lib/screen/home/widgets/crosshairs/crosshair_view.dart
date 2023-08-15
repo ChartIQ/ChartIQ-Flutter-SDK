@@ -1,6 +1,7 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/widgets/custom_expandable_body.dart';
+import 'package:example/common/widgets/spacing.dart';
 import 'package:example/theme/app_colors.dart';
 import 'package:flutter/material.dart';
 
@@ -33,26 +34,24 @@ class CrosshairView extends StatelessWidget {
               vertical: 8.0,
               horizontal: 16.0,
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            child: Column(
               children: [
                 CrosshairValueContainer(
                   firstTranslationKey: RemoteLocaleKeys.crosshairPrice,
                   firstValue: data?.price ?? '',
-                  secondTranslationKey: RemoteLocaleKeys.crosshairVol,
-                  secondValue: data?.volume ?? '',
+                  secondTranslationKey: RemoteLocaleKeys.open,
+                  secondValue: data?.open ?? '',
+                  thirdTranslationKey: RemoteLocaleKeys.close,
+                  thirdValue: data?.close ?? '',
                 ),
+                const VerticalSpacing(10),
                 CrosshairValueContainer(
-                  firstTranslationKey: RemoteLocaleKeys.open,
-                  firstValue: data?.open  ?? '',
+                  firstTranslationKey: RemoteLocaleKeys.crosshairVol,
+                  firstValue: data?.volume ?? '',
                   secondTranslationKey: RemoteLocaleKeys.high,
                   secondValue: data?.high ?? '',
-                ),
-                CrosshairValueContainer(
-                  firstTranslationKey: RemoteLocaleKeys.close,
-                  firstValue: data?.close ?? '',
-                  secondTranslationKey: RemoteLocaleKeys.low,
-                  secondValue: data?.low ?? '',
+                  thirdTranslationKey: RemoteLocaleKeys.low,
+                  thirdValue: data?.low ?? '',
                 ),
               ],
             ),

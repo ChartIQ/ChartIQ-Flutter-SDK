@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/widgets/app_bars/modal_app_bar.dart';
 import 'package:example/common/widgets/common_settings_items/choose_setting_item.dart';
 import 'package:example/common/widgets/common_settings_items/color_setting_item.dart';
@@ -59,16 +59,15 @@ class _DrawingToolsSettingsScreenState
 
     await settingsVM.updateParameter(
       param,
-      value.toString(),
+      value,
     );
   }
 
   void _onNumberChanged(DrawingParameterType param, String value) async {
     final settingsVM = context.read<DrawingToolsSettingsVM>();
-
     await settingsVM.updateParameter(
       param,
-      value,
+      double.tryParse(value) == null ? '0' : value,
     );
   }
 
@@ -88,8 +87,13 @@ class _DrawingToolsSettingsScreenState
     return Scaffold(
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       appBar: ModalAppBar(
+        onCancel: () {
+          FocusScope.of(context).unfocus();
+          Navigator.of(context).pop();
+        },
         addTopSafeArea: true,
         isBackButtonIcon: true,
+        transitionAnimation: true,
         middleText: vm.drawingTool.name,
       ),
       body: CustomSeparatedListView(
@@ -141,10 +145,18 @@ class _DrawingToolsSettingsScreenState
       case DrawingToolSettingsItemNumber:
         final setting = item as DrawingToolSettingsItemNumber;
         return TextFieldSettingItem.number(
-          title: setting.title,
-          value: setting.number.toString(),
-          onChanged: (value) => _onNumberChanged(setting.param, value ?? '0'),
-        );
+            title: setting.title,
+            value: setting.number.toString(),
+            onChanged: (value) {
+              _onNumberChanged(
+                setting.param,
+                value != null &&
+                        value.isNotEmpty &&
+                        (double.tryParse(value) != null)
+                    ? value
+                    : '0',
+              );
+            });
       case DrawingToolSettingsItemDeviation:
         return DeviationSettingsItem(
           item: item as DrawingToolSettingsItemDeviation,

@@ -1,9 +1,9 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 
-/// The model that contains the study info for the signal study.
-///
-/// This information is needed to remove all the studies if [Study] was added to the [Signal]
-/// but [Signal] wasn't saved as [Study] adds to the list of all chart studies and can't be auto-removed.
+// The model that contains the study info for the signal study.
+//
+// This information is needed to remove all the studies if [Study] was added to the [Signal]
+// but [Signal] wasn't saved as [Study] adds to the list of all chart studies and can't be auto-removed.
 class SignalStudyInfoModel {
   static final SignalStudyInfoModel _instance = SignalStudyInfoModel._();
 

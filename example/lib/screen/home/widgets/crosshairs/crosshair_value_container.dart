@@ -1,6 +1,5 @@
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/utils/extensions.dart';
-import 'package:example/common/widgets/spacing.dart';
 import 'package:example/theme/app_crosshair_text_theme.dart';
 import 'package:flutter/material.dart';
 
@@ -11,46 +10,84 @@ class CrosshairValueContainer extends StatelessWidget {
     required this.firstValue,
     required this.secondTranslationKey,
     required this.secondValue,
+    required this.thirdTranslationKey,
+    required this.thirdValue,
   }) : super(key: key);
 
   final String firstTranslationKey,
       firstValue,
       secondTranslationKey,
-      secondValue;
+      secondValue,
+      thirdTranslationKey,
+      thirdValue;
+
+  String trimValue(String value) {
+    final doubleValue = double.tryParse(value);
+    if (doubleValue == null) return value;
+    return value;
+  }
 
   @override
   Widget build(BuildContext context) {
     final textStyleTheme =
         Theme.of(context).extension<AppCrosshairTextTheme>()!;
+    const double titleSize = 50;
     return Row(
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              RemoteLocaleKeys.crosshairFullLabel(
-                context.translateWatch(firstTranslationKey),
-              ).toUpperCase(),
-              style: textStyleTheme.labelTextStyle,
-            ),
-            const VerticalSpacing(4),
-            Text(
-              RemoteLocaleKeys.crosshairFullLabel(
-                context.translateWatch(secondTranslationKey),
-              ).toUpperCase(),
-              style: textStyleTheme.labelTextStyle,
-            ),
-          ],
+        SizedBox(
+          width: titleSize,
+          child: Text(
+            RemoteLocaleKeys.crosshairFullLabel(
+              context.translateWatch(firstTranslationKey),
+            ).toUpperCase(),
+            style: textStyleTheme.labelTextStyle,
+
+          ),
         ),
-        const HorizontalSpacing(10),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(firstValue, style: textStyleTheme.valueTextStyle),
-            const VerticalSpacing(4),
-            Text(secondValue, style: textStyleTheme.valueTextStyle),
-          ],
+        Expanded(
+            flex: 3,
+            child: Text(
+              trimValue(firstValue),
+              style: textStyleTheme.valueTextStyle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )),
+        const Spacer(),
+        SizedBox(
+          width: titleSize,
+          child: Text(
+            RemoteLocaleKeys.crosshairFullLabel(
+              context.translateWatch(secondTranslationKey),
+            ).toUpperCase(),
+            style: textStyleTheme.labelTextStyle,
+          ),
         ),
+        Expanded(
+            flex: 3,
+            child: Text(
+              trimValue(secondValue),
+              style: textStyleTheme.valueTextStyle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )),
+        const Spacer(),
+        SizedBox(
+          width: titleSize,
+          child: Text(
+            RemoteLocaleKeys.crosshairFullLabel(
+              context.translateWatch(thirdTranslationKey),
+            ).toUpperCase(),
+            style: textStyleTheme.labelTextStyle,
+          ),
+        ),
+        Expanded(
+            flex: 3,
+            child: Text(
+              trimValue(thirdValue),
+              style: textStyleTheme.valueTextStyle,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+            )),
       ],
     );
   }

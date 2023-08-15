@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/utils/bottom_sheet_scroll_physics.dart';
 import 'package:example/common/utils/extensions.dart';
@@ -43,7 +43,7 @@ class _ChartTypePageState extends State<ChartTypePage> {
         physics: const BottomSheetScrollPhysics(),
         dividerIndent: 65,
         itemCount: _allStyles.length,
-        itemBuilder: (context, index) {
+        itemBuilder: (_, index) {
           final style = _allStyles[index];
           return CustomTextListTile(
               title: context.translateWatch(style.title),

@@ -50,6 +50,21 @@ class Study {
   /// Determines whether the study should be excluded from SignalIQ
   final bool signalIQExclude;
 
+  /// A original name of the study
+  final String? originalName;
+
+  /// A full name of the study
+  final String? fullName;
+
+  /// A unique ID of the study
+  final String? uniqueId;
+
+  /// A name parameters of the study
+  final String? nameParams;
+
+  /// A name of the study
+  final String? studyName;
+
   Study({
     required this.name,
     required this.attributes,
@@ -67,13 +82,21 @@ class Study {
     required this.underlay,
     this.yAxis,
     required this.signalIQExclude,
+    this.originalName,
+    this.uniqueId,
+    this.nameParams,
+    this.studyName,
+    this.fullName,
   });
+
+  String get displayName =>
+      display != null && display!.isNotEmpty ? display! : name;
 
   factory Study.fromJson(Map<String, dynamic> json) {
     return Study(
       name: json['name'],
       attributes: json['attributes'],
-      centerLine: json['centerLine'],
+      centerLine: double.parse(json['centerLine'].toString()),
       customRemoval: json['customRemoval'],
       deferUpdate: json['deferUpdate'],
       display: json['display'],
@@ -82,11 +105,16 @@ class Study {
       parameters: json['parameters'],
       range: json['range'],
       shortName: json['shortName'],
-      type: json['type'],
+      type: json['type'].toString(),
       overlay: json['overlay'],
       underlay: json['underlay'],
       yAxis: json['yAxis'],
       signalIQExclude: json['signalIQExclude'],
+      originalName: json['originalName'],
+      uniqueId: json['uniqueId'],
+      nameParams: json['nameParams'],
+      studyName: json['studyName'],
+      fullName: json['fullName'],
     );
   }
 
@@ -108,6 +136,11 @@ class Study {
     data['underlay'] = underlay;
     data['yAxis'] = yAxis;
     data['signalIQExclude'] = signalIQExclude;
+    data['originalName'] = originalName;
+    data['uniqueId'] = uniqueId;
+    data['nameParams'] = nameParams;
+    data['studyName'] = studyName;
+    data['fullName'] = fullName;
     return data;
   }
 
@@ -128,7 +161,12 @@ class Study {
       overlay.hashCode ^
       underlay.hashCode ^
       yAxis.hashCode ^
-      signalIQExclude.hashCode;
+      signalIQExclude.hashCode ^
+      originalName.hashCode ^
+      uniqueId.hashCode ^
+      nameParams.hashCode ^
+      studyName.hashCode ^
+      fullName.hashCode;
 
   @override
   bool operator ==(Object other) {
@@ -151,6 +189,11 @@ class Study {
             overlay == other.overlay &&
             underlay == other.underlay &&
             eq(yAxis, other.yAxis) &&
-            signalIQExclude == other.signalIQExclude;
+            signalIQExclude == other.signalIQExclude &&
+            originalName == other.originalName &&
+            uniqueId == other.uniqueId &&
+            nameParams == other.nameParams &&
+            studyName == other.studyName &&
+            fullName == other.fullName;
   }
 }

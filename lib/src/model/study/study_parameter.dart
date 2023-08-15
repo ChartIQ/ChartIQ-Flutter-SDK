@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 import 'study_parameter_type.dart';
 
 /// A base class of active study parameter
@@ -9,7 +11,7 @@ class StudyParameter {
   final String name;
 
   /// A parameter type
-  final StudyParameterType parameterType;
+  final StudyParameterType? parameterType;
 
   StudyParameter({
     required this.heading,
@@ -29,7 +31,7 @@ class StudyParameterText extends StudyParameter {
   StudyParameterText({
     required String heading,
     required String name,
-    required StudyParameterType parameterType,
+    required StudyParameterType? parameterType,
     required this.defaultValue,
     required this.value,
   }) : super(heading: heading, name: name, parameterType: parameterType);
@@ -38,8 +40,8 @@ class StudyParameterText extends StudyParameter {
     return StudyParameterText(
       heading: json['heading'],
       name: json['name'],
-      parameterType: StudyParameterType.values
-          .firstWhere((element) => element.value == json['parameterType']),
+      parameterType: StudyParameterType.values.firstWhereOrNull(
+          (element) => element.value == json['parameterType']),
       defaultValue: json['defaultValue'],
       value: json['value'],
     );
@@ -57,7 +59,7 @@ class StudyParameterNumber extends StudyParameter {
   StudyParameterNumber({
     required String heading,
     required String name,
-    required StudyParameterType parameterType,
+    required StudyParameterType? parameterType,
     required this.defaultValue,
     required this.value,
   }) : super(heading: heading, name: name, parameterType: parameterType);
@@ -66,10 +68,10 @@ class StudyParameterNumber extends StudyParameter {
     return StudyParameterNumber(
       heading: json['heading'],
       name: json['name'],
-      parameterType: StudyParameterType.values
-          .firstWhere((element) => element.value == json['parameterType']),
-      defaultValue: json['defaultValue'],
-      value: json['value'],
+      parameterType: StudyParameterType.values.firstWhereOrNull(
+          (element) => element.value == json['parameterType']),
+      defaultValue: double.parse(json['defaultValue'].toString()),
+      value: double.parse(json['value'].toString()),
     );
   }
 }
@@ -85,7 +87,7 @@ class StudyParameterColor extends StudyParameter {
   StudyParameterColor({
     required String heading,
     required String name,
-    required StudyParameterType parameterType,
+    required StudyParameterType? parameterType,
     required this.defaultValue,
     required this.value,
   }) : super(heading: heading, name: name, parameterType: parameterType);
@@ -94,8 +96,8 @@ class StudyParameterColor extends StudyParameter {
     return StudyParameterColor(
       heading: json['heading'],
       name: json['name'],
-      parameterType: StudyParameterType.values
-          .firstWhere((element) => element.value == json['parameterType']),
+      parameterType: StudyParameterType.values.firstWhereOrNull(
+          (element) => element.value == json['parameterType']),
       defaultValue: json['defaultValue'],
       value: json['value'],
     );
@@ -119,7 +121,7 @@ class StudyParameterTextColor extends StudyParameter {
   StudyParameterTextColor({
     required String heading,
     required String name,
-    required StudyParameterType parameterType,
+    required StudyParameterType? parameterType,
     required this.defaultColor,
     required this.color,
     required this.defaultValue,
@@ -130,8 +132,8 @@ class StudyParameterTextColor extends StudyParameter {
     return StudyParameterTextColor(
       heading: json['heading'],
       name: json['name'],
-      parameterType: StudyParameterType.values
-          .firstWhere((element) => element.value == json['parameterType']),
+      parameterType: StudyParameterType.values.firstWhereOrNull(
+          (element) => element.value == json['parameterType']),
       defaultColor: json['defaultColor'],
       color: json['color'],
       defaultValue: json['defaultValue'],
@@ -151,7 +153,7 @@ class StudyParameterCheckbox extends StudyParameter {
   StudyParameterCheckbox({
     required String heading,
     required String name,
-    required StudyParameterType parameterType,
+    required StudyParameterType? parameterType,
     required this.defaultValue,
     required this.value,
   }) : super(heading: heading, name: name, parameterType: parameterType);
@@ -160,8 +162,8 @@ class StudyParameterCheckbox extends StudyParameter {
     return StudyParameterCheckbox(
       heading: json['heading'],
       name: json['name'],
-      parameterType: StudyParameterType.values
-          .firstWhere((element) => element.value == json['parameterType']),
+      parameterType: StudyParameterType.values.firstWhereOrNull(
+          (element) => element.value == json['parameterType']),
       defaultValue: json['defaultValue'],
       value: json['value'],
     );
@@ -182,7 +184,7 @@ class StudyParameterSelect extends StudyParameter {
   StudyParameterSelect({
     required String heading,
     required String name,
-    required StudyParameterType parameterType,
+    required StudyParameterType? parameterType,
     required this.defaultValue,
     required this.value,
     required this.options,
@@ -190,13 +192,17 @@ class StudyParameterSelect extends StudyParameter {
 
   factory StudyParameterSelect.fromJson(Map<String, dynamic> json) {
     return StudyParameterSelect(
-      heading: json['heading'],
-      name: json['name'],
-      parameterType: StudyParameterType.values
-          .firstWhere((element) => element.value == json['parameterType']),
-      defaultValue: json['defaultValue'],
-      value: json['value'],
-      options: (json['options'] as Map<String, dynamic>).map((key, value) => MapEntry(key.toString(), value.toString()))
-    );
+        heading: json['heading'],
+        name: json['name'],
+        parameterType: StudyParameterType.values.firstWhereOrNull(
+            (element) => element.value == json['parameterType']),
+        defaultValue: json['defaultValue'],
+        value: json['value'],
+        options: (json['options'] as Map<String, dynamic>).map(
+          (key, value) => MapEntry(
+            key.toString(),
+            value.toString(),
+          ),
+        ));
   }
 }

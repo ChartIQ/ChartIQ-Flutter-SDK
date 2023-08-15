@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:chartiq_flutter_sdk/src/model/signal/chart_iq_signal.dart';
-import 'package:chartiq_flutter_sdk/src/model/signal/signal.dart';
-import 'package:chartiq_flutter_sdk/src/model/study/study.dart';
+import 'package:chart_iq/src/model/signal/chart_iq_signal.dart';
+import 'package:chart_iq/src/model/signal/signal.dart';
+import 'package:chart_iq/src/model/study/study.dart';
 import 'package:flutter/services.dart';
 
 class ChartIQSignalImpl extends ChartIQSignal {
@@ -11,9 +11,9 @@ class ChartIQSignalImpl extends ChartIQSignal {
   ChartIQSignalImpl({required this.channel});
 
   @override
-  Future<Study> addSignalStudy(String name) async {
+  Future<Study> addSignalStudy(Study study) async {
     final res = await channel
-        .invokeMethod('addSignalStudy', name);
+        .invokeMethod('addSignalStudy', jsonEncode(study.toJson()));
     return Study.fromJson(jsonDecode(res));
   }
 

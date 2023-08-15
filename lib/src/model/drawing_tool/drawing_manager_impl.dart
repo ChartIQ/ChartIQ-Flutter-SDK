@@ -1,5 +1,5 @@
-import 'package:chartiq_flutter_sdk/src/model/drawing_tool/drawing_manager.dart';
-import 'package:chartiq_flutter_sdk/src/model/drawing_tool/drawing_tool.dart';
+import 'package:chart_iq/src/model/drawing_tool/drawing_manager.dart';
+import 'package:chart_iq/src/model/drawing_tool/drawing_tool.dart';
 import 'package:flutter/services.dart';
 
 class DrawingManagerImpl implements DrawingManager {

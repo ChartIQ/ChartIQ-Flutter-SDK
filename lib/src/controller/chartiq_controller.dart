@@ -1,11 +1,8 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
-import 'package:chartiq_flutter_sdk/src/model/chart_theme.dart';
-import 'package:chartiq_flutter_sdk/src/model/crosshair_hud.dart';
-import 'package:chartiq_flutter_sdk/src/model/data_method.dart';
-import 'package:chartiq_flutter_sdk/src/model/drawing_tool/chartiq_drawing_tool.dart';
-import 'package:chartiq_flutter_sdk/src/model/drawing_tool/drawing_manager.dart';
-import 'package:chartiq_flutter_sdk/src/model/signal/chart_iq_signal.dart';
-import 'package:chartiq_flutter_sdk/src/model/study/chart_iq_study.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/src/model/data_method.dart';
+import 'package:chart_iq/src/model/drawing_tool/chartiq_drawing_tool.dart';
+import 'package:chart_iq/src/model/drawing_tool/drawing_manager.dart';
+import 'package:chart_iq/src/model/study/chart_iq_study.dart';
 
 /// This is the controller for the chart.
 ///

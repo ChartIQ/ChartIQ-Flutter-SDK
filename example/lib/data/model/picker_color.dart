@@ -1,3 +1,4 @@
+import 'package:example/common/const/const.dart';
 import 'package:flutter/material.dart';
 
 class PickerColor {
@@ -17,6 +18,18 @@ class PickerColor {
           : Colors.black;
     } else {
       return colorFromHex;
+    }
+  }
+
+  PickerColor getPickerColorWithAuto(BuildContext context) {
+    if (value == 'auto' || value.isEmpty) {
+      return Theme.of(context).brightness == Brightness.dark
+          ? AppConst.defaultPickerColors.firstWhere(
+              (element) => element.value == AppConst.whiteColorString)
+          : AppConst.defaultPickerColors.firstWhere(
+              (element) => element.value == AppConst.blackColorString);
+    } else {
+      return this;
     }
   }
 

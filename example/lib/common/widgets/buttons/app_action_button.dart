@@ -22,7 +22,7 @@ class AppActionButton extends StatelessWidget {
             shape: shape != null
                 ? MaterialStateProperty.all((shape!))
                 : Theme.of(context).elevatedButtonTheme.style!.shape,
-            maximumSize: MaterialStateProperty.all(const Size.fromHeight(56)),
+            maximumSize: MaterialStateProperty.all(const Size.fromHeight(100)),
             padding: padding != null
                 ? MaterialStateProperty.all(padding)
                 : Theme.of(context).elevatedButtonTheme.style!.padding,

@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/screen/drawing_tools_settings/drawing_tools_settings_vm.dart';
 import 'package:example/screen/drawing_tools_settings/model/drawing_tool_settings_item.dart';
 import 'package:flutter/material.dart';

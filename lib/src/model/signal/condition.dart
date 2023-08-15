@@ -7,7 +7,7 @@ class Condition {
   final String leftIndicator;
 
   /// rightIndicator can be either a numeric value or a field in the study's outputMap
-  final String? rightIndicator;
+  final String rightIndicator;
 
   /// signalOperator can be "<", "<=", "=", ">", ">=", "<>", ">p" (greater than previous), "<p" (less than previous), "=p" (same as previous), "x" (crosses another plot/value in either direction), "x+" (crosses another plot/value upwards", "x-" (crosses another plot/value downwards"
   final SignalOperator signalOperator;
@@ -25,8 +25,8 @@ class Condition {
   factory Condition.fromJson(Map<String, dynamic> json) => Condition(
         leftIndicator: json['leftIndicator'],
         rightIndicator: json['rightIndicator'],
-        signalOperator: SignalOperator.values.firstWhere(
-            (element) => element.value.toUpperCase() == json['signalOperator']),
+        signalOperator:
+            SignalOperator.getPlatformOperator(json['signalOperator']),
         markerOption: MarkerOption.fromJson(json['markerOption']),
       );
 

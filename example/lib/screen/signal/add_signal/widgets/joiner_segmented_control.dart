@@ -1,4 +1,5 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:example/common/const/const.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/theme/app_colors.dart';
 import 'package:flutter/cupertino.dart';
@@ -24,7 +25,10 @@ class _JoinerSegmentedControlState extends State<JoinerSegmentedControl> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(14),
+      padding: const EdgeInsets.symmetric(
+        vertical: 14,
+        horizontal: AppConst.kListTileSeparatorIndent,
+      ),
       child: Row(
         children: [
           Expanded(

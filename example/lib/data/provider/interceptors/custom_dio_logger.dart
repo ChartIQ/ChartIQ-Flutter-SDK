@@ -7,42 +7,42 @@ import 'package:logger/logger.dart';
 
 // SYMBOLS TO HIDE IN INTELLIJ IDEA:  ║ ╔ ╚ ╟
 class CustomDioLogger extends Interceptor {
-  /// Print request [Options]
+  // Print request [Options]
   final bool request;
 
-  /// Print request header [Options.headers]
+  // Print request header [Options.headers]
   final bool requestHeader;
 
-  /// Print request data [Options.text]
+  // Print request data [Options.text]
   final bool requestBody;
 
-  /// Print [Response.data]
+  // Print [Response.data]
   final bool responseBody;
 
-  /// Print [Response.headers]
+  // Print [Response.headers]
   final bool responseHeader;
 
-  /// Print error message
+  // Print error message
   final bool error;
 
-  /// InitialTab count to logPrint json response
+  // InitialTab count to logPrint json response
   static const int initialTab = 1;
 
-  /// 1 tab length
+  // 1 tab length
   static const String tabStep = '    ';
 
-  /// Print compact json response
+  // Print compact json response
   final bool compact;
 
-  /// Width size per logPrint
+  // Width size per logPrint
   final int maxWidth;
 
-  /// Endpoints which will be ignored and not printed
+  // Endpoints which will be ignored and not printed
   final List<String>? exceptionEndpoints;
 
-  /// Log printer; defaults logPrint log to console.
-  /// In flutter, you'd better use debugPrint.
-  /// you can also write log in a file.
+  // Log printer; defaults logPrint log to console.
+  // In flutter, you'd better use debugPrint.
+  // you can also write log in a file.
   void Function(Object object) logPrint;
 
   CustomDioLogger({

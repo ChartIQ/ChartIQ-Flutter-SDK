@@ -1,15 +1,17 @@
 import 'dart:async';
 
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:flutter/material.dart';
 
 class MeasureInfoLabel extends StatefulWidget {
   const MeasureInfoLabel({
     Key? key,
     required this.chartIQController,
+    this.drawingTool,
   }) : super(key: key);
 
   final ChartIQController chartIQController;
+  final DrawingTool? drawingTool;
 
   @override
   State<MeasureInfoLabel> createState() => _MeasureInfoLabelState();
@@ -29,6 +31,14 @@ class _MeasureInfoLabelState extends State<MeasureInfoLabel> {
         info = event;
       });
     });
+  }
+
+  @override
+  void didUpdateWidget(covariant MeasureInfoLabel oldWidget) {
+    if(oldWidget.drawingTool != widget.drawingTool) {
+      info = null;
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override

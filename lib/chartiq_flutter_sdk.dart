@@ -1,4 +1,4 @@
-library chartiq_flutter_sdk;
+library chart_iq;
 
 export 'src/chartiq_view.dart';
 export 'src/controller/chartiq_controller.dart';

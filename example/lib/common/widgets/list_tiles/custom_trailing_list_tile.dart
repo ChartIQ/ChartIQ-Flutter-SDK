@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'custom_cupertino_list_tile.dart';
+
 class CustomTrailingListTile extends StatelessWidget {
   const CustomTrailingListTile({
     Key? key,
@@ -20,7 +22,7 @@ class CustomTrailingListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoListTile(
+    return CustomCupertinoListTile(
       backgroundColor: Theme.of(context).listTileTheme.tileColor,
       onTap: onTap,
       title: Text(
@@ -30,11 +32,11 @@ class CustomTrailingListTile extends StatelessWidget {
       additionalInfo: trailingText == null
           ? null
           : DefaultTextStyle(
-              style: Theme.of(context).textTheme.labelMedium!,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.end,
-              child: trailingText!,
-            ),
+            style: Theme.of(context).textTheme.labelMedium!,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.end,
+            child: trailingText!,
+          ),
       subtitle: subtitle != null
           ? Text(
               subtitle!,

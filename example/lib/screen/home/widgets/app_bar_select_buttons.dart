@@ -15,23 +15,27 @@ class AppBarSelectButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     final mainVM = context.watch<MainVM>();
     return Row(
+      textDirection: TextDirection.ltr,
       children: [
-        CustomTextButton(
-          text: mainVM.selectedSymbol?.symbol,
-          isLoading: mainVM.selectedSymbol == null,
-          onPressed: () async {
-            final newSymbol = await showAppBottomSheet<SymbolModel>(
-              context: context,
-              builder: (context) {
-                return ChangeNotifierProvider<SymbolSearchVM>(
-                  create: (_) => SymbolSearchVM(),
-                  builder: (_, __) => const SymbolSearchPage(),
-                );
-              },
-            );
-            mainVM.onSymbolSelected(newSymbol);
-            FocusManager.instance.primaryFocus?.unfocus();
-          },
+        Flexible(
+          child: CustomTextButton(
+            text: mainVM.selectedSymbol?.symbol,
+            isLoading: mainVM.selectedSymbol == null,
+            padding: EdgeInsets.zero,
+            onPressed: () async {
+              final newSymbol = await showAppBottomSheet<SymbolModel>(
+                context: context,
+                builder: (context) {
+                  return ChangeNotifierProvider<SymbolSearchVM>(
+                    create: (_) => SymbolSearchVM(),
+                    builder: (_, __) => const SymbolSearchPage(),
+                  );
+                },
+              );
+              mainVM.onSymbolSelected(newSymbol);
+              FocusManager.instance.primaryFocus?.unfocus();
+            },
+          ),
         ),
         const SizedBox(width: 8),
         CustomTextButton(

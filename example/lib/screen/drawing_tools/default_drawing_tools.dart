@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/data/model/drawing_tool/drawing_tool_category.dart';
 import 'package:example/data/model/drawing_tool/drawing_tool_item_model.dart';
@@ -224,13 +224,6 @@ class DefaultDrawingTools {
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(
-      tool: DrawingTool.star,
-      icon: Assets.icons.drawingTools.star.path,
-      name: RemoteLocaleKeys.star,
-      category: DrawingToolCategory.markings,
-      section: DrawingToolSection.main,
-    ),
-    DrawingToolItemModel(
       tool: DrawingTool.speedResistanceArc,
       icon: Assets.icons.drawingTools.resistanceArc.path,
       name: RemoteLocaleKeys.speedResistanceArc,
@@ -242,6 +235,13 @@ class DefaultDrawingTools {
       icon: Assets.icons.drawingTools.resistanceLine.path,
       name: RemoteLocaleKeys.speedResistanceLine,
       category: DrawingToolCategory.technicals,
+      section: DrawingToolSection.main,
+    ),
+    DrawingToolItemModel(
+      tool: DrawingTool.star,
+      icon: Assets.icons.drawingTools.star.path,
+      name: RemoteLocaleKeys.star,
+      category: DrawingToolCategory.markings,
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(

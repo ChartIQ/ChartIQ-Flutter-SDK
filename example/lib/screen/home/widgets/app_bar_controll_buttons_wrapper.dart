@@ -8,6 +8,7 @@ class AppBarControlButtonsWrapper extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Wrap(
+      textDirection: TextDirection.ltr,
       spacing: 10,
       crossAxisAlignment: WrapCrossAlignment.end,
       alignment: WrapAlignment.end,

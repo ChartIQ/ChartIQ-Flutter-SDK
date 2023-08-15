@@ -14,8 +14,8 @@ abstract class ChartIQSignal {
   Future<void> removeSignal(Signal signal);
 
   /// Add signal [Signal] to a list of active signals
-  /// [name] A [Signal] to be added
-  Future<Study> addSignalStudy(String name);
+  /// [study] A [Study] to be added
+  Future<Study> addSignalStudy(Study study);
 
   /// Save signal [Signal]  to a list of active signals
   /// [signal] A [Signal] to be added

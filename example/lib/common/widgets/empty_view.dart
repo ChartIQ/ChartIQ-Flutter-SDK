@@ -29,46 +29,56 @@ class EmptyView extends StatelessWidget {
         color: backgroundColor,
         padding: const EdgeInsets.only(
           top: 94.0,
-          left: 38.0,
-          right: 38.0,
           bottom: 16,
         ),
         child: Column(
           children: [
-            SvgPicture.asset(
-              icon ?? context.assets.searchIcon.path,
-              width: 120,
-              height: 120,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 38.0),
+              child: SvgPicture.asset(
+                icon ?? context.assets.searchIcon.path,
+                width: 120,
+                height: 120,
+              ),
             ),
             const VerticalSpacing(32),
-            Text(
-              title,
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelLarge,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.labelLarge,
+              ),
             ),
             if (subtitle != null) ...[
               const VerticalSpacing(12),
-              Text(
-                subtitle!,
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.labelMedium?.copyWith(
-                      height: 1.5,
-                    ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: Text(
+                  subtitle!,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.labelMedium?.copyWith(
+                        height: 1.5,
+                      ),
+                ),
               ),
             ],
             if (onButtonPressed != null && buttonText != null) ...[
               const VerticalSpacing(32),
-              Row(
-                children: [
-                  Expanded(
-                    child: AppActionButton(
-                      onPressed: onButtonPressed!,
-                      child: Text(
-                        buttonText!.capitalizeAll(),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 38.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: AppActionButton(
+                        onPressed: onButtonPressed!,
+                        child: Text(
+                          buttonText!.capitalizeAll(),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ],
             const VerticalSpacing(16),

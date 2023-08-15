@@ -1,126 +1,129 @@
+import 'dart:io';
+
 /// An enumeration of available drawing tools
 enum DrawingTool {
   /// A drawing tool for a annotation
-  annotation('annotation'),
+  annotation('annotation', 'annotation'),
 
   /// A drawing tool for a arrow
-  arrow('arrow'),
+  arrow('arrow', 'arrow'),
 
   /// A drawing tool for a averageLine
-  averageLine('average'),
+  averageLine('average', 'average'),
 
   /// A drawing tool for a callout
-  callout('callout'),
+  callout('callout', 'callout'),
 
   /// A drawing tool for a channel
-  channel('channel'),
+  channel('channel', 'channel'),
 
   /// A drawing tool for a check
-  check('check'),
+  check('check', 'check'),
 
   /// A drawing tool for a continuousLine
-  continuousLine('continuous'),
+  continuousLine('continuous', 'continuous'),
 
   /// A drawing tool for a cross
-  cross('xcross'),
+  cross('xcross', 'xcross'),
 
   /// A drawing tool for a crossLine
-  crossLine('crossline'),
+  crossLine('crossline', 'crossline'),
 
   /// A drawing tool for a doodle
-  doodle('freeform'),
+  doodle('freeform', 'freeform'),
 
   /// A drawing tool for a elliotWave
-  elliotWave('elliottwave'),
+  elliotWave('elliottwave', 'elliottwave'),
 
   /// A drawing tool for a ellipse
-  ellipse('ellipse'),
+  ellipse('ellipse', 'ellipse'),
 
   /// A drawing tool for a fibArc
-  fibArc('fibarc'),
+  fibArc('fibarc', 'fibarc'),
 
   /// A drawing tool for a fibFan
-  fibFan('fibfan'),
+  fibFan('fibfan', 'fibfan'),
 
   /// A drawing tool for a fibProjection
-  fibProjection('fibprojection'),
+  fibProjection('fibprojection', 'fibprojection'),
 
   /// A drawing tool for a fibRetracement
-  fibRetracement('retracement'),
+  fibRetracement('retracement', 'fibonacci'),
 
   /// A drawing tool for a fibTimeZone
-  fibTimeZone('fibtimezone'),
+  fibTimeZone('fibtimezone', 'fibtimezone'),
 
   /// A drawing tool for a focus
-  focus('focusarrow'),
+  focus('focusarrow', 'focusarrow'),
 
   /// A drawing tool for a gannFan
-  gannFan('gannfan'),
+  gannFan('gannfan', 'gannfan'),
 
   /// A drawing tool for a gartley
-  gartley('gartley'),
+  gartley('gartley', 'gartley'),
 
   /// A drawing tool for a heart
-  heart('heart'),
+  heart('heart', 'heart'),
 
   /// A drawing tool for a horizontalLine
-  horizontalLine('horizontal'),
+  horizontalLine('horizontal', 'horizontal'),
 
   /// A drawing tool for a line
-  line('line'),
+  line('line', 'line'),
 
   /// A drawing tool for a measure
-  measure('measure'),
+  measure('measure', 'measure'),
 
   /// A drawing tool for a noTool
-  noTool(''),
+  noTool('', ''),
 
   /// A drawing tool for a pitchfork
-  pitchfork('pitchfork'),
+  pitchfork('pitchfork', 'pitchfork'),
 
   /// A drawing tool for a quadrantLines
-  quadrantLines('quadrant'),
+  quadrantLines('quadrant', 'quadrant'),
 
   /// A drawing tool for a ray
-  ray('ray'),
+  ray('ray', 'ray'),
 
   /// A drawing tool for a rectangle
-  rectangle('rectangle'),
+  rectangle('rectangle', 'rectangle'),
 
   /// A drawing tool for a regressionLine
-  regressionLine('regression'),
+  regressionLine('regression', 'regression'),
 
   /// A drawing tool for a segment
-  segment('segment'),
+  segment('segment', 'segment'),
 
   /// A drawing tool for a speedResistanceArc
-  speedResistanceArc('speedarc'),
+  speedResistanceArc('speedarc', 'speedarc'),
 
   /// A drawing tool for a speedResistanceLine
-  speedResistanceLine('speedline'),
+  speedResistanceLine('speedline', 'speedline'),
 
   /// A drawing tool for a star
-  star('star'),
+  star('star', 'star'),
 
   /// A drawing tool for a timeCycle
-  timeCycle('timecycle'),
+  timeCycle('timecycle', 'timecycle'),
 
   /// A drawing tool for a tironeLevels
-  tironeLevels('tirone'),
+  tironeLevels('tirone', 'tirone'),
 
   /// A drawing tool for a trendLine
-  trendLine('trendline'),
+  trendLine('trendline', 'trendline'),
 
   /// A drawing tool for a verticalLine
-  verticalLine('vertical'),
+  verticalLine('vertical', 'vertical'),
 
   /// A drawing tool for a volumeProfile
-  volumeProfile('volumeprofile'),
+  volumeProfile('volumeprofile', 'volumeprofile'),
 
   /// none
-  none(null);
+  none(null, null);
 
-  final String? value;
+  final String? _value, _iosValue;
 
-  const DrawingTool(this.value);
+  const DrawingTool(this._value, this._iosValue);
+  String? get value => Platform.isIOS ? _iosValue: _value;
 }

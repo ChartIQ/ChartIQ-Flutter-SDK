@@ -9,14 +9,14 @@ enum ChartAggregationType {
   ///     <li>High = the maximum of the current high, open and close</li>
   ///     <li>High = the maximum of the current high, open and close</li>
   /// </ul>
-  heikinAshi("Heikin Ashi"),
+  heikinAshi("Heikin Ashi", 'heikinashi'),
 
   /// Kagi charts appear as vertical bars connected by small horizontal segments at right angles.
   /// These charts are independent of time and progress forward based on price action. Thick green bars, called ‘Yang’ bars,
   /// indicate that a price has broken-out above the previous high price. Thin red bars, called ‘Yin’ bars,
   /// indicate that the price has fallen below the previous low. Unlike the other chart types, the colors of kagi
   /// lines do not directly communicate upward or downward trends.
-  kagi("Kagi"),
+  kagi("Kagi", 'kagi'),
 
   /// <p>Line break charts appear as vertical bars that ascend and descend. These charts are independent of time and are
   /// determined only by price action. Ascending bars are colored green and indicate upward price action.
@@ -26,12 +26,12 @@ enum ChartAggregationType {
   /// it is being compared to, a green ascending bar is drawn. If the current bar’s close is lower than the one that
   /// it is being compared to, a red descending bar is drawn. If the current close is the same, or if the price does
   /// not move enough in one direction or the other to signify a reversal, then no bar is drawn.</p>
-  lineBreak("Line Break"),
+  lineBreak("Line Break", 'linebreak'),
 
   /// <p>Renko charts appear as a sequence of uniformly sized bars (referred to as ‘bricks’) that connect at their corners.
   /// These charts are independent of time and are determined only by price action. Ascending bricks are colored green,
   /// and descending bricks are colored red.</p>
-  renko("Renko"),
+  renko("Renko", 'renko'),
 
   /// <p>Range bars appear as a sequence of uniformly sized bars that connect at their corners and sometimes sit
   /// adjacent to one another. These charts are independent of time and are determined only by price action.
@@ -44,14 +44,14 @@ enum ChartAggregationType {
   ///     <li>Bars open at the close of the previous bar.</li>
   ///     <li>Bars must close at either the high or low value.</li>
   /// </ul>
-  rangeBars("Range Bars"),
+  rangeBars("Range Bars", 'rangebars'),
 
   /// <p>Point &amp; figure (sometimes shortened to P&amp;F or PnF) charts appear as alternating columns of X’s and O’s.
   /// These charts are independent of time and are determined only by price action. The X columns indicate upward price
   /// action, and are colored green. The O columns indicate downward price action, and are colored red.</p>
-  pAndF("Point & Figure");
+  pAndF("Point & Figure", 'pandf');
 
-  final String value;
+  final String value, iosValue;
 
-  const ChartAggregationType(this.value);
+  const ChartAggregationType(this.value, this.iosValue);
 }

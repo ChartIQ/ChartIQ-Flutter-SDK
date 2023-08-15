@@ -1,3 +1,4 @@
+import 'package:example/common/const/const.dart';
 import 'package:example/common/utils/debouncer.dart';
 import 'package:example/common/widgets/spacing.dart';
 import 'package:example/gen/colors.gen.dart';
@@ -13,6 +14,7 @@ class TextFieldListTile extends StatefulWidget {
     required this.onChanged,
     this.trailing,
     this.placeholder,
+    this.onTapOutside,
   })  : supportsNegativeValues = false,
         isNumber = false,
         super(key: key);
@@ -25,12 +27,14 @@ class TextFieldListTile extends StatefulWidget {
     this.supportsNegativeValues = false,
     this.trailing,
     this.placeholder,
+    this.onTapOutside,
   })  : isNumber = true,
         super(key: key);
 
   final String title;
   final String? value, placeholder;
   final ValueChanged<String?> onChanged;
+  final ValueChanged<String?>? onTapOutside;
   final bool supportsNegativeValues;
   final bool isNumber;
   final Widget? trailing;
@@ -42,21 +46,32 @@ class TextFieldListTile extends StatefulWidget {
 class _TextFieldListTileState extends State<TextFieldListTile> {
   static final _debouncer = Debouncer(milliseconds: 500);
   final _controller = TextEditingController();
+  final _focusNode = FocusNode();
 
   static final _negativeFormatter =
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9.-]')),
-      _positiveFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'));
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9.,-]')),
+      _positiveFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'));
 
   @override
   void initState() {
     if (widget.value != null) _controller.text = widget.value!.toString();
+    _focusNode.addListener(_onFocusChanged);
     super.initState();
+  }
+
+  void _onFocusChanged() {
+    if (!_focusNode.hasFocus) {
+      widget.onTapOutside?.call(_controller.text);
+    }
   }
 
   @override
   void didUpdateWidget(covariant TextFieldListTile oldWidget) {
     if (widget.value != oldWidget.value && widget.value != _controller.text) {
-      _controller.text = widget.value.toString();
+      _controller.value = TextEditingValue(
+        text: widget.value!.toString(),
+        selection: TextSelection.collapsed(offset: widget.value!.length),
+      );
     }
     super.didUpdateWidget(oldWidget);
   }
@@ -64,6 +79,8 @@ class _TextFieldListTileState extends State<TextFieldListTile> {
   @override
   void dispose() {
     _controller.dispose();
+    _focusNode.removeListener(_onFocusChanged);
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -71,7 +88,10 @@ class _TextFieldListTileState extends State<TextFieldListTile> {
   Widget build(BuildContext context) {
     return Container(
       height: 45,
-      padding: Theme.of(context).listTileTheme.contentPadding,
+      padding: const EdgeInsets.symmetric(
+        vertical: 0,
+        horizontal: AppConst.kListTileSeparatorIndent,
+      ),
       color: Theme.of(context).listTileTheme.tileColor,
       child: Row(
         children: [
@@ -83,6 +103,7 @@ class _TextFieldListTileState extends State<TextFieldListTile> {
           Expanded(
             child: TextField(
               controller: _controller,
+              focusNode: _focusNode,
               textAlign: TextAlign.end,
               cursorColor: ColorName.mountainMeadow,
               style: Theme.of(context)
@@ -97,8 +118,9 @@ class _TextFieldListTileState extends State<TextFieldListTile> {
                     ?.placeholderStyle,
               ),
               keyboardType: widget.isNumber
-                  ? const TextInputType.numberWithOptions(
+                  ? TextInputType.numberWithOptions(
                       decimal: true,
+                      signed: widget.supportsNegativeValues,
                     )
                   : TextInputType.name,
               inputFormatters: [
@@ -110,6 +132,9 @@ class _TextFieldListTileState extends State<TextFieldListTile> {
               onChanged: (value) => _debouncer.run(
                 () => widget.onChanged(value),
               ),
+              onTapOutside: (_) {
+                widget.onTapOutside?.call(_controller.text);
+              },
             ),
           ),
           if (widget.trailing != null) widget.trailing!,

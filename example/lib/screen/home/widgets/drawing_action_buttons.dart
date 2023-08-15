@@ -14,20 +14,23 @@ class DrawingActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        CustomIconButton(
-          followForegroundIconThemeColor: false,
-          icon: context.assets.undoIcon.path,
-          onPressed: onUndo,
-        ),
-        const HorizontalSpacing(16),
-        CustomIconButton(
-          followForegroundIconThemeColor: false,
-          icon: context.assets.redoIcon.path,
-          onPressed: onRedo,
-        ),
-      ],
+    return Directionality(
+      textDirection: TextDirection.ltr,
+      child: Row(
+        children: [
+          CustomIconButton(
+            followForegroundIconThemeColor: false,
+            icon: context.assets.undoIcon.path,
+            onPressed: onUndo,
+          ),
+          const HorizontalSpacing(16),
+          CustomIconButton(
+            followForegroundIconThemeColor: false,
+            icon: context.assets.redoIcon.path,
+            onPressed: onRedo,
+          ),
+        ],
+      ),
     );
   }
 }

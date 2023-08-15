@@ -28,12 +28,12 @@ class MarkerOption {
   });
 
   factory MarkerOption.fromJson(Map<String, dynamic> json) => MarkerOption(
-    type: SignalMarkerType.values.firstWhere((element) => element.value.toUpperCase() == json['type']),
+    type: SignalMarkerType.fromString(json['type']),
     color: json['color'],
-    signalShape: SignalShape.values.firstWhere((element) => element.value.toUpperCase() == json['signalShape']),
-    signalSize: SignalSize.values.firstWhere((element) => element.name == json['signalSize']),
+    signalShape: SignalShape.fromString(json['signalShape']),
+    signalSize: SignalSize.getPlatformSize(json['signalSize']),
     label: json['label'],
-    signalPosition: SignalPosition.values.firstWhere((element) => element.value.toUpperCase() == json['signalPosition']),
+    signalPosition: SignalPosition.fromString(json['signalPosition']),
   );
 
   Map<String, dynamic> toJson() => {

@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/widgets/app_bars/modal_app_bar.dart';
 import 'package:example/common/widgets/common_settings_items/color_setting_item.dart';
 import 'package:example/common/widgets/common_settings_items/switch_setting_item.dart';

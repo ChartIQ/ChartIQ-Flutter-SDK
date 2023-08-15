@@ -19,14 +19,16 @@ extension ChartIQ.ChartIQStudy {
           "customRemoval" : false,
           "deferUpdate" : false,
           "display" : fullName.isEmpty ? nil : fullName,
-          "type" : false,
+          "fullName": fullName,
+          "originalName": originalName,
+          "uniqueId": uniqueId,
           "overlay" : false,
           "underlay" : false,
           "yAxis" : nil,
           "signalIQExclude" : signalIQExclude,
           "inputs" : inputs,
           "outputs" : outputs,
-          "parameters" : parameters
+          "parameters" : parameters,
         ]
     }
 
@@ -34,6 +36,13 @@ extension ChartIQ.ChartIQStudy {
       guard let data = try? JSONSerialization.data(withJSONObject: self.toDictionary(), options: .prettyPrinted),
         let stringValue = String(data: data, encoding: .utf8) else { return "" }
       return stringValue
+    }
+    
+    public func toStudySimplified() -> ChartIQStudySimplidiedModel {
+        return ChartIQStudySimplidiedModel(
+            studyName: self.fullName,
+            outputs: self.outputs
+        )
     }
 }
 
@@ -48,3 +57,30 @@ extension [ChartIQ.ChartIQStudy] {
         return stringValue
     }
 }
+
+extension [String: Any] {
+    public func toChartIQStudy() -> ChartIQStudy? {
+        if let shortName = self["shortName"] as? String,
+           let fullName = self["fullName"] as? String,
+           let originalName = self["originalName"] as? String {
+            let study = ChartIQStudy.init(shortName: shortName,
+                             fullName: fullName,
+                             originalName: originalName,
+                             uniqueId: "",
+                             inputs: self["inputs"] as? [String: Any]? ?? nil,
+                             outputs: self["outputs"] as? [String: Any]? ?? nil,
+                             parameters: self["parameters"] as? [String: Any]? ?? nil,
+                             signalIQExclude: self["signalIQExclude"] as? Bool ?? false
+            )
+            study.name = self["name"] as? String ?? ""
+            study.nameParams = self["nameParams"] as? String ?? ""
+            study.uniqueId = self["uniqueId"] as? String
+            return study
+        }
+        return nil
+    }
+}
+//
+//extension Any? {
+//    public func toFlutterStudyParameter() ->
+//}

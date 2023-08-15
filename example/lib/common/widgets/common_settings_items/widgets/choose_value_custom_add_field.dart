@@ -46,8 +46,9 @@ class _ChooseValueCustomAddFieldState extends State<ChooseValueCustomAddField> {
                 Expanded(
                   child: TextField(
                     controller: _controller,
-                    keyboardType: const TextInputType.numberWithOptions(
+                    keyboardType: TextInputType.numberWithOptions(
                       decimal: true,
+                      signed: widget.hasNegativeValueSupport,
                     ),
                     inputFormatters: [
                       widget.hasNegativeValueSupport

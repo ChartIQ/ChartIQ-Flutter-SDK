@@ -22,6 +22,7 @@ class ChooseValueDialog extends StatefulWidget {
     this.hasCustomValueSupport = false,
     this.hasNegativeValueSupport = false,
     this.addTopSafeArea = true,
+    this.forceTitleInChoiceScreen = false,
   }) : super(key: key);
 
   final String title;
@@ -30,7 +31,8 @@ class ChooseValueDialog extends StatefulWidget {
   final bool isMultipleSelection,
       hasCustomValueSupport,
       hasNegativeValueSupport,
-      addTopSafeArea;
+      addTopSafeArea,
+      forceTitleInChoiceScreen;
 
   @override
   State<ChooseValueDialog> createState() => _ChooseValueDialogState();
@@ -41,9 +43,9 @@ class _ChooseValueDialogState extends State<ChooseValueDialog> {
       List<OptionItemModel>.from(widget.options);
 
   List<OptionItemModel> get _currentOptions {
-    /// this is need because [hasNegativeValueSupport] is false by default
-    /// and we need to check if all options are numbers
-    /// and only then decide how to filter elements
+    // this is need because [hasNegativeValueSupport] is false by default
+    // and we need to check if all options are numbers
+    // and only then decide how to filter elements
     if (!widget.hasNegativeValueSupport &&
         options.every((e) => double.tryParse(e.title) != null)) {
       return options.where((e) {
@@ -69,16 +71,15 @@ class _ChooseValueDialogState extends State<ChooseValueDialog> {
   }
 
   void _onCustomOptionAdded(String? value) {
-    if (value == null) {
-      return;
-    }
+    if (value == null) return;
 
-    if (double.tryParse(value) == null) {
-      return;
-    }
+    final parsedValue = double.tryParse(value);
+
+    if (parsedValue == null) return;
+
     final newOption = OptionItemModel(
       title: value,
-      prettyTitle: '$value%',
+      prettyTitle: '$parsedValue%',
       isChecked: true,
     );
 
@@ -100,6 +101,7 @@ class _ChooseValueDialogState extends State<ChooseValueDialog> {
         rootNavigatorForBackButton: false,
         addTopSafeArea: widget.addTopSafeArea,
         isBackButtonIcon: true,
+        transitionAnimation: true,
         trailingWidget: widget.isMultipleSelection
             ? AppBarTextButton(
                 onPressed: _onSaveTap,
@@ -110,35 +112,44 @@ class _ChooseValueDialogState extends State<ChooseValueDialog> {
       body: CustomScrollView(
         physics: const BottomSheetScrollPhysics(),
         slivers: [
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(vertical: 30),
-            sliver: CustomSeparatedSliverList(
-              showFadeInAnimation: false,
-              itemCount: _currentOptions.length,
-              itemBuilder: (context, index) {
-                final option = _currentOptions[index];
-                return CustomTextListTile(
-                  title: option.prettyTitle ?? option.title,
-                  onTap: () => _onOptionTap(option),
-                  trailing: option.isChecked
-                      ? const Icon(
-                          Icons.check,
-                          color: ColorName.mountainMeadow,
-                        )
-                      : null,
-                );
-              },
+          SliverSafeArea(
+            top: false,
+            bottom: !widget.hasCustomValueSupport,
+            sliver: SliverPadding(
+              padding: const EdgeInsets.symmetric(vertical: 30),
+              sliver: CustomSeparatedSliverList(
+                showFadeInAnimation: false,
+                itemCount: _currentOptions.length,
+                itemBuilder: (context, index) {
+                  final option = _currentOptions[index];
+                  return CustomTextListTile(
+                    title: widget.forceTitleInChoiceScreen
+                        ? option.title
+                        : option.prettyTitle ?? option.title,
+                    onTap: () => _onOptionTap(option),
+                    trailing: option.isChecked
+                        ? const Icon(
+                            Icons.check,
+                            color: ColorName.mountainMeadow,
+                          )
+                        : null,
+                  );
+                },
+              ),
             ),
           ),
           if (widget.hasCustomValueSupport)
-            SliverToBoxAdapter(
-              child: Column(children: [
-                ChooseValueCustomAddField(
-                  onAdded: _onCustomOptionAdded,
-                  hasNegativeValueSupport: widget.hasNegativeValueSupport,
-                ),
-                const VerticalSpacing(30),
-              ]),
+            SliverSafeArea(
+              top: false,
+              sliver: SliverToBoxAdapter(
+                child: Column(children: [
+                  ChooseValueCustomAddField(
+                    onAdded: _onCustomOptionAdded,
+                    hasNegativeValueSupport: widget.hasNegativeValueSupport,
+                  ),
+                  const VerticalSpacing(30),
+                ]),
+              ),
             ),
         ],
       ),

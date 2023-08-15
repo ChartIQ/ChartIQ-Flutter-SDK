@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/utils/bottom_sheet_scroll_physics.dart';
 import 'package:example/common/utils/confirmation_dialog.dart';
@@ -175,7 +175,8 @@ class _StudyParametersPageState extends State<StudyParametersPage> {
         return TextFieldSettingItem.number(
           title: item.heading,
           value: item.value.toString(),
-          onChanged: (value) => vm.onNumberParamChanged(parameter, value),
+          onChanged: (value) => {},
+          onTapOutside: (value) => vm.onNumberParamChanged(parameter, value),
         );
       case StudyParameterColor:
         final item = parameter as StudyParameterColor;

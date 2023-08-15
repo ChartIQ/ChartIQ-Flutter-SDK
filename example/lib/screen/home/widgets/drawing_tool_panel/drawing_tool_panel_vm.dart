@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/data/model/drawing_tool/drawing_tool_item_model.dart';
 import 'package:example/data/model/drawing_tool/instrument/instrument_item_model.dart';
 import 'package:example/data/model/drawing_tool/line/line_types_enum.dart';
@@ -57,7 +57,7 @@ class DrawingToolPanelVM extends ChangeNotifier {
 
     instruments.add(InstrumentItemModel.drawingTool(icon: drawingTool!.icon));
 
-    /// fill color
+    // fill color
     if (futures[0]) {
       instruments.add(
         InstrumentItemModel.fill(
@@ -66,7 +66,7 @@ class DrawingToolPanelVM extends ChangeNotifier {
       );
     }
 
-    /// line color
+    // line color
     if (futures[1]) {
       instruments.add(
         InstrumentItemModel.color(
@@ -75,7 +75,7 @@ class DrawingToolPanelVM extends ChangeNotifier {
       );
     }
 
-    /// line type
+    // line type
     if (futures[2]) {
       instruments.add(
         InstrumentItemModel.line(
@@ -87,7 +87,7 @@ class DrawingToolPanelVM extends ChangeNotifier {
       );
     }
 
-    /// settings
+    // settings
     if (futures[3]) {
       instruments.add(InstrumentItemModel.settings());
     }
@@ -110,8 +110,8 @@ class DrawingToolPanelVM extends ChangeNotifier {
 
   Future<void> updateParameter(
       DrawingParameterType parameter, String value) async {
-    await chartIQController?.chartIQDrawingTool.setDrawingParameter(
-      parameter,
+    await chartIQController?.chartIQDrawingTool.setDrawingParameterByName(
+      parameter.value,
       value,
     );
 

@@ -25,7 +25,7 @@ class CustomSeparatedListView extends StatelessWidget {
     this.shrinkWrap = true,
     this.physics,
     this.padding,
-    this.dividerIndent = 16,
+    this.dividerIndent = AppConst.kListTileSeparatorIndent,
     this.separatorBuilder,
     this.showOuterDividers = true,
     this.controller,

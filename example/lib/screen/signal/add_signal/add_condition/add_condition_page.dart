@@ -45,6 +45,7 @@ class _AddConditionPageState extends State<AddConditionPage> {
         rootNavigatorForBackButton: !vm.isEdit,
         isBackButtonIcon: vm.isEdit,
         middleText: widget.title,
+        transitionAnimation: true,
         trailingWidget: AppBarTextButton(
           onPressed: vm.isSaveAvailable ? () => _onSave(context) : null,
           child: Text(context.translateWatch(RemoteLocaleKeys.save)),
@@ -73,6 +74,7 @@ class _AddConditionPageState extends State<AddConditionPage> {
                         options[0].title,
                       ),
                       isGeneralDialog: false,
+                      forceTitleInChoiceScreen: true,
                     ),
                     ChooseSettingItem(
                       title: 'Condition',
@@ -93,6 +95,7 @@ class _AddConditionPageState extends State<AddConditionPage> {
                         onChanged: (options) =>
                             vm.onSelect2Indicator(options[0].title),
                         isGeneralDialog: false,
+                        forceTitleInChoiceScreen: true,
                       ),
                     if (vm.showValueField)
                       TextFieldSettingItem.number(
@@ -105,7 +108,7 @@ class _AddConditionPageState extends State<AddConditionPage> {
                 ),
             ],
           ),
-          if (vm.selectedOperator != null)
+          if (vm.selectedOperator != null && vm.showAppearance)
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

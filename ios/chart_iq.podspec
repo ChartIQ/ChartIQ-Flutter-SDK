@@ -3,7 +3,7 @@
 # Run `pod lib lint chartiq_flutter_sdk.podspec` to validate before publishing.
 #
 Pod::Spec.new do |s|
-  s.name             = 'chartiq_flutter_sdk'
+  s.name             = 'chart_iq'
   s.version          = '0.0.1'
   s.summary          = 'A new Flutter project.'
   s.description      = <<-DESC
@@ -20,5 +20,5 @@ A new Flutter project.
   # Flutter.framework does not contain a i386 slice.
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
-  s.dependency 'ChartIQ'
+  s.dependency 'ChartIQ', '4.0.0'
 end

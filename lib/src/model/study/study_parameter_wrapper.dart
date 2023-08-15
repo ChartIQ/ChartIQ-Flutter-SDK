@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 class StudyParameterWrapper {
@@ -13,7 +12,7 @@ class StudyParameterWrapper {
   factory StudyParameterWrapper.fromJson(Map<String, dynamic> json) {
     return StudyParameterWrapper(
       type: json['type'],
-      value: jsonDecode(json['value']),
+      value: jsonDecode(json['value'] ?? "{}") ?? {},
     );
   }
 }

@@ -1,9 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
-
-import 'study_parameter.dart';
-import 'study_parameter_model.dart';
-import 'study_parameter_type.dart';
-import 'study_simplified.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 
 abstract class ChartIQStudy {
   /// Gets a list of available studies [Study]
@@ -36,7 +31,7 @@ abstract class ChartIQStudy {
   /// Modifies a selected study [Study] with a list of parameters
   /// [study] A study to change
   /// [parameters] A list of changed parameters for selected study, [StudyParameterModel] that contains key-value to be updated
-  Future<StudySimplified> setStudyParameters(
+  Future<dynamic> setStudyParameters(
       Study study, List<StudyParameterModel> parameters);
 
   /// Gets a list of parameters [StudyParameter] of a selected study [Study]

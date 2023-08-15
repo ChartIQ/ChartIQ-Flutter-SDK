@@ -1,6 +1,7 @@
 import 'dart:async';
+import 'dart:ui';
 
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/utils/confirmation_dialog.dart';
 import 'package:example/providers/locale_provider.dart';
 import 'package:example/screen/home/widgets/drawing_action_buttons.dart';
@@ -28,11 +29,15 @@ class _MainPageState extends State<MainPage> {
   final String _chartIQUrl =
       'https://mobile.demo.chartiq.com/android/3.3.0/sample-template-native-sdk.html';
 
+  Offset? _exitFullScreenButtonLastOffset;
+
+  Orientation _prevOrientation = Orientation.portrait;
+
   @override
   void initState() {
     super.initState();
     final vm = context.read<MainVM>();
-    final window = WidgetsBinding.instance.window;
+    final window = PlatformDispatcher.instance;
     window.onPlatformBrightnessChanged = () {
       WidgetsBinding.instance.handlePlatformBrightnessChanged();
       vm.onPlatformBrightnessChanged(window.platformBrightness);
@@ -43,6 +48,10 @@ class _MainPageState extends State<MainPage> {
       if (!isAvailableEvent) _showOfflineDialog(context);
       previousInternetAvailability = isAvailableEvent;
     });
+  }
+
+  void _onExitFullScreenMoved(Offset offset) {
+    _exitFullScreenButtonLastOffset = offset;
   }
 
   Future<void> _showOfflineDialog(BuildContext context) async {
@@ -69,15 +78,28 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     final vm = Provider.of<MainVM>(context);
     final isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
+        MediaQuery.orientationOf(context) == Orientation.portrait;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
         children: [
-          MainAppBar(
-            isCollapsed: isPortrait ? false : vm.isAppBarCollapsed,
-            onExpandButtonPressed: vm.collapseAppBar,
-          ),
+          OrientationBuilder(builder: (context, _) {
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+              final orientation =
+                  MediaQuery.orientationOf(context);
+              if (_prevOrientation != orientation) {
+                _prevOrientation = orientation;
+                if (vm.selectedDrawingTool == null) {
+                  vm.collapseAppBar(value: true);
+                }
+              }
+            });
+
+            return MainAppBar(
+              isCollapsed: isPortrait ? false : vm.isAppBarCollapsed,
+              onExpandButtonPressed: () => vm.collapseAppBar(disableDrawingTool: true),
+            );
+          }),
           CrosshairView(
             isExpanded: vm.isCrosshairEnabled,
             data: vm.crosshairHUDData,
@@ -98,7 +120,7 @@ class _MainPageState extends State<MainPage> {
                       l.set(l.appLanguage, controller);
                     },
                   ),
-                  if (vm.selectedDrawingTool != null && vm.isAppBarCollapsed)
+                  if (vm.selectedDrawingTool != null && !vm.isAppBarCollapsed)
                     Positioned(
                       top: 10,
                       child: DrawingActionButtons(
@@ -111,6 +133,7 @@ class _MainPageState extends State<MainPage> {
                       top: 50,
                       child: MeasureInfoLabel(
                         chartIQController: vm.chartIQController!,
+                        drawingTool: vm.selectedDrawingTool?.tool,
                       ),
                     ),
                   if (!isPortrait && vm.isAppBarCollapsed)
@@ -118,6 +141,8 @@ class _MainPageState extends State<MainPage> {
                       isAppBarCollapsed: vm.isAppBarCollapsed,
                       onPressed: vm.collapseAppBar,
                       constraints: constraints,
+                      onButtonMoved: _onExitFullScreenMoved,
+                      lastOffset: _exitFullScreenButtonLastOffset,
                     ),
                 ],
               );

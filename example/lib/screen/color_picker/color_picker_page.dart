@@ -47,7 +47,9 @@ class ColorPickerPage extends StatelessWidget {
                   (context, index) {
                     return ColorPickerItem(
                       color: _colors[index],
-                      isSelected: currentColor == _colors[index],
+                      isSelected:
+                          currentColor?.getPickerColorWithAuto(context) ==
+                              _colors[index],
                       padding: const EdgeInsets.all(12),
                       onTap: () => Navigator.of(context, rootNavigator: true)
                           .pop(_colors[index]),

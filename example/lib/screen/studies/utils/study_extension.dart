@@ -1,10 +1,11 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/const/const.dart';
 
 extension StudyExtension on Study {
   static const kZeroWidthNonJoiner = AppConst.kZeroWidthNonJoiner;
 
   static List<String> splitName(String name) {
+
     final nameWithoutLeading = name.replaceFirst(
       kZeroWidthNonJoiner.toString(),
       '',
@@ -26,8 +27,9 @@ extension StudyExtension on Study {
   Study copyWithSimplified(StudySimplified simplified) {
     return Study(
       name: simplified.studyName,
-      shortName: simplified.studyName,
+      fullName: simplified.studyName,
       outputs: simplified.outputs,
+      shortName: simplified.studyName,
       type: type,
       attributes: attributes,
       centerLine: centerLine,
@@ -41,6 +43,10 @@ extension StudyExtension on Study {
       underlay: underlay,
       display: display,
       range: range,
+      nameParams:  nameParams,
+      originalName:  originalName,
+      studyName: studyName,
+      uniqueId: uniqueId,
     );
   }
 }

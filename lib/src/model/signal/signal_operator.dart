@@ -39,9 +39,10 @@ enum SignalOperator {
 
   const SignalOperator(this.value);
 
+
+
   /// Returns a [SignalOperator] from a [String] value
-  static SignalOperator fromString(String title) {
-    //TODO: check escaped values
+  static SignalOperator fromMarkValue(String title) {
     switch (title) {
       case ">":
         return greaterThan;
@@ -70,11 +71,16 @@ enum SignalOperator {
     }
   }
 
+  static SignalOperator getPlatformOperator(String value) {
+    if (Platform.isIOS) return SignalOperator.fromMarkValue(value);
+    return values.firstWhere((element) => element.value.toUpperCase() == value);
+  }
+
   String getPlatformValue() {
-    if (Platform.isAndroid) {
-      return value.toUpperCase();
-    } else {
+    if (Platform.isIOS) {
       return value;
+    } else {
+      return value.toUpperCase();
     }
   }
 }

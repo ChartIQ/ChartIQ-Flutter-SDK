@@ -153,6 +153,7 @@ class ChartIQWebView(
             "redoDrawing" -> redoDrawing(methodCall, result)
             "restoreDefaultDrawingConfig" -> restoreDefaultDrawingConfig(methodCall, result)
             "setDrawingParameter" -> setDrawingParameter(methodCall, result)
+            "setDrawingParameterByName" -> setDrawingParameterByName(methodCall, result)
             "undoDrawing" -> undoDrawing(methodCall, result)
             "manageLayer" -> manageLayer(methodCall, result)
             // Study methods
@@ -688,10 +689,25 @@ class ChartIQWebView(
 
     private fun setDrawingParameter(methodCall: MethodCall, result: MethodChannel.Result) {
         val arguments = methodCall.arguments as List<Any>
-        val drawingTool = DrawingParameterType.values().first { it.value == arguments[0] }
-        val value = arguments[1] as String
+        val argument = arguments[0].toString()
+        val argument1 = arguments[1].toString()
+        val value = if (argument1 == "true" || argument1 == "false") {
+            argument1.toBoolean()
+        } else {
+            argument1
+        }
         Handler(Looper.getMainLooper()).post {
-            chartIQDrawingTool.setDrawingParameter(drawingTool, value)
+            chartIQDrawingTool.setDrawingParameter(argument, value)
+        }
+        result.success(null)
+    }
+
+    private fun setDrawingParameterByName(methodCall: MethodCall, result: MethodChannel.Result) {
+        val arguments = methodCall.arguments as List<Any>
+        val parameterName = arguments[0] as String
+        val value = arguments[1].toString()
+        Handler(Looper.getMainLooper()).post {
+            chartIQDrawingTool.setDrawingParameter(parameterName, value)
         }
         result.success(null)
     }
@@ -860,9 +876,9 @@ class ChartIQWebView(
     }
 
     private fun addSignalStudy(methodCall: MethodCall, result: MethodChannel.Result) {
-        val arguments = methodCall.arguments as String
+        val study = gson.fromJson(methodCall.arguments as String, Study::class.java)
         Handler(Looper.getMainLooper()).post {
-            chartIQSignal.addSignalStudy(arguments) {
+            chartIQSignal.addSignalStudy(study.shortName) {
                 val toSend = gson.toJson(it)
                 result.success(toSend)
             }

@@ -30,7 +30,7 @@ class InfoSection extends StatelessWidget {
         ),
         TextFieldSettingItem(
           title: context.translateWatch(RemoteLocaleKeys.name),
-          placeholder: 'Enter a name',
+          placeholder: 'Enter a Name',
           value: nameValue,
           onChanged: onNameChanged,
         ),

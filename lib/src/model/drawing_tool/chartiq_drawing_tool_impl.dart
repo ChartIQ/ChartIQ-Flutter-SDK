@@ -1,7 +1,7 @@
 import 'dart:convert';
-import 'package:chartiq_flutter_sdk/src/model/chart_layer.dart';
-import 'package:chartiq_flutter_sdk/src/model/drawing_tool/drawing_parameter_type.dart';
-import 'package:chartiq_flutter_sdk/src/model/drawing_tool/drawing_tool.dart';
+import 'package:chart_iq/src/model/chart_layer.dart';
+import 'package:chart_iq/src/model/drawing_tool/drawing_parameter_type.dart';
+import 'package:chart_iq/src/model/drawing_tool/drawing_tool.dart';
 import 'package:flutter/services.dart';
 import 'chartiq_drawing_tool.dart';
 
@@ -61,12 +61,12 @@ class ChartIQDrawingToolImpl implements ChartIQDrawingTool {
 
   @override
   Future<void> setDrawingParameter(
-      DrawingParameterType parameter, String value) {
+      DrawingParameterType parameter, dynamic value) {
     return setDrawingParameterByName(parameter.value, value);
   }
 
   @override
-  Future<void> setDrawingParameterByName(String parameterName, String value) {
+  Future<void> setDrawingParameterByName(String parameterName, dynamic value) {
     return channel.invokeMethod('setDrawingParameter', [parameterName, value]);
   }
 

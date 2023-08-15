@@ -39,7 +39,7 @@ class MainAppBar extends StatefulWidget {
 
 class _MainAppBarState extends State<MainAppBar> {
   static const _kWidthForExpandedAppBar = 500.0;
-  static const _kWidthForSelectButtons = 280.0;
+  static const _kWidthForSelectButtons = 220.0;
 
   bool get isEnoughSpaceForSelectButtons =>
       MediaQuery.of(context).size.width - _kWidthForSelectButtons > 100.0;
@@ -78,6 +78,7 @@ class _MainAppBarState extends State<MainAppBar> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 Row(
+                  textDirection: TextDirection.ltr,
                   children: [
                     const Expanded(
                       child: AppBarSelectButtons(),
@@ -100,6 +101,32 @@ class _MainAppBarState extends State<MainAppBar> {
                             );
 
                             mainVM.onChartStyleSelected(newStyle);
+                          },
+                        ),
+                        CustomIconButton(
+                          icon: Assets.icons.chartStudy.path,
+                          onPressed: () {
+                            showAppBottomSheet(
+                                context: context,
+                                builder: (_) {
+                                  return Material(
+                                    child: Navigator(
+                                      onGenerateRoute: (_) {
+                                        return MaterialPageRoute(
+                                          builder: (_) {
+                                            return ChangeNotifierProvider(
+                                              create: (_) => ActiveStudiesVM(
+                                                chartIQController:
+                                                    mainVM.chartIQController,
+                                              ),
+                                              child: const ActiveStudiesPage(),
+                                            );
+                                          },
+                                        );
+                                      },
+                                    ),
+                                  );
+                                });
                           },
                         ),
                         if (isEnoughSpaceForSelectButtons)
@@ -132,6 +159,7 @@ class _MainAppBarState extends State<MainAppBar> {
                     expand: _isExpandedAdditionalSection,
                     axisAlignment: -1,
                     child: Row(
+                      textDirection: TextDirection.ltr,
                       children: [
                         const Spacer(),
                         Column(
@@ -157,40 +185,24 @@ class _MainAppBarState extends State<MainAppBar> {
     );
   }
 
+  // this is needed because buttons are in different positions depending on the screen size
   List<Widget> _buildOptionalControlButtonsDependingOnTheSpace(
       BuildContext context) {
-    final mainVM = context.watch<MainVM>();
-
     return [
-      CustomIconButton(
-        icon: Assets.icons.chartStudy.path,
-        onPressed: () {
-          showAppBottomSheet(
-              context: context,
-              builder: (_) {
-                return Material(
-                  child: Navigator(
-                    onGenerateRoute: (_) {
-                      return MaterialPageRoute(
-                        builder: (_) {
-                          return ChangeNotifierProvider(
-                            create: (_) => ActiveStudiesVM(
-                              chartIQController: mainVM.chartIQController,
-                            ),
-                            child: const ActiveStudiesPage(),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                );
-              });
-        },
-      ),
-      if (MediaQuery.of(context).orientation == Orientation.portrait)
+      if (isEnoughSpaceForSelectButtons && !shouldBeAlwaysExpanded)
         _buildCompareButton(context)
       else
         _buildSignalButton(context)
+    ];
+  }
+
+  List<Widget> _buildOptionalControlButtonsDependingOnTheSpaceInverted(
+      BuildContext context) {
+    return [
+      if (isEnoughSpaceForSelectButtons && !shouldBeAlwaysExpanded)
+        _buildSignalButton(context)
+      else
+        _buildCompareButton(context)
     ];
   }
 
@@ -252,10 +264,9 @@ class _MainAppBarState extends State<MainAppBar> {
           ..._buildOptionalControlButtonsDependingOnTheSpace(
             context,
           ),
-        if (MediaQuery.of(context).orientation == Orientation.portrait)
-          _buildSignalButton(context)
-        else
-          _buildCompareButton(context),
+        ..._buildOptionalControlButtonsDependingOnTheSpaceInverted(
+          context,
+        ),
         CustomIconButton.selectable(
           isSelected: mainVM.isCrosshairEnabled,
           icon: Assets.icons.crosshair.path,

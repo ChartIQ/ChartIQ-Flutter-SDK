@@ -1,4 +1,6 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'dart:developer';
+
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/data/model/option_item_model.dart';
 import 'package:example/screen/studies/extensions/study_parameter_extension.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,10 +28,11 @@ class StudyParametersVM extends ChangeNotifier {
           .getStudyParameters(study, StudyParameterType.parameters),
     ]);
     parameters = futures.expand((element) => element).toList();
+    inspect(parameters);
     notifyListeners();
   }
 
-  Future<StudySimplified> saveParameters() async {
+  Future<dynamic> saveParameters() async {
     return await chartIQController.study.setStudyParameters(
       study,
       parametersToSave.entries.map((e) => e.value).toList(),
@@ -60,13 +63,13 @@ class StudyParametersVM extends ChangeNotifier {
     if (parameterIndex == -1) return;
 
     parameters[parameterIndex] = parameter.copyWithNewValue(
-      value: value ?? "",
+      value: value ?? parameter.defaultValue,
     );
 
     final name = getParameterName(parameter, StudyParameterPostfix.value);
     parametersToSave[name] = StudyParameterModel(
       fieldName: getParameterName(parameter, StudyParameterPostfix.value),
-      fieldSelectedValue: value ?? "",
+      fieldSelectedValue: value ?? parameter.defaultValue,
     );
 
     notifyListeners();
@@ -77,23 +80,25 @@ class StudyParametersVM extends ChangeNotifier {
 
     if (parameterIndex == -1) return;
 
+    final localValue = (value != null && value.isNotEmpty ? value : null)?.replaceAll(",", ".");
+
     if (parameters[parameterIndex] is StudyParameterNumber) {
       parameters[parameterIndex] =
           (parameters[parameterIndex] as StudyParameterNumber).copyWithNewValue(
-        value: double.tryParse(value ?? "0.0"),
+        value: double.tryParse(localValue ?? "0.0"),
       );
     } else if (parameters[parameterIndex] is StudyParameterTextColor) {
       parameters[parameterIndex] =
           (parameters[parameterIndex] as StudyParameterTextColor)
               .copyWithNewValue(
-        value: double.tryParse(value ?? "0.0"),
+        value: double.tryParse(localValue ?? "0.0"),
       );
     }
 
     final name = getParameterName(parameter, StudyParameterPostfix.value);
     parametersToSave[name] = StudyParameterModel(
       fieldName: getParameterName(parameter, StudyParameterPostfix.value),
-      fieldSelectedValue: double.tryParse(value ?? "0.0").toString(),
+      fieldSelectedValue: double.tryParse(localValue ?? "0.0").toString(),
     );
 
     notifyListeners();
@@ -133,13 +138,13 @@ class StudyParametersVM extends ChangeNotifier {
     if (parameterIndex == -1) return;
 
     parameters[parameterIndex] = parameter.copyWithNewValue(
-      value: value.title.toLowerCase(),
+      value: value.title,
     );
 
     final name = getParameterName(parameter, StudyParameterPostfix.value);
     parametersToSave[name] = StudyParameterModel(
       fieldName: name,
-      fieldSelectedValue: value.title.toLowerCase(),
+      fieldSelectedValue: value.title,
     );
 
     notifyListeners();

@@ -1,4 +1,6 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:defer_pointer/defer_pointer.dart';
+import 'package:example/common/widgets/animations/custom_fade_in_container.dart';
 import 'package:example/common/widgets/custom_expandable_body.dart';
 import 'package:example/common/widgets/modals/app_bottom_sheet.dart';
 import 'package:example/common/widgets/spacing.dart';
@@ -29,7 +31,6 @@ class DrawingToolSettingsPanel extends StatefulWidget {
 }
 
 class _DrawingToolSettingsPanelState extends State<DrawingToolSettingsPanel> {
-
   @override
   void initState() {
     super.initState();
@@ -48,51 +49,84 @@ class _DrawingToolSettingsPanelState extends State<DrawingToolSettingsPanel> {
   @override
   Widget build(BuildContext context) {
     final vm = context.watch<DrawingToolPanelVM>();
-    return Column(
-      children: [
-        if (vm.selectedInstrument is InstrumentColor)
-          PanelColorPicker(
-            key: const ValueKey(InstrumentColor),
-            selectedColor: (vm.selectedInstrument! as InstrumentColor).color,
-            onColorSelected: (color) =>
-                vm.updateColorParameter(DrawingParameterType.lineColor, color),
-          ),
-        if (vm.selectedInstrument is InstrumentFill)
-          PanelColorPicker(
-            key: const ValueKey(InstrumentFill),
-            selectedColor: (vm.selectedInstrument! as InstrumentFill).color,
-            onColorSelected: (color) =>
-                vm.updateColorParameter(DrawingParameterType.fillColor, color),
-          ),
-        if (vm.selectedInstrument is InstrumentLineType)
-          PanelLinePicker(
-            key: const ValueKey(InstrumentLineType),
-            selectedLineType:
-                (vm.selectedInstrument as InstrumentLineType).line,
-            onLineTypeSelected: vm.updateLineParameter,
-          ),
-        CustomExpandableBody(
-          expand: vm.isControllerAvailable && vm.drawingTool != null,
-          child: Container(
-            height: 44,
-            color: context.colors.iconButtonSelectedForegroundColor,
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: vm.instruments.length,
-              itemBuilder: (context, index) {
-                return _resolveInstrumentBuilder(context, vm.instruments[index]);
-              },
-              separatorBuilder: (context, index) =>
-                  const HorizontalSpacing(16),
+    return DeferredPointerHandler(
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
+          if (vm.selectedInstrument is InstrumentColor)
+            Positioned(
+              top: -70,
+              child: DeferPointer(
+                child: CustomFadeInContainer(
+                  child: PanelColorPicker(
+                    key: const ValueKey(InstrumentColor),
+                    selectedColor: (vm.selectedInstrument! as InstrumentColor).color,
+                    onColorSelected: (color) =>
+                        vm.updateColorParameter(DrawingParameterType.lineColor, color),
+                  ),
+                ),
+              ),
+            ),
+          if (vm.selectedInstrument is InstrumentFill)
+            Positioned(
+              top: -70,
+              child: DeferPointer(
+                child: CustomFadeInContainer(
+                  child: PanelColorPicker(
+                    key: const ValueKey(InstrumentFill),
+                    selectedColor: (vm.selectedInstrument! as InstrumentFill).color,
+                    onColorSelected: (color) =>
+                        vm.updateColorParameter(DrawingParameterType.fillColor, color),
+                  ),
+                ),
+              ),
+            ),
+          if (vm.selectedInstrument is InstrumentLineType)
+            Positioned(
+              top: -70,
+              child: DeferPointer(
+                child: CustomFadeInContainer(
+                  child: PanelLinePicker(
+                    key: const ValueKey(InstrumentLineType),
+                    selectedLineType:
+                        (vm.selectedInstrument as InstrumentLineType).line,
+                    onLineTypeSelected: vm.updateLineParameter,
+                  ),
+                ),
+              ),
+            ),
+          CustomExpandableBody(
+            expand: vm.isControllerAvailable && vm.drawingTool != null,
+            child: SafeArea(
+              top: false,
+              child: Container(
+                height: 44,
+                color: context.colors.iconButtonSelectedForegroundColor,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+                child: Directionality(
+                  textDirection: TextDirection.ltr,
+                  child: ListView.separated(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: vm.instruments.length,
+                    itemBuilder: (context, index) {
+                      return _resolveInstrumentBuilder(
+                          context, vm.instruments[index]);
+                    },
+                    separatorBuilder: (context, index) =>
+                        const HorizontalSpacing(16),
+                  ),
+                ),
+              ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
-  Widget _resolveInstrumentBuilder(BuildContext context, InstrumentItemModel model) {
+  Widget _resolveInstrumentBuilder(
+      BuildContext context, InstrumentItemModel model) {
     final vm = context.watch<DrawingToolPanelVM>();
     switch (model.runtimeType) {
       case InstrumentDrawingTool:

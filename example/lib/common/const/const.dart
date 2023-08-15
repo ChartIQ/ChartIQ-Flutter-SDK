@@ -6,7 +6,9 @@ class AppConst {
   static const kZeroWidthNonJoiner = '\u200C';
 
 
-  static const kListTileSeparatorIndent = 16.0;
+  static const kListTileSeparatorIndent = 20.0;
+
+  static const whiteColorString = '#ffffff', blackColorString = '#000000';
 
 
   static const defaultPickerColors = [
@@ -14,7 +16,7 @@ class AppConst {
     PickerColor("#ea1d2c"),
     PickerColor("#ef6c53"),
     PickerColor("#e4977c"),
-    PickerColor("#ffffff"),
+    PickerColor(whiteColorString),
     PickerColor("#a16118"),
     PickerColor("#f4932f"),
     PickerColor("#f8ae63"),
@@ -49,6 +51,6 @@ class AppConst {
     PickerColor("#e9088c"),
     PickerColor("#ee6fa9"),
     PickerColor("#f29bc1"),
-    PickerColor("#000000"),
+    PickerColor(blackColorString),
   ];
 }

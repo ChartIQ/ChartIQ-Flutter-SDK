@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/data/model/drawing_tool/line/line_types_enum.dart';
 import 'package:example/data/model/picker_color.dart';
 import 'package:example/data/model/option_item_model.dart';

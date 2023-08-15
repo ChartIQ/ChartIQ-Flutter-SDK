@@ -29,14 +29,16 @@ public class FLNativeViewFactory: NSObject, FlutterPlatformViewFactory {
 
 class FLNativeView: NSObject, FlutterPlatformView {
     private let decoder = JSONDecoder()
-    private var _view: UIView
+    private var сhartIqWrapperView: ChartIqWrapperView
     private var chartIQView: ChartIQView? = nil
     private var methodChannel: FlutterMethodChannel
     private var eventSink: FlutterEventSink? = nil
-    private var pullInitialDataLastCallBack: (([ChartIQ.ChartIQData]) -> Void)? = nil
-    private var pullUpdateDataLastCallBack: (([ChartIQ.ChartIQData]) -> Void)? = nil
-    private var pullPaginationDataLastCallBack: (([ChartIQ.ChartIQData]) -> Void)? = nil
+    private var pullInitialDataLastCallBack: [(([ChartIQ.ChartIQData]) -> Void)] = []
+    private var pullUpdateDataLastCallBack: [(([ChartIQ.ChartIQData]) -> Void)] = []
+    private var pullPaginationDataLastCallBack: [(([ChartIQ.ChartIQData]) -> Void)] = []
     private let drawingManager = ChartIQDrawingManager()
+    private var url: String? = nil
+    private var readyWasSend = false
 
     init(
         frame: CGRect,
@@ -44,37 +46,23 @@ class FLNativeView: NSObject, FlutterPlatformView {
         arguments args: Any?,
         binaryMessenger messenger: FlutterBinaryMessenger?
     ) {
-        let screenRect = UIScreen.main.bounds
-        let screenWidth = screenRect.size.width
-        let screenHeight = screenRect.size.height
-        let frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
-        _view = UIView(frame: frame)
+        сhartIqWrapperView = ChartIqWrapperView()
         methodChannel = FlutterMethodChannel(name: "plugins.com.chartiq.chart_flutter_sdk/chartiqwebview_\(viewId)",
                                              binaryMessenger: messenger!)
         super.init()
         makeMethodsHandler()
         FlutterEventChannel(name: "plugins.com.chartiq.chart_flutter_sdk/chartiqwebview_events_\(viewId)", binaryMessenger: messenger!)
             .setStreamHandler(self)
-        self.createNativeView()
+        self.chartIQView = сhartIqWrapperView.chartIQView
         self.chartIQView?.dataSource = self
         self.chartIQView?.delegate = self
         if let args, let dictionary = args as? [String: String], let url = dictionary["url"] {
-            print("setChartIQUrl")
-            self.chartIQView?.setChartIQUrl(url)
+            self.url = url
         }
     }
     
     func view() -> UIView {
-        return _view
-    }
-
-    func createNativeView() {
-        let screenRect = UIScreen.main.bounds
-        let screenWidth = screenRect.size.width
-        let screenHeight = screenRect.size.height
-        let frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight)
-        chartIQView = ChartIQView(frame: frame)
-        _view.addSubview(chartIQView!)
+        return сhartIqWrapperView
     }
 
     private func makeMethodsHandler() {
@@ -83,8 +71,11 @@ class FLNativeView: NSObject, FlutterPlatformView {
             let method = call.method
             print("makeMethodsHandler " + method)
             switch method {
-            case "setWebViewSize":
-                self.setWebViewSize(methodCall: call, result: result)
+            case "start":
+                self.start(methodCall: call, result: result)
+                break
+            case "changeAvailability":
+                self.changeAvailability(methodCall: call, result: result)
                 break
             case "pullInitialData":
                 self.pullInitialData(methodCall: call, result: result)
@@ -94,6 +85,9 @@ class FLNativeView: NSObject, FlutterPlatformView {
                 break
             case "pullPaginationData":
                 self.pullPaginationData(methodCall: call, result: result)
+                break
+            case "setTheme":
+                self.setTheme(methodCall: call, result: result)
                 break
             case "getSymbol":
                 self.getSymbol(methodCall: call, result: result)
@@ -200,7 +194,7 @@ class FLNativeView: NSObject, FlutterPlatformView {
             case "pushUpdate":
                 self.pushUpdate(methodCall: call, result: result)
                 break
-            // DrawingManager
+                // DrawingManager
             case "isSupportingFillColor":
                 self.isSupportingFillColor(methodCall: call, result: result)
                 break
@@ -231,7 +225,7 @@ class FLNativeView: NSObject, FlutterPlatformView {
             case "isSupportingVolumeProfile":
                 self.isSupportingVolumeProfile(methodCall: call, result: result)
                 break
-            // DrawingTool
+                // DrawingTool
             case "disableDrawing":
                 self.disableDrawing(methodCall: call, result: result)
                 break
@@ -268,7 +262,7 @@ class FLNativeView: NSObject, FlutterPlatformView {
             case "restoreDefaultDrawingConfig":
                 self.restoreDefaultDrawingConfig(methodCall: call, result: result)
                 break
-            // Study
+                // Study
             case "getStudyList":
                 self.getStudyList(methodCall: call, result: result)
                 break
@@ -278,34 +272,49 @@ class FLNativeView: NSObject, FlutterPlatformView {
             case "removeStudy":
                 self.removeStudy(methodCall: call, result: result)
                 break
-//            case "addStudy":
-//                self.addStudy(methodCall: call, result: result)
-//                break
-//            case "setStudyParameter":
-//                self.setStudyParameter(methodCall: call, result: result)
-//                break
-//            case "setStudyParameters":
-//                self.setStudyParameters(methodCall: call, result: result)
-//                break
-//            case "getStudyParameters":
-//                self.getStudyParameters(methodCall: call, result: result)
-//                break
+            case "addStudy":
+                self.addStudy(methodCall: call, result: result)
+                break
+            case "setStudyParameter":
+                self.setStudyParameter(methodCall: call, result: result)
+                break
+            case "getStudyParameters":
+                self.getStudyParameters(methodCall: call, result: result)
+                break
+            case "setStudyParameters":
+                self.setStudyParameters(methodCall: call, result: result)
+                break
+                // Signal
+            case "addSignalStudy":
+                self.addSignalStudy(methodCall: call, result: result)
+                break
+            case "saveSignal":
+                self.saveSignal(methodCall: call, result: result)
+                break
+            case "getActiveSignals":
+                self.getActiveSignals(methodCall: call, result: result)
+                break
+            case "toggleSignal":
+                self.toggleSignal(methodCall: call, result: result)
+                break
+            case "removeSignal":
+                self.removeSignal(methodCall: call, result: result)
+                break
             default:
                 result(nil)
             }
         })
     }
-
-    private func setWebViewSize(methodCall: FlutterMethodCall, result: FlutterResult) {
-        let arguments = methodCall.arguments as! [Double]
-        let width = arguments[0]
-        let height = arguments[1]
-        let frame = CGRect(x: 0, y: 0, width: width, height: height)
-        chartIQView?.frame = frame
-        _view.frame = frame
+    
+    private func start(methodCall: FlutterMethodCall, result: @escaping FlutterResult) {
         result(nil)
     }
 
+    private func changeAvailability(methodCall: FlutterMethodCall, result: FlutterResult) {
+        let availability = methodCall.arguments as! Bool
+        chartIQView?.isUserInteractionEnabled = availability
+        result(nil)
+    }
 
     private func pullInitialData(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
@@ -317,7 +326,8 @@ class FLNativeView: NSObject, FlutterPlatformView {
                 items.append(ChartIQ.ChartIQData(dictionary: item))
             }
         }
-        pullInitialDataLastCallBack?(items)
+        pullInitialDataLastCallBack[0](items)
+        pullInitialDataLastCallBack.removeFirst()
         result(nil)
     }
 
@@ -331,7 +341,8 @@ class FLNativeView: NSObject, FlutterPlatformView {
                 items.append(ChartIQ.ChartIQData(dictionary: item))
             }
         }
-        pullUpdateDataLastCallBack?(items)
+        pullUpdateDataLastCallBack[0](items)
+        pullUpdateDataLastCallBack.removeFirst()
         result(nil)
     }
 
@@ -345,7 +356,8 @@ class FLNativeView: NSObject, FlutterPlatformView {
                 items.append(ChartIQ.ChartIQData(dictionary: item))
             }
         }
-        pullPaginationDataLastCallBack?(items)
+        pullPaginationDataLastCallBack[0](items)
+        pullPaginationDataLastCallBack.removeFirst()
         result(nil)
     }
 
@@ -477,7 +489,7 @@ class FLNativeView: NSObject, FlutterPlatformView {
             chartIQView?.setTheme(.day)
             break
         case "night":
-            chartIQView?.setTheme(.day)
+            chartIQView?.setTheme(.night)
             break
         case "none":
             chartIQView?.setTheme(.none)
@@ -495,7 +507,7 @@ class FLNativeView: NSObject, FlutterPlatformView {
     }
 
     private func getChartScale(methodCall: FlutterMethodCall, result: FlutterResult) {
-        result(chartIQView?.chartScale)
+        result(chartIQView?.getChartScale())
     }
 
     private func setChartScale(methodCall: FlutterMethodCall, result: FlutterResult) {
@@ -602,62 +614,62 @@ class FLNativeView: NSObject, FlutterPlatformView {
 
     private func isSupportingFillColor(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(drawingManager.isSupportingFillColor(drawling))
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(drawingManager.isSupportingFillColor(drawing))
     }
 
     private func isSupportingLineColor(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(drawingManager.isSupportingLineColor(drawling))
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(drawingManager.isSupportingLineColor(drawing))
     }
 
     private func isSupportingLineType(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(drawingManager.isSupportingLineType(drawling))
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(drawingManager.isSupportingLineType(drawing))
     }
 
     private func isSupportingSettings(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(drawingManager.isSupportingSettings(drawling))
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(drawingManager.isSupportingSettings(drawing))
     }
 
     private func isSupportingFont(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(drawingManager.isSupportingFont(drawling))
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(drawingManager.isSupportingFont(drawing))
     }
 
     private func isSupportingAxisLabel(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(drawingManager.isSupportingAxisLabel(drawling))
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(drawingManager.isSupportingAxisLabel(drawing))
     }
 
     private func isSupportingDeviations(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(drawingManager.isSupportingDeviations(drawling))
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(drawingManager.isSupportingDeviations(drawing))
     }
 
     private func isSupportingFibonacci(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(drawingManager.isSupportingFibonacci(drawling))
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(drawingManager.isSupportingFibonacci(drawing))
     }
 
     private func isSupportingElliottWave(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(drawingManager.isSupportingElliottWave(drawling))
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(drawingManager.isSupportingElliottWave(drawing))
     }
 
     private func isSupportingVolumeProfile(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(drawingManager.isSupportingVolumeProfile(drawling))
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(drawingManager.isSupportingVolumeProfile(drawing))
     }
 
     private func clearDrawing(methodCall: FlutterMethodCall, result: FlutterResult) {
@@ -667,8 +679,8 @@ class FLNativeView: NSObject, FlutterPlatformView {
 
     private func enableDrawing(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        chartIQView?.enableDrawing(drawling)
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        chartIQView?.enableDrawing(drawing)
         result(nil)
     }
 
@@ -681,8 +693,8 @@ class FLNativeView: NSObject, FlutterPlatformView {
     }
 
     private func setDrawingParameter(methodCall: FlutterMethodCall, result: FlutterResult) {
-        let arguments = methodCall.arguments as! [String]
-        let parameterName = arguments[0]
+        let arguments = methodCall.arguments as! [Any]
+        let parameterName = arguments[0] as! String
         let value = arguments[1]
         chartIQView?.setDrawingParameter(parameterName, value: value)
         result(nil)
@@ -690,8 +702,8 @@ class FLNativeView: NSObject, FlutterPlatformView {
 
     private func getDrawingParameters(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawling = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(chartIQView?.getDrawingParameters(drawling))
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(chartIQView?.getDrawingParameters(drawing)?.toJSONString())
     }
 
     private func deleteDrawing(methodCall: FlutterMethodCall, result: FlutterResult) {
@@ -735,23 +747,159 @@ class FLNativeView: NSObject, FlutterPlatformView {
 
     private func restoreDefaultDrawingConfig(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! [Any]
-        let drawlingString = arguments[0] as! String
+        let drawingString = arguments[0] as! String
         let all = arguments[1] as! Bool
-        let drawling = ChartIQDrawingTool.init(stringValue: drawlingString)!
-        chartIQView?.restoreDefaultDrawingConfig(drawling, all: all)
+        let drawing = ChartIQDrawingTool.init(stringValue: drawingString)!
+        chartIQView?.restoreDefaultDrawingConfig(drawing, all: all)
         result(nil)
     }
 
     private func getStudyList(methodCall: FlutterMethodCall, result: FlutterResult) {
-        result(chartIQView?.getAllStudies().toJSONString())
+        let data = chartIQView?.getAllStudies()
+        result(data?.toJSONString())
     }
 
     private func getActiveStudies(methodCall: FlutterMethodCall, result: FlutterResult) {
         result(chartIQView?.getActiveStudies().toJSONString())
     }
-
+    
+    private func addStudy(methodCall: FlutterMethodCall, result: FlutterResult) {
+        let arguments = methodCall.arguments as! [Any]
+        let jsonData = arguments[0] as! String
+        let forClone = arguments[1] as! Bool
+        let studyData = jsonData.convertToDictionary()
+        let study = studyData?.toChartIQStudy()
+        if let study = study {
+            do {
+                try chartIQView?.addStudy(study, forClone: forClone)
+                result(nil)
+            } catch let error {
+                print(error)
+                result(nil)
+            }
+        }
+        result(nil)
+    }
+    
     private func removeStudy(methodCall: FlutterMethodCall, result: FlutterResult) {
+        let jsonData = methodCall.arguments as! String
+        let studyData = jsonData.convertToDictionary()
+        let study = studyData?.toChartIQStudy()
+        if let study = study {
+            chartIQView?.removeStudy(study)
+        }
+        result(nil)
+    }
+    
+    private func getStudyParameters(methodCall: FlutterMethodCall, result: FlutterResult) {
+        let arguments = methodCall.arguments as? [Any]
+        if let studyString = arguments?[0] as? String,
+           let studyData = studyString.convertToDictionary(),
+           let study = studyData.toChartIQStudy(),
+           let parameterString = arguments?[1] as? String {
+            
+            var parameterType: ChartIQStudyParametersType = .inputs;
+            switch parameterString {
+            case "Inputs":
+                parameterType = .inputs
+                break
+            case "Outputs":
+                parameterType = .outputs
+                break
+            case "Parameters":
+                parameterType = .parameters
+                break
+            default: break
+            }
+            let parameters = chartIQView?.getStudyParameters(study, type: parameterType)
+            if let arrayOfRawParams = parameters as? [[String:Any]]{
+                let arrayOfParams = arrayOfRawParams.compactMap { $0.toFlutterStudyParameter() }
+                result(arrayOfParams.toJsonString())
+                return
+            }
+        }
+        result(nil)
+    }
+    
+    private func setStudyParameter(methodCall: FlutterMethodCall, result: FlutterResult) {
+        let arguments = methodCall.arguments as! [Any]
+        let studyData = (arguments[0] as! String).convertToDictionary()
+        let study = (studyData?.toChartIQStudy())!
         
+        if let newParameter = (arguments[1] as? String)?.convertToDictionary() {
+            chartIQView?.setStudyParameter(
+                study.fullName,
+                key: newParameter["fieldName"] as! String,
+                value: newParameter["fieldSelectedValue"] as! String
+            )
+        }
+        result(nil)
+    }
+    
+    private func setStudyParameters(methodCall: FlutterMethodCall, result: FlutterResult) {
+        let arguments = methodCall.arguments as! [Any]
+        let studyData = (arguments[0] as! String).convertToDictionary()
+        let study = (studyData?.toChartIQStudy())!
+        
+        if let dataToChange = (arguments[1] as? String)?.JSONParseArray() {
+            var dictionary: [String:String] = [:]
+            for item in dataToChange {
+                if let itemDictionary = item as? [String:String] {
+                    dictionary[itemDictionary["fieldName"]!] = itemDictionary["fieldSelectedValue"]
+                }
+            }
+            if let toReturn = chartIQView?.setStudyParameters(study, parameters: dictionary) {
+                result(toReturn.toJSONString())
+                return
+            }
+        }
+        result(nil)
+    }
+    
+    //MARK: Signal
+    private func addSignalStudy(methodCall: FlutterMethodCall, result: FlutterResult) {
+        if let arguments = methodCall.arguments as? String,
+           let studyData = arguments.convertToDictionary(),
+           let study = studyData.toChartIQStudy() {
+            result(chartIQView?.addSignalStudy(study)?.toJSONString())
+            return
+        }
+        
+        result(nil)
+    }
+    
+    private func saveSignal(methodCall: FlutterMethodCall, result: FlutterResult) {
+        let arguments = methodCall.arguments as! [Any]
+        
+        if let isEdit = arguments[1] as? Bool,
+           let signalString = (arguments[0] as? String),
+           let signalData = signalString.convertToDictionary(),
+           let signal = signalData.toChartIQSignal() {
+            chartIQView?.saveSignal(signal, isEdit: isEdit)
+        }
+        
+        result(nil)
+    }
+    
+    private func getActiveSignals(methodCall: FlutterMethodCall, result: FlutterResult) {
+        result(chartIQView?.getActiveSignals().toJSONString())
+    }
+    
+    private func toggleSignal(methodCall: FlutterMethodCall, result: FlutterResult) {
+        let arguments = methodCall.arguments as! String
+        if let signalData = arguments.convertToDictionary(),
+           let signal = signalData.toChartIQSignal() {
+            chartIQView?.toggleSignal(signal)
+        }
+        result(nil)
+    }
+    
+    private func removeSignal(methodCall: FlutterMethodCall, result: FlutterResult) {
+        let arguments = methodCall.arguments as! String
+        if let signalData = arguments.convertToDictionary(),
+           let signal = signalData.toChartIQSignal() {
+            chartIQView?.removeSignal(signal)
+        }
         result(nil)
     }
 }
@@ -759,8 +907,11 @@ class FLNativeView: NSObject, FlutterPlatformView {
 extension FLNativeView: FlutterStreamHandler {
     func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
         self.eventSink = events
-        let model = DataPullModel(type: .chartReady, params: nil)
-        self.eventSink!(model.toJSONString())
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            if let url = self.url {
+                self.сhartIqWrapperView.url = url
+            }
+        }
         return nil
     }
     
@@ -772,21 +923,26 @@ extension FLNativeView: FlutterStreamHandler {
 extension FLNativeView: ChartIQDataSource {
     func pullInitialData(by params: ChartIQ.ChartIQQuoteFeedParams, completionHandler: @escaping ([ChartIQ.ChartIQData]) -> Void) {
         print("pullInitialData SDK")
-        self.pullInitialDataLastCallBack = completionHandler
+        if (!readyWasSend) {
+            readyWasSend = true
+            let modelReady = DataPullModel(type: .chartReady, params: nil)
+            self.eventSink!(modelReady.toJSONString())
+        }
+        self.pullInitialDataLastCallBack.append(completionHandler)
         let model = DataPullModel(type: .pullInitialData, params: params)
         self.eventSink!(model.toJSONString())
     }
 
     func pullUpdateData(by params: ChartIQ.ChartIQQuoteFeedParams, completionHandler: @escaping ([ChartIQ.ChartIQData]) -> Void) {
         print("pullUpdateData SDK")
-        self.pullUpdateDataLastCallBack = completionHandler
+        self.pullUpdateDataLastCallBack.append(completionHandler)
         let model = DataPullModel(type: .pullUpdateData, params: params)
         self.eventSink!(model.toJSONString())
     }
 
     func pullPaginationData(by params: ChartIQ.ChartIQQuoteFeedParams, completionHandler: @escaping ([ChartIQ.ChartIQData]) -> Void) {
         print("pullPaginationData SDK")
-        self.pullPaginationDataLastCallBack = completionHandler
+        self.pullPaginationDataLastCallBack.append(completionHandler)
         let model = DataPullModel(type: .pullPaginationData, params: params)
         self.eventSink!(model.toJSONString())
     }
@@ -794,6 +950,7 @@ extension FLNativeView: ChartIQDataSource {
 
 extension FLNativeView: ChartIQDelegate {
     func chartIQViewDidFinishLoading(_ chartIQView: ChartIQ.ChartIQView) {
+        print("chartIQViewDidFinishLoading")
         chartIQView.setDataMethod(.pull)
         chartIQView.setVoiceoverFields(default: true)
         let model = ChartAvailableModel(type: .chartAvailable, available: true)
@@ -801,7 +958,7 @@ extension FLNativeView: ChartIQDelegate {
     }
 
     func chartIQView(_ chartIQView: ChartIQView, didUpdateMeasure measure: String) {
-        let model = DataPullModel(type: .measure, params: nil)
+        let model = MeasureModel(measure: measure)
         self.eventSink!(model.toJSONString())
     }
 }
@@ -817,4 +974,29 @@ extension String {
         }
         return nil
     }
+    
+    func JSONParseArray() -> [Any]? {
+        if let data = self.data(using: .utf8){
+            
+            do{
+                
+                if let array = try JSONSerialization.jsonObject(with: data, options: .mutableContainers)  as? [AnyObject] {
+                    return array
+                }
+            } catch {
+                print(error.localizedDescription)
+            }
+        }
+        return nil
+    }
 }
+
+extension [String: Any] {
+    public func toJSONString() -> String {
+        guard let data = try? JSONSerialization.data(withJSONObject: self, options: .prettyPrinted),
+              let stringValue = String(data: data, encoding: .utf8) else { return "" }
+        return stringValue
+    }
+}
+
+

@@ -18,16 +18,16 @@ enum SignalShape {
   /// Returns a [SignalShape] from a [String] value
   static SignalShape fromString(String title) {
     return values.firstWhere(
-          (element) => element.value == title.toLowerCase(),
+          (element) => element.value.toLowerCase() == title.toLowerCase(),
       orElse: () => circle,
     );
   }
 
   String getPlatformValue() {
-    if (Platform.isAndroid) {
-      return value.toUpperCase();
-    } else {
+    if (Platform.isIOS) {
       return value;
+    } else {
+      return value.toUpperCase();
     }
   }
 }

@@ -12,7 +12,7 @@ extension ChartIQ.ChartIQSeries {
     public func toDictionary() -> [String: Any] {
         return [
           "symbolName" : symbolName as Any,
-          "color" : color as Any
+          "color" : color.toHexString()
         ]
     }
 

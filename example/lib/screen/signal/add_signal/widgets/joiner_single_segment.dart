@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/theme/app_colors.dart';
 import 'package:flutter/material.dart';

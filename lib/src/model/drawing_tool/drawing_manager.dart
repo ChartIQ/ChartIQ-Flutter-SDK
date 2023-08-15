@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 
 abstract class DrawingManager {
   /// Checks if a drawing tool supports `fill color` setting.

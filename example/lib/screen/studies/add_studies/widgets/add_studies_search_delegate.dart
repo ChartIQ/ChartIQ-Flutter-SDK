@@ -27,7 +27,7 @@ class AddStudiesSearchDelegate extends SliverPersistentHeaderDelegate {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
           child: CustomCupertinoSearchField(
-            autofocus: true,
+            autofocus: false,
             onChanged: onChanged,
           ),
         ),

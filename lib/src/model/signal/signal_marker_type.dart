@@ -15,16 +15,25 @@ enum SignalMarkerType {
   /// Returns a [SignalMarkerType] from a [String] value
   static SignalMarkerType fromString(String title) {
     return values.firstWhere(
-      (element) => element.value == title.toLowerCase(),
+      (element) => element.value.toLowerCase() == title.toLowerCase(),
       orElse: () => paintbar,
     );
   }
 
   String getPlatformValue() {
-    if (Platform.isAndroid) {
-      return value.toUpperCase();
-    } else {
+    if (Platform.isIOS) {
       return value;
+    } else {
+      return value.toUpperCase();
+    }
+  }
+
+  String getPrettyTitle() {
+    switch(this) {
+      case SignalMarkerType.marker:
+        return 'Chart Marker';
+      case SignalMarkerType.paintbar:
+        return 'Paintbar';
     }
   }
 }

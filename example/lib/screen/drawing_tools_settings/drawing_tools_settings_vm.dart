@@ -1,6 +1,5 @@
 import 'dart:convert';
-
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/common/utils/parse_string_or_double_to_int.dart';
 import 'package:example/data/model/drawing_tool/drawing_tool_item_model.dart';
@@ -63,48 +62,48 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
 
     settingsList.clear();
 
-    /// fill color
+    // fill color
     if (futures[0]) {
       settingsList.add(_getFillColorFromParams(drawingToolParameters));
     }
 
-    /// line color
+    // line color
     if (futures[1]) {
       settingsList.add(_getLineColorFromParams(drawingToolParameters));
     }
 
-    /// line type
+    // line type
     if (futures[2]) {
       settingsList.add(_getLineTypeFromParams(drawingToolParameters));
     }
 
-    /// font
+    // font
     if (futures[3]) {
       settingsList.addAll(_getFontModelsFromParams(drawingToolParameters));
     }
 
-    /// axis label
+    // axis label
     if (futures[4]) {
       //TODO: missing enum value on native side
       settingsList.add(_getAxisLabelFromParams(drawingToolParameters));
     }
 
-    /// deviations
+    // deviations
     if (futures[5]) {
       settingsList.add(_getDeviationsFromParams(drawingToolParameters));
     }
 
-    /// fibonacci
+    // fibonacci
     if (futures[6]) {
       settingsList.add(_getFibonacciFromParams(drawingToolParameters));
     }
 
-    /// elliot wave
+    // elliot wave
     if (futures[7]) {
       settingsList.addAll(_getElliotWaveFromParams(drawingToolParameters));
     }
 
-    /// volume profile
+    // volume profile
     if (futures[8]) {
       settingsList.add(_getVolumeProfileFromParams(drawingToolParameters));
     }
@@ -112,11 +111,18 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
   }
 
   Future<void> updateParameter(
-      DrawingParameterType parameter, String value) async {
-    await chartIQController.chartIQDrawingTool.setDrawingParameter(
-      parameter,
-      value,
-    );
+      DrawingParameterType parameter, dynamic value) async {
+    if (value is bool) {
+      await chartIQController.chartIQDrawingTool.setDrawingParameter(
+        parameter,
+        value,
+      );
+    } else {
+      await chartIQController.chartIQDrawingTool.setDrawingParameterByName(
+        parameter.value,
+        value.toString(),
+      );
+    }
     await setupScreen();
   }
 
@@ -158,12 +164,12 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
     DrawingParameterType? lineWidthParam,
   }) async {
     Future.wait([
-      chartIQController.chartIQDrawingTool.setDrawingParameter(
-        lineTypeParam ?? DrawingParameterType.lineType,
+      chartIQController.chartIQDrawingTool.setDrawingParameterByName(
+        (lineTypeParam ?? DrawingParameterType.lineType).value,
         line.type.name,
       ),
-      chartIQController.chartIQDrawingTool.setDrawingParameter(
-        lineWidthParam ?? DrawingParameterType.lineWidth,
+      chartIQController.chartIQDrawingTool.setDrawingParameterByName(
+        (lineWidthParam ?? DrawingParameterType.lineWidth).value,
         line.width.toString(),
       ),
     ]);
@@ -266,7 +272,7 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
     final fibonacci = (params[DrawingParameterType.fibs.value] as List)
         .map((e) => FibModel.fromJson(e));
     return DrawingToolSettingsItem.chooseValue(
-      title: "Config",
+      title: "Fibonacci Settings",
       options: fibonacci
           .map((e) => OptionItemModel(
                 title: e.level.toString(),

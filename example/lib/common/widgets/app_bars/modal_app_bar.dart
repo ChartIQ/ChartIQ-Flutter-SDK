@@ -16,13 +16,17 @@ class ModalAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.addTopSafeArea = false,
     this.showBottomLine = true,
     this.rootNavigatorForBackButton = true,
+    this.transitionAnimation = false,
   }) : super(key: key);
 
   final bool isBackButtonIcon;
   final String middleText;
   final VoidCallback? onCancel;
   final Widget? trailingWidget;
-  final bool addTopSafeArea, showBottomLine, rootNavigatorForBackButton;
+  final bool addTopSafeArea,
+      showBottomLine,
+      rootNavigatorForBackButton,
+      transitionAnimation;
 
   final logicalSize = window.physicalSize / window.devicePixelRatio;
 
@@ -75,11 +79,11 @@ class ModalAppBar extends StatelessWidget implements PreferredSizeWidget {
             barBackgroundColor: Theme.of(context).appBarTheme.backgroundColor,
           ),
           child: CupertinoNavigationBar(
-            transitionBetweenRoutes: false,
+            transitionBetweenRoutes: transitionAnimation,
             border: Border(
               bottom: BorderSide(
                 color: context.colors.modalAppBarUnderlineColor!,
-                width: 0.3, // 0.0 means one physical pixel
+                width: 0.3,
               ),
             ),
             leading: _getBackButton(context),

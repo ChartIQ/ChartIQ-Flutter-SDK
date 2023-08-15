@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/src/model/signal/signal_joiner.dart';
+import 'package:chart_iq/src/model/signal/signal_joiner.dart';
 import 'package:collection/collection.dart';
 
 import '../study/study.dart';
@@ -6,7 +6,7 @@ import 'condition.dart';
 
 /// Encapsulates parameters with additional information for Study. ChartIQ uses the term “study” to refer to any indicator, oscillator, average, or signal that results from technical analysis of chart data.
 class Signal {
-  final String uniqueId;
+  final String? uniqueId;
 
   /// Name of Signal. Signal will be saved with this name and this name will appear in any study legend and in the expanded signal's title.
   final String name;
@@ -23,7 +23,7 @@ class Signal {
   final Study study;
 
   Signal({
-    required this.uniqueId,
+    this.uniqueId,
     required this.name,
     required this.conditions,
     required this.joiner,
@@ -37,8 +37,7 @@ class Signal {
         name: json['name'],
         conditions: List<Condition>.from(
             json['conditions'].map((x) => Condition.fromJson(x))),
-        joiner: SignalJoiner.values
-            .firstWhere((element) => element.value == json['joiner']),
+        joiner: SignalJoiner.getPlatformJoiner(json['joiner']),
         description: json['description'],
         disabled: json['disabled'],
         study: Study.fromJson(json['study']),

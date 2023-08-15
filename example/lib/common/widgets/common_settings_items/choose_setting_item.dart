@@ -1,5 +1,6 @@
 import 'package:example/common/widgets/list_tiles/custom_trailing_list_tile.dart';
 import 'package:example/data/model/option_item_model.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 
@@ -18,6 +19,7 @@ class ChooseSettingItem extends StatelessWidget {
     this.hasCustomValueSupport = false,
     this.hasNegativeValueSupport = false,
     this.isGeneralDialog = true,
+    this.forceTitleInChoiceScreen = false,
   }) : super(key: key);
 
   final String title;
@@ -27,7 +29,8 @@ class ChooseSettingItem extends StatelessWidget {
   final bool isMultipleSelection,
       hasCustomValueSupport,
       hasNegativeValueSupport,
-      isGeneralDialog;
+      isGeneralDialog,
+      forceTitleInChoiceScreen;
 
   String get trailingText {
     if (secondaryText != null) return secondaryText!;
@@ -57,20 +60,13 @@ class ChooseSettingItem extends StatelessWidget {
           hasCustomValueSupport: hasCustomValueSupport,
           hasNegativeValueSupport: hasNegativeValueSupport,
           addTopSafeArea: isGeneralDialog,
+          forceTitleInChoiceScreen: forceTitleInChoiceScreen,
         );
 
-        if (isGeneralDialog) {
-          final value = await showGeneralDialog<List<OptionItemModel>>(
-            context: context,
-            pageBuilder: (_, __, ___) {
-              return dialog;
-            },
-          );
-          if (value != null) onChanged(value);
-          return;
-        }
-
-        final value = await Navigator.of(context).push(
+        final value = await Navigator.of(
+          context,
+          rootNavigator: isGeneralDialog,
+        ).push(
           MaterialPageRoute(builder: (context) {
             return PrimaryScrollController(
               controller: ModalScrollController.of(context) ??
@@ -79,7 +75,6 @@ class ChooseSettingItem extends StatelessWidget {
             );
           }),
         );
-
         if (value != null) onChanged(value);
         return;
       },

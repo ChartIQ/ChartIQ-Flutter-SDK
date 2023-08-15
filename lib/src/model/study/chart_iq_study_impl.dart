@@ -1,9 +1,10 @@
 import 'dart:convert';
+import 'dart:io';
 
-import 'package:chartiq_flutter_sdk/src/model/study/chart_iq_study.dart';
-import 'package:chartiq_flutter_sdk/src/model/study/study.dart';
-import 'package:chartiq_flutter_sdk/src/model/study/study_parameter_type.dart';
-import 'package:chartiq_flutter_sdk/src/model/study/study_simplified.dart';
+import 'package:chart_iq/src/model/study/chart_iq_study.dart';
+import 'package:chart_iq/src/model/study/study.dart';
+import 'package:chart_iq/src/model/study/study_parameter_type.dart';
+import 'package:chart_iq/src/model/study/study_simplified.dart';
 import 'package:flutter/services.dart';
 
 import 'study_parameter.dart';
@@ -31,35 +32,38 @@ class ChartIQStudyImpl implements ChartIQStudy {
 
   @override
   Future<void> addStudy(Study study, bool forClone) {
-    return channel.invokeMethod('addStudy', [jsonEncode(study.toJson()), forClone]);
+    return channel
+        .invokeMethod('addStudy', [jsonEncode(study.toJson()), forClone]);
   }
 
   @override
   Future<List<StudyParameter>> getStudyParameters(
       Study study, StudyParameterType type) async {
-    final res = await channel
-        .invokeMethod('getStudyParameters', [jsonEncode(study.toJson()), type.value]);
+    final res = await channel.invokeMethod(
+        'getStudyParameters', [jsonEncode(study.toJson()), type.value]);
+
     final List<dynamic> json = jsonDecode(res);
+
     final List<StudyParameterWrapper> list =
         json.map((e) => StudyParameterWrapper.fromJson(e)).toList();
     List<StudyParameter> result = [];
     for (var element in list) {
-      if (element.type == "Text") {
+      if (element.type.toLowerCase() == "text") {
         result.add(StudyParameterText.fromJson(element.value));
       }
-      if (element.type == "Number") {
+      if (element.type.toLowerCase() == "number") {
         result.add(StudyParameterNumber.fromJson(element.value));
       }
-      if (element.type == "Color") {
+      if (element.type.toLowerCase() == "color") {
         result.add(StudyParameterColor.fromJson(element.value));
       }
-      if (element.type == "TextColor") {
+      if (element.type.toLowerCase() == "textcolor") {
         result.add(StudyParameterTextColor.fromJson(element.value));
       }
-      if (element.type == "Checkbox") {
+      if (element.type.toLowerCase() == "checkbox") {
         result.add(StudyParameterCheckbox.fromJson(element.value));
       }
-      if (element.type == "Select") {
+      if (element.type.toLowerCase() == "select") {
         result.add(StudyParameterSelect.fromJson(element.value));
       }
     }
@@ -74,14 +78,21 @@ class ChartIQStudyImpl implements ChartIQStudy {
   @override
   Future<void> setStudyParameter(
       Study study, StudyParameterModel parameter) async {
-    await channel.invokeMethod(
-        'setStudyParameter', [jsonEncode(study.toJson()), jsonEncode(parameter.toJson())]);
+    await channel.invokeMethod('setStudyParameter',
+        [jsonEncode(study.toJson()), jsonEncode(parameter.toJson())]);
   }
 
   @override
-  Future<StudySimplified> setStudyParameters(Study study, List<StudyParameterModel> parameters) async {
-    final res = await channel.invokeMethod(
-        'setStudyParameters', [jsonEncode(study.toJson()), jsonEncode(parameters.map((e) => e.toJson()).toList())]);
-    return StudySimplified.fromJson(jsonDecode(res));
+  Future<dynamic> setStudyParameters(
+      Study study, List<StudyParameterModel> parameters) async {
+    final res = await channel.invokeMethod('setStudyParameters', [
+      jsonEncode(study.toJson()),
+      jsonEncode(parameters.map((e) => e.toJson()).toList())
+    ]);
+    if (Platform.isAndroid) {
+      return StudySimplified.fromJson(jsonDecode(res));
+    } else {
+      return Study.fromJson(jsonDecode(res));
+    }
   }
 }

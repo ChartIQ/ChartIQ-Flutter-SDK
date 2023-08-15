@@ -1,22 +1,22 @@
 import 'dart:convert';
 
-import 'package:chartiq_flutter_sdk/src/model/chart_scale.dart';
-import 'package:chartiq_flutter_sdk/src/model/chart_theme.dart';
-import 'package:chartiq_flutter_sdk/src/model/chart_type/chart_aggregation_type.dart';
-import 'package:chartiq_flutter_sdk/src/model/chart_type/chart_type.dart';
-import 'package:chartiq_flutter_sdk/src/model/crosshair_hud.dart';
-import 'package:chartiq_flutter_sdk/src/model/data_method.dart';
-import 'package:chartiq_flutter_sdk/src/model/drawing_tool/chartiq_drawing_tool.dart';
-import 'package:chartiq_flutter_sdk/src/model/drawing_tool/chartiq_drawing_tool_impl.dart';
-import 'package:chartiq_flutter_sdk/src/model/drawing_tool/drawing_manager.dart';
-import 'package:chartiq_flutter_sdk/src/model/drawing_tool/drawing_manager_impl.dart';
-import 'package:chartiq_flutter_sdk/src/model/ohlc_params.dart';
-import 'package:chartiq_flutter_sdk/src/model/series.dart';
-import 'package:chartiq_flutter_sdk/src/model/signal/chart_iq_signal.dart';
-import 'package:chartiq_flutter_sdk/src/model/signal/chart_iq_signal_impl.dart';
-import 'package:chartiq_flutter_sdk/src/model/study/chart_iq_study.dart';
-import 'package:chartiq_flutter_sdk/src/model/study/chart_iq_study_impl.dart';
-import 'package:chartiq_flutter_sdk/src/model/time_unit.dart';
+import 'package:chart_iq/src/model/chart_scale.dart';
+import 'package:chart_iq/src/model/chart_theme.dart';
+import 'package:chart_iq/src/model/chart_type/chart_aggregation_type.dart';
+import 'package:chart_iq/src/model/chart_type/chart_type.dart';
+import 'package:chart_iq/src/model/crosshair_hud.dart';
+import 'package:chart_iq/src/model/data_method.dart';
+import 'package:chart_iq/src/model/drawing_tool/chartiq_drawing_tool.dart';
+import 'package:chart_iq/src/model/drawing_tool/chartiq_drawing_tool_impl.dart';
+import 'package:chart_iq/src/model/drawing_tool/drawing_manager.dart';
+import 'package:chart_iq/src/model/drawing_tool/drawing_manager_impl.dart';
+import 'package:chart_iq/src/model/ohlc_params.dart';
+import 'package:chart_iq/src/model/series.dart';
+import 'package:chart_iq/src/model/signal/chart_iq_signal.dart';
+import 'package:chart_iq/src/model/signal/chart_iq_signal_impl.dart';
+import 'package:chart_iq/src/model/study/chart_iq_study.dart';
+import 'package:chart_iq/src/model/study/chart_iq_study_impl.dart';
+import 'package:chart_iq/src/model/time_unit.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
@@ -35,7 +35,8 @@ class ChartIQControllerImpl implements ChartIQController {
   DrawingManager? _drawingManager;
   ChartIQDrawingTool? _chartIQDrawingTool;
 
-  ChartIQControllerImpl(this._channel, this._onChartAvailable, this._onMeasureListener);
+  ChartIQControllerImpl(
+      this._channel, this._onChartAvailable, this._onMeasureListener);
 
   Future<dynamic> executeScript(String script) async {}
 
@@ -74,9 +75,8 @@ class ChartIQControllerImpl implements ChartIQController {
 
   @override
   Future<void> addSeries(Series series, bool isComparison) {
-    return _channel.invokeMethod(
-        'addSeries',
-        [jsonEncode(series.toJson()), isComparison]);
+    return _channel
+        .invokeMethod('addSeries', [jsonEncode(series.toJson()), isComparison]);
   }
 
   @override
@@ -200,7 +200,11 @@ class ChartIQControllerImpl implements ChartIQController {
 
   @override
   Future<void> setAggregationType(ChartAggregationType aggregationType) {
-    return _channel.invokeMethod('setAggregationType', defaultTargetPlatform == TargetPlatform.iOS ? aggregationType.name : aggregationType.value);
+    return _channel.invokeMethod(
+        'setAggregationType',
+        defaultTargetPlatform == TargetPlatform.iOS
+            ? aggregationType.iosValue
+            : aggregationType.value);
   }
 
   @override
@@ -221,7 +225,12 @@ class ChartIQControllerImpl implements ChartIQController {
 
   @override
   Future<void> setChartType(ChartType chartType) {
-    return _channel.invokeMethod('setChartType', defaultTargetPlatform == TargetPlatform.iOS ? chartType.name : chartType.value);
+    return _channel.invokeMethod(
+      'setChartType',
+      defaultTargetPlatform == TargetPlatform.iOS
+          ? chartType.iosValue
+          : chartType.value,
+    );
   }
 
   @override
@@ -252,8 +261,8 @@ class ChartIQControllerImpl implements ChartIQController {
 
   @override
   Future<void> setPeriodicity(int period, String interval, TimeUnit timeUnit) {
-    return _channel.invokeMethod(
-        'setPeriodicity', [period, interval, timeUnit.value]);
+    return _channel
+        .invokeMethod('setPeriodicity', [period, interval, timeUnit.value]);
   }
 
   @override

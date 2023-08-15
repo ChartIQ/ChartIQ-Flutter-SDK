@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/common/widgets/buttons/custom_slidable_button.dart';

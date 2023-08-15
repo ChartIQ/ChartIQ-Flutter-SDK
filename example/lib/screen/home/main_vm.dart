@@ -1,8 +1,7 @@
 import 'dart:async';
-import 'dart:developer';
 import 'dart:ui';
 
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:example/app_preferences.dart';
@@ -32,7 +31,7 @@ class MainVM extends ChangeNotifier {
   Future<void> init() async {
     onDrawingToolSelected(AppPreferences.getDrawingTool());
 
-    onPlatformBrightnessChanged(window.platformBrightness);
+    onPlatformBrightnessChanged(PlatformDispatcher.instance.platformBrightness);
 
     await Future.wait([
       _getChartType(),
@@ -59,14 +58,6 @@ class MainVM extends ChangeNotifier {
   onIntervalSelected(ChartInterval? interval) {
     if (interval == null) return;
     selectedInterval = interval;
-    inspect(interval);
-    inspect({
-      "period": interval.period,
-      "interval": interval.interval.toString(),
-      "tu": TimeUnit.values.firstWhere(
-        (e) => e.name == interval.getSafeTimeUnit().name,
-      ),
-    });
     chartIQController?.setPeriodicity(
       interval.period,
       interval.interval.toString(),
@@ -102,6 +93,7 @@ class MainVM extends ChangeNotifier {
     selectedDrawingTool = drawingTool;
     if (drawingTool != null && drawingTool.tool != DrawingTool.none) {
       _chartIQController?.chartIQDrawingTool.enableDrawing(drawingTool.tool);
+      collapseAppBar(value: false);
     } else {
       _chartIQController?.chartIQDrawingTool.disableDrawing();
     }
@@ -117,6 +109,7 @@ class MainVM extends ChangeNotifier {
 
   onClearExistingDrawings() {
     _chartIQController?.chartIQDrawingTool.clearDrawing();
+    onDrawingToolSelected(null);
   }
 
   onUndoDrawing() {
@@ -167,9 +160,13 @@ class MainVM extends ChangeNotifier {
     notifyListeners();
   }
 
-  collapseAppBar() {
-    isAppBarCollapsed = !isAppBarCollapsed;
+  collapseAppBar({bool? value, bool? disableDrawingTool}) async {
+    isAppBarCollapsed = value ?? !isAppBarCollapsed;
     isCrosshairEnabled = false;
+    await chartIQController?.disableCrosshairs();
+    if(disableDrawingTool ?? false) {
+      onDrawingToolSelected(null);
+    }
     notifyListeners();
   }
 

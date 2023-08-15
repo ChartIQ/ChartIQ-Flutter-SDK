@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/const/const.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/utils/extensions.dart';
@@ -43,6 +43,7 @@ class AddConditionVM extends ChangeNotifier {
     required this.study,
     required this.isEdit,
     required this.context,
+    required this.showAppearance,
     this.condition,
   }) : assert(isEdit ? condition != null : true) {
     _init();
@@ -51,6 +52,7 @@ class AddConditionVM extends ChangeNotifier {
   final ChartIQController chartIQController;
   final Study study;
   final bool isEdit;
+  final bool showAppearance;
   final BuildContext context;
 
   ConditionItem? condition;
@@ -127,7 +129,7 @@ class AddConditionVM extends ChangeNotifier {
   List<OptionItemModel> markerTypes = SignalMarkerType.values
       .map(
         (e) => OptionItemModel(
-          prettyTitle: _getItemPrettyTitle(e.value),
+          prettyTitle: e.getPrettyTitle(),
           title: e.value,
           isChecked: e == SignalMarkerType.marker,
         ),
@@ -272,7 +274,7 @@ class AddConditionVM extends ChangeNotifier {
       displayColor: color,
       condition: Condition(
         leftIndicator: selectedIndicator1!.title,
-        rightIndicator: rightIndicator,
+        rightIndicator: rightIndicator ?? '',
         signalOperator: selectedOperatorValue!,
         markerOption: MarkerOption(
           type: SignalMarkerType.fromString(selectedMarkerType.title),
@@ -290,15 +292,15 @@ class AddConditionVM extends ChangeNotifier {
 
   void _setConditionParameters(ConditionItem item) {
     onSelect1Indicator(item.condition.leftIndicator);
-    if (item.condition.rightIndicator != null) {
-      final indicatorNumber = double.tryParse(item.condition.rightIndicator!);
-      if (indicatorNumber != null) {
-        onValueFieldChanged(indicatorNumber.toString(), false);
-        onSelect2Indicator('value', false);
-      } else {
-        onSelect2Indicator(item.condition.rightIndicator!, false);
-      }
+
+    final indicatorNumber = double.tryParse(item.condition.rightIndicator);
+    if (indicatorNumber != null) {
+      onValueFieldChanged(indicatorNumber.toString(), false);
+      onSelect2Indicator('value', false);
+    } else {
+      onSelect2Indicator(item.condition.rightIndicator, false);
     }
+
     onOperatorSelected(item.condition.signalOperator.value, false);
     onMarkerTypeSelected(item.condition.markerOption.type.value, false);
     onShapeSelected(item.condition.markerOption.signalShape.value, false);

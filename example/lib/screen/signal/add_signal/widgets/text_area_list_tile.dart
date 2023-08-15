@@ -1,3 +1,4 @@
+import 'package:example/common/const/const.dart';
 import 'package:example/common/utils/debouncer.dart';
 import 'package:example/gen/colors.gen.dart';
 import 'package:example/theme/app_text_field_theme.dart';
@@ -32,7 +33,7 @@ class _TextAreaListTileState extends State<TextAreaListTile> {
 
   @override
   void didUpdateWidget(covariant TextAreaListTile oldWidget) {
-    if (widget.value != oldWidget.value) {
+    if (widget.value != oldWidget.value && widget.value != _controller.text) {
       _controller.text = widget.value.toString();
     }
     super.didUpdateWidget(oldWidget);
@@ -47,7 +48,10 @@ class _TextAreaListTileState extends State<TextAreaListTile> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(
+        vertical: 16,
+        horizontal: AppConst.kListTileSeparatorIndent,
+      ),
       color: Theme.of(context).listTileTheme.tileColor,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

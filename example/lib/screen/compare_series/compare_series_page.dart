@@ -1,4 +1,4 @@
-import 'package:chartiq_flutter_sdk/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chartiq_flutter_sdk.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/utils/bottom_sheet_scroll_physics.dart';
 import 'package:example/common/widgets/app_bars/modal_app_bar.dart';
@@ -83,7 +83,6 @@ class _CompareSeriesPageState extends State<CompareSeriesPage> {
             ? AppBarTextButton(
                 onPressed: () => _openSelectSymbolPage(context),
                 child: Text(
-                  //HER
                   context
                       .read<LocaleProvider>()
                       .translate(RemoteLocaleKeys.add),

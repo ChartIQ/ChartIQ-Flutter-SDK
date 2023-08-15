@@ -8,6 +8,7 @@ class TextFieldSettingItem extends StatelessWidget {
     required this.value,
     required this.onChanged,
     this.placeholder,
+    this.onTapOutside,
   })  : _isNumber = false,
         supportNegativeValues = false,
         super(key: key);
@@ -19,12 +20,14 @@ class TextFieldSettingItem extends StatelessWidget {
     required this.onChanged,
     this.supportNegativeValues = false,
     this.placeholder,
+    this.onTapOutside,
   })  : _isNumber = true,
         super(key: key);
 
   final String title;
   final String? value, placeholder;
   final ValueChanged<String?> onChanged;
+  final ValueChanged<String?>? onTapOutside;
   final bool supportNegativeValues, _isNumber;
 
   @override
@@ -35,6 +38,7 @@ class TextFieldSettingItem extends StatelessWidget {
         value: value,
         onChanged: onChanged,
         placeholder: placeholder,
+        onTapOutside: onTapOutside,
       );
     }
     return TextFieldListTile.number(
@@ -43,6 +47,7 @@ class TextFieldSettingItem extends StatelessWidget {
       onChanged: onChanged,
       supportsNegativeValues: supportNegativeValues,
       placeholder: placeholder,
+      onTapOutside: onTapOutside,
     );
   }
 }

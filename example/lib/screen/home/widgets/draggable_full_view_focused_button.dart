@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:example/common/widgets/custom_icon_button.dart';
 import 'package:example/gen/assets.gen.dart';
 import 'package:example/gen/colors.gen.dart';
@@ -12,11 +14,15 @@ class DraggableFullViewFocusedButton extends StatefulWidget {
     required this.isAppBarCollapsed,
     required this.onPressed,
     required this.constraints,
+    required this.onButtonMoved,
+    this.lastOffset,
   }) : super(key: key);
 
   final bool isAppBarCollapsed;
   final VoidCallback onPressed;
   final BoxConstraints constraints;
+  final void Function(Offset) onButtonMoved;
+  final Offset? lastOffset;
 
   @override
   State<DraggableFullViewFocusedButton> createState() =>
@@ -28,7 +34,8 @@ class _DraggableFullViewFocusedButtonState
     with TickerProviderStateMixin {
   static const _kButtonSize = 32.0,
       _kButtonPadding = 20.0,
-      _kMaxVelocityThreshold = 1500.00;
+      _kMaxVelocityThreshold = 1500.00,
+      _kVelocityMultiplier = 0.1;
 
   late AnimationController _fadeOutController, _dragEndController;
   late Animation<double> _fadeOutAnimation;
@@ -69,7 +76,7 @@ class _DraggableFullViewFocusedButtonState
     final dy =
         _calculateDeltaY(details.offset.dy, yVelocity, containerSize.height);
 
-    /// Calculate the velocity relative to the unit interval, [0,1],
+    // Calculate the velocity relative to the unit interval, [0,1],
     final unitsPerSecond = Offset(unitsPerSecondX, unitsPerSecondY);
     final unitVelocity = unitsPerSecond.distance;
 
@@ -80,38 +87,42 @@ class _DraggableFullViewFocusedButtonState
     );
 
     final simulation = SpringSimulation(spring, 0, 1, unitVelocity);
+    final endOffset = Offset(dx, dy);
 
     _positionAnimation = _dragEndController.drive(
       Tween<Offset>(
-        /// begin from the place where the user released the finger
-        begin: Offset(
-          details.offset.dx,
-          details.offset.dy - _kButtonSize,
-        ),
-        end: Offset(dx, dy),
+        // begin from the place where the user released the finger
+        begin: Platform.isIOS
+            ? details.offset
+            : Offset(
+                details.offset.dx,
+                details.offset.dy - _kButtonSize,
+              ),
+        end: endOffset,
       ),
     );
     _dragEndController.animateWith(simulation);
+    widget.onButtonMoved(endOffset);
   }
 
   double _calculateDeltaX(double dragDx, double xVelocity, double screenWidth) {
-    double dx = dragDx + (xVelocity * 0.1);
+    double dx = dragDx + (xVelocity * _kVelocityMultiplier),
+        bottomSafeArea = WidgetsBinding.instance.window.padding.bottom;
 
-    bool hitLeftEdge = dx <= 0 + _kButtonSize,
+    bool hitLeftEdge = dx <= 0 + _kButtonSize + bottomSafeArea,
         passedVelocityThresholdToTheLeft =
             (xVelocity < 0 && xVelocity.abs() > _kMaxVelocityThreshold),
-        hitRightEdge = dx >= screenWidth - _kButtonSize,
+        hitRightEdge = dx >= screenWidth - _kButtonSize - bottomSafeArea,
         passedVelocityThresholdToTheRight =
             (xVelocity > 0 && xVelocity.abs() > _kMaxVelocityThreshold);
-
     if (hitLeftEdge || passedVelocityThresholdToTheLeft) {
-      /// if hit the left edge of the screen or the velocity is too high
-      /// then stuck the button to the left edge
-      return _kButtonPadding;
+      // if hit the left edge of the screen or the velocity is too high
+      // then stuck the button to the left edge
+      return _kButtonPadding + bottomSafeArea;
     } else if (hitRightEdge || passedVelocityThresholdToTheRight) {
-      /// if hit the right edge of the screen or the velocity is too high
-      /// then stuck the button to the right edge
-      return screenWidth - _kButtonPadding - _kButtonSize;
+      // if hit the right edge of the screen or the velocity is too high
+      // then stuck the button to the right edge
+      return screenWidth - _kButtonPadding - _kButtonSize - bottomSafeArea;
     }
 
     return dx;
@@ -119,7 +130,7 @@ class _DraggableFullViewFocusedButtonState
 
   double _calculateDeltaY(
       double dragDy, double yVelocity, double screenHeight) {
-    double dy = dragDy - _kButtonSize + (yVelocity * 0.1);
+    double dy = dragDy - _kButtonSize + (yVelocity * _kVelocityMultiplier);
 
     bool hitTopEdge = dy <= 0 + _kButtonSize,
         passedVelocityThresholdToTheTop =
@@ -128,12 +139,12 @@ class _DraggableFullViewFocusedButtonState
         passedVelocityThresholdToTheBottom =
             (yVelocity > 0 && yVelocity.abs() > _kMaxVelocityThreshold);
     if (hitTopEdge || passedVelocityThresholdToTheTop) {
-      /// if hit the top edge of the screen or the velocity is too high
-      /// then stuck the button to the top edge
+      // if hit the top edge of the screen or the velocity is too high
+      // then stuck the button to the top edge
       return _kButtonPadding;
     } else if (hitBottomEdge || passedVelocityThresholdToTheBottom) {
-      /// if hit the bottom edge of the screen or the velocity is too high
-      /// then stuck the button to the bottom edge
+      // if hit the bottom edge of the screen or the velocity is too high
+      // then stuck the button to the bottom edge
       return screenHeight - _kButtonSize - _kButtonPadding;
     }
 
@@ -153,9 +164,9 @@ class _DraggableFullViewFocusedButtonState
       animation: _dragEndController,
       builder: (context, _) {
         return Positioned(
-          left: _positionAnimation?.value.dx ??
+          left: _positionAnimation?.value.dx ?? widget.lastOffset?.dx ??
               widget.constraints.maxWidth - _kButtonPadding - _kButtonSize,
-          top: _positionAnimation?.value.dy ?? 20,
+          top: _positionAnimation?.value.dy ?? widget.lastOffset?.dy ?? 20,
           child: Draggable(
             onDragEnd: (details) =>
                 _driveAnimation(widget.constraints, details),

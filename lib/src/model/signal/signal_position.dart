@@ -18,16 +18,16 @@ enum SignalPosition {
   /// Returns a [SignalPosition] from a [String] value
   static SignalPosition fromString(String title) {
     return values.firstWhere(
-          (element) => element.value == title.toLowerCase(),
+          (element) => element.value.toLowerCase() == title.toLowerCase(),
       orElse: () => onCandle,
     );
   }
 
   String getPlatformValue() {
-    if (Platform.isAndroid) {
-      return value.toUpperCase();
-    } else {
+    if (Platform.isIOS) {
       return value;
+    } else {
+      return value.toUpperCase();
     }
   }
 }

@@ -15,13 +15,23 @@ enum SignalSize {
 
   const SignalSize(this.value);
 
+  static SignalSize getPlatformSize(String value) {
+    if (Platform.isIOS) return SignalSize.fromMarkValue(value);
+    return values.firstWhere(
+        (element) => element.name.toLowerCase() == value.toLowerCase());
+  }
+
   /// Returns a [SignalSize] from a [String] value
-  static SignalSize fromString(String title) {
-    switch(title){
-      case 'S': return S;
-      case 'M': return M;
-      case 'L': return L;
-      default: return M;
+  static SignalSize fromMarkValue(String title) {
+    switch (title) {
+      case 'S':
+        return S;
+      case 'M':
+        return M;
+      case 'L':
+        return L;
+      default:
+        return M;
     }
   }
 
