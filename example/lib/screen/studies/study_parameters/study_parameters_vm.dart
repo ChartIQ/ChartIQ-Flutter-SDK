@@ -81,24 +81,24 @@ class StudyParametersVM extends ChangeNotifier {
     if (parameterIndex == -1) return;
 
     final localValue = (value != null && value.isNotEmpty ? value : null)?.replaceAll(",", ".");
-
+    final localDoubleValue = double.tryParse(localValue ?? "0.0") ?? 0.0;
     if (parameters[parameterIndex] is StudyParameterNumber) {
       parameters[parameterIndex] =
           (parameters[parameterIndex] as StudyParameterNumber).copyWithNewValue(
-        value: double.tryParse(localValue ?? "0.0"),
+        value: localDoubleValue,
       );
     } else if (parameters[parameterIndex] is StudyParameterTextColor) {
       parameters[parameterIndex] =
           (parameters[parameterIndex] as StudyParameterTextColor)
               .copyWithNewValue(
-        value: double.tryParse(localValue ?? "0.0"),
+        value: localDoubleValue,
       );
     }
 
     final name = getParameterName(parameter, StudyParameterPostfix.value);
     parametersToSave[name] = StudyParameterModel(
       fieldName: getParameterName(parameter, StudyParameterPostfix.value),
-      fieldSelectedValue: double.tryParse(localValue ?? "0.0").toString(),
+      fieldSelectedValue: localDoubleValue.toString().replaceAll(",", "."),
     );
 
     notifyListeners();
