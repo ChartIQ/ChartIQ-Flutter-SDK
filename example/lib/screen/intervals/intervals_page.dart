@@ -5,7 +5,6 @@ import 'package:example/common/widgets/list_tiles/custom_text_list_tile.dart';
 import 'package:example/data/model/interval.dart';
 import 'package:example/data/model/time_unit_enum.dart';
 import 'package:example/gen/colors.gen.dart';
-import 'package:example/gen/localization/app_localizations.gen.dart';
 import 'package:example/screen/home/main_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -45,7 +44,7 @@ class _IntervalsPageState extends State<IntervalsPage> {
     return Scaffold(
       backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       appBar: ModalAppBar(
-        middleText: L.of(context).intervals,
+        middleText: 'Intervals',
       ),
       body: CustomScrollView(
         controller: ModalScrollController.of(context),

@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:example/gen/assets.gen.dart';
 import 'package:example/theme/app_colors.dart';
 import 'package:example/theme/app_crosshair_text_theme.dart';

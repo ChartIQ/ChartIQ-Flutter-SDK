@@ -5,7 +5,6 @@ import 'package:example/common/widgets/list_tiles/custom_text_list_tile.dart';
 import 'package:example/data/model/drawing_tool/drawing_tool_item_model.dart';
 import 'package:example/gen/assets.gen.dart';
 import 'package:example/gen/colors.gen.dart';
-import 'package:example/gen/localization/app_localizations.gen.dart';
 import 'package:example/screen/home/main_vm.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -29,7 +28,7 @@ class DrawingToolListItem extends StatelessWidget {
   Widget _buildSlidableAction(BuildContext context) {
     if (isFavourite) {
       return CustomSlidableButton(
-        text: L.of(context).remove,
+        text: 'Remove',
         onTap: () {
           Slidable.of(context)?.close();
           onFavouriteSelected(item);

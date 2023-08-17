@@ -2,7 +2,6 @@ import 'package:example/common/utils/bottom_sheet_scroll_physics.dart';
 import 'package:example/common/widgets/app_bars/modal_app_bar.dart';
 import 'package:example/common/widgets/line_picker_item.dart';
 import 'package:example/data/model/drawing_tool/line/line_types_enum.dart';
-import 'package:example/gen/localization/app_localizations.gen.dart';
 import 'package:flutter/material.dart';
 
 class LinePickerPage extends StatelessWidget {
@@ -20,7 +19,7 @@ class LinePickerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ModalAppBar(middleText: appBarText ?? L.of(context).selectLineType),
+      appBar: ModalAppBar(middleText: appBarText ?? 'Select Line Type'),
       body: CustomScrollView(
         physics: const BottomSheetScrollPhysics(),
         slivers: [

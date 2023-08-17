@@ -3,7 +3,6 @@ import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/common/widgets/buttons/custom_slidable_button.dart';
 import 'package:example/common/widgets/list_tiles/custom_text_list_tile.dart';
-import 'package:example/gen/localization/app_localizations.gen.dart';
 import 'package:example/screen/studies/utils/study_callback.dart';
 import 'package:example/screen/studies/utils/study_extension.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +40,7 @@ class ActiveStudyListItem extends StatelessWidget {
         extentRatio: 0.4,
         children: [
           CustomSlidableButton(
-            text: L.of(context).clone,
+            text: 'Clone',
             backgroundColor: Colors.blueAccent[700]!,
             onTap: () => onCloneStudy(study),
           ),

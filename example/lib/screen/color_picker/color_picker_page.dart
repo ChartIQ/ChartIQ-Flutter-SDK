@@ -3,7 +3,6 @@ import 'package:example/common/utils/bottom_sheet_scroll_physics.dart';
 import 'package:example/common/widgets/app_bars/modal_app_bar.dart';
 import 'package:example/common/widgets/color_picker_item.dart';
 import 'package:example/data/model/picker_color.dart';
-import 'package:example/gen/localization/app_localizations.gen.dart';
 import 'package:flutter/material.dart';
 
 class ColorPickerPage extends StatelessWidget {
@@ -21,7 +20,7 @@ class ColorPickerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: ModalAppBar(middleText: appBarText ?? L.of(context).selectColor),
+      appBar: ModalAppBar(middleText: appBarText ?? 'Select Color'),
       body: CustomScrollView(
         physics: const BottomSheetScrollPhysics(),
         slivers: [

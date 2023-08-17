@@ -7,7 +7,6 @@ import 'package:example/common/widgets/empty_view.dart';
 import 'package:example/common/widgets/list_tiles/custom_title_trailing_list_tile.dart';
 import 'package:example/data/model/symbol/symbol_model.dart';
 import 'package:example/gen/colors.gen.dart';
-import 'package:example/gen/localization/app_localizations.gen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -66,22 +65,22 @@ class _SymbolSearchPageState extends State<SymbolSearchPage> {
                 return SliverFillRemaining(
                   hasScrollBody: false,
                   child: EmptyView(
-                    title: L.of(context).symbolsNotFound,
-                    subtitle: L.of(context).tryAnotherSymbolOrApplyCurrent,
+                    title: 'Symbols not found',
+                    subtitle: 'Try another symbol to type in or apply current request',
                     onButtonPressed: () {
                       Navigator.of(context, rootNavigator: true).pop(
                         SymbolModel(symbol: vm.searchText),
                       );
                     },
-                    buttonText: L.of(context).apply,
+                    buttonText: "Apply",
                   ),
                 );
               }
 
               if (!vm.isSearchDirty || vm.searchText.isEmpty) {
-                return SliverFillRemaining(
+                return const SliverFillRemaining(
                   hasScrollBody: false,
-                  child: EmptyView(title: L.of(context).typeToStartSearching),
+                  child: EmptyView(title: 'Type to start searching'),
                 );
               }
 

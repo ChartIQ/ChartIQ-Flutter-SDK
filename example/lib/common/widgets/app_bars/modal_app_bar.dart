@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:example/common/widgets/buttons/app_bar_text_button.dart';
-import 'package:example/gen/localization/app_localizations.gen.dart';
 import 'package:example/theme/app_colors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -62,7 +61,7 @@ class ModalAppBar extends StatelessWidget implements PreferredSizeWidget {
           ? onCancel?.call()
           : Navigator.of(context, rootNavigator: rootNavigatorForBackButton)
               .pop(),
-      child: Text(L.of(context).cancel),
+      child: const Text('Cancel'),
     );
   }
 

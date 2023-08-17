@@ -204,7 +204,7 @@ class _DrawingToolsPageState extends State<DrawingToolsPage> with SingleTickerPr
               bottom: false,
               sliver: SliverToBoxAdapter(
                 child: DrawingToolSectionTitle(
-                  title: e.getPrettyTitle(context).toUpperCase(),
+                  title: e.getPrettyTitle().toUpperCase(),
                 ),
               ),
             ),

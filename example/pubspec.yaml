@@ -16,15 +16,12 @@ dependencies:
   modal_bottom_sheet: ^3.0.0-pre
   flutter_slidable: ^3.0.0
   provider: ^6.0.5
+  collection: ^1.17.0
   # network
   dio: ^5.1.1
   json_annotation: ^4.8.0
   retrofit: ^4.0.1
   logger: any
-  # localization
-  flutter_localizations:
-    sdk: flutter
-  intl: ^0.18.0
   shared_preferences: ^2.1.0
   uuid: ^3.0.7
   connectivity_plus: ^4.0.1

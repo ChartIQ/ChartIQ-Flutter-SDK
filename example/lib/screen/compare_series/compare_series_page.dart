@@ -8,7 +8,6 @@ import 'package:example/common/widgets/empty_view.dart';
 import 'package:example/common/widgets/modals/app_bottom_sheet.dart';
 import 'package:example/data/model/picker_color.dart';
 import 'package:example/data/model/symbol/symbol_model.dart';
-import 'package:example/gen/localization/app_localizations.gen.dart';
 import 'package:example/providers/locale_provider.dart';
 import 'package:example/screen/symbol_search/symbol_search_page.dart';
 import 'package:example/screen/symbol_search/symbol_search_vm.dart';
@@ -78,7 +77,7 @@ class _CompareSeriesPageState extends State<CompareSeriesPage> {
     final vm = context.watch<CompareSeriesVM>();
     return Scaffold(
       appBar: ModalAppBar(
-        middleText: L.of(context).compareSymbols,
+        middleText: 'Compare Symbols',
         trailingWidget: vm.series != null && vm.series!.isNotEmpty
             ? AppBarTextButton(
                 onPressed: () => _openSelectSymbolPage(context),
@@ -94,8 +93,8 @@ class _CompareSeriesPageState extends State<CompareSeriesPage> {
         if (vm.series == null || vm.series!.isEmpty) {
           return SingleChildScrollView(
             child: EmptyView(
-              title: L.of(context).noSymbolsToCompare,
-              buttonText: L.of(context).addSymbol,
+              title: 'No Symbols to compare yet',
+              buttonText: 'Add Symbol',
               onButtonPressed: () => _openSelectSymbolPage(context),
             ),
           );

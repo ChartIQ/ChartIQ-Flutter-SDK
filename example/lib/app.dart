@@ -1,5 +1,4 @@
 import 'package:example/app_preferences.dart';
-import 'package:example/gen/localization/app_localizations.gen.dart';
 import 'package:example/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,8 +32,19 @@ class MyApp extends StatelessWidget {
                 child: child!,
               );
             },
-            localizationsDelegates: L.localizationsDelegates,
-            supportedLocales: L.supportedLocales,
+            supportedLocales: const [
+              Locale('ar'),
+              Locale('de'),
+              Locale('en'),
+              Locale('es'),
+              Locale('fr'),
+              Locale('hu'),
+              Locale('it'),
+              Locale('ja'),
+              Locale('pt'),
+              Locale('ru'),
+              Locale('zh')
+            ],
             locale: localeProvider.appLanguage.locale,
           );
         },

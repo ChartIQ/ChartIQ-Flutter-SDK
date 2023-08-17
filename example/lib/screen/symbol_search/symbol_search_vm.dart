@@ -42,7 +42,7 @@ class SymbolSearchVM extends ChangeNotifier {
         filter: selectedFilter.value,
       );
     } catch (e) {
-      print(e);
+      debugPrint(e.toString());
       notifyListeners();
     } finally {
       isLoading = false;
