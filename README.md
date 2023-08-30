@@ -42,12 +42,7 @@ With Flutter:
 $ flutter pub add chart_iq
 ```
 
-This will add a line like this to your package's pubspec.yaml (and run an implicit flutter pub get):
-
-```yaml
-dependencies:
-  chart_iq: ^0.0.1
-```
+This will add a line to your package's pubspec.yaml (and run an implicit flutter pub get):
 
 Alternatively, your editor might support flutter pub get. Check the docs for your editor to learn more.
 
