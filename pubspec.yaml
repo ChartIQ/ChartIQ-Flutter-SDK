@@ -1,6 +1,6 @@
 name: chart_iq
 description: Flutter SDK for the ChartIQ JavaScript library. The ChartIQ Flutter SDK supports a basic charting application. The SDK can be extended to support more elaborate implementations by adding code to invoke ChartIQ library functions directly or by creating a bridge file similar to nativeSdkBridge.js.
-version: 0.0.4
+version: 0.0.6
 homepage: https://github.com/ChartIQ/ChartIQ-Flutter-SDK
 
 environment:
