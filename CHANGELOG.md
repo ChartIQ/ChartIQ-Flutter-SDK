@@ -1,3 +1,7 @@
+## 0.0.9
+
+* Example file update.
+
 ## 0.0.8
 
 * Files formatting fix.
