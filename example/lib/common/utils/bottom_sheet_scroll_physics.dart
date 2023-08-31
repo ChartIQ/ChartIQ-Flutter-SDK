@@ -5,7 +5,8 @@ import 'package:flutter/widgets.dart';
 class BottomSheetScrollPhysics extends ScrollPhysics {
   const BottomSheetScrollPhysics({super.parent});
 
-  final ClampingScrollPhysics _clampingScrollPhysics = const ClampingScrollPhysics();
+  final ClampingScrollPhysics _clampingScrollPhysics =
+      const ClampingScrollPhysics();
 
   @override
   ScrollPhysics applyTo(ScrollPhysics? ancestor) {
@@ -14,14 +15,16 @@ class BottomSheetScrollPhysics extends ScrollPhysics {
 
   @override
   double applyBoundaryConditions(ScrollMetrics position, double value) {
-    if(Platform.isAndroid) {
+    if (Platform.isAndroid) {
       return _clampingScrollPhysics.applyBoundaryConditions(position, value);
     }
     // Prevents scrolling over the top of the scroll
-    if (value < position.pixels && position.pixels <= position.minScrollExtent) {
+    if (value < position.pixels &&
+        position.pixels <= position.minScrollExtent) {
       // Underscroll
       return value - position.pixels;
-    } else if (value < position.minScrollExtent && position.minScrollExtent < position.pixels) {
+    } else if (value < position.minScrollExtent &&
+        position.minScrollExtent < position.pixels) {
       // Hit top edge
       return value - position.minScrollExtent;
     }
@@ -30,10 +33,12 @@ class BottomSheetScrollPhysics extends ScrollPhysics {
   }
 
   @override
-  Simulation? createBallisticSimulation(ScrollMetrics position, double velocity) {
+  Simulation? createBallisticSimulation(
+      ScrollMetrics position, double velocity) {
     // It doesn't create a simulation when scrolling over the top of the scroll
-    if(Platform.isAndroid) {
-      return _clampingScrollPhysics.createBallisticSimulation(position, velocity);
+    if (Platform.isAndroid) {
+      return _clampingScrollPhysics.createBallisticSimulation(
+          position, velocity);
     }
 
     if (position.pixels <= position.minScrollExtent && velocity < 0.0) {

@@ -3,7 +3,6 @@ import 'drawing_parameter_type.dart';
 import 'drawing_tool.dart';
 
 abstract class ChartIQDrawingTool {
-
   /// Clears all the drawings from the chart canvas
   Future<void> clearDrawing();
 
@@ -22,7 +21,8 @@ abstract class ChartIQDrawingTool {
   /// Sets a value for the drawing tool parameter
   /// [parameter] A [DrawingParameterType] to update the value of
   /// [value] A new value to be set to the parameter
-  Future<void> setDrawingParameter(DrawingParameterType parameter, dynamic value);
+  Future<void> setDrawingParameter(
+      DrawingParameterType parameter, dynamic value);
 
   /// Get a map of current parameters and settings for the requested drawing tool [tool]
   /// [tool] A [DrawingTool] of parameters and settings to get

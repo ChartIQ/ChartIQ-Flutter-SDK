@@ -10,14 +10,14 @@ const bool signalIQExclude = false,
     overlay = true,
     underlay = false;
 const Map<String, dynamic> inputs = {
-  'HighLow': 0,
-  'Multiplier': 3,
-  'Period': 21,
-  'Plot Type': [
-    'points',
-    'square',
-  ]
-},
+      'HighLow': 0,
+      'Multiplier': 3,
+      'Period': 21,
+      'Plot Type': [
+        'points',
+        'square',
+      ]
+    },
     outputs = {'Buy Stops': '#FF0000', 'Sell Stops': '#00FF00'},
     parameters = {
       'init': {

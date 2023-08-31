@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/common/widgets/buttons/custom_slidable_button.dart';
@@ -57,13 +57,13 @@ class ConditionListItem extends StatelessWidget {
                     ? true
                     : false,
           ),
-            if (index == 0)
-              JoinerSegmentedControl(
-                selected: vm.selectedJoiner,
-                onJoinerChanged: onJoinerChanged,
-              )
-            else if (index + 1 != vm.conditions.length)
-              JoinerSingleSegment(joiner: vm.selectedJoiner),
+          if (index == 0)
+            JoinerSegmentedControl(
+              selected: vm.selectedJoiner,
+              onJoinerChanged: onJoinerChanged,
+            )
+          else if (index + 1 != vm.conditions.length)
+            JoinerSingleSegment(joiner: vm.selectedJoiner),
         ],
       ),
     );

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:flutter/material.dart';
 
 class MeasureInfoLabel extends StatefulWidget {
@@ -35,7 +35,7 @@ class _MeasureInfoLabelState extends State<MeasureInfoLabel> {
 
   @override
   void didUpdateWidget(covariant MeasureInfoLabel oldWidget) {
-    if(oldWidget.drawingTool != widget.drawingTool) {
+    if (oldWidget.drawingTool != widget.drawingTool) {
       info = null;
     }
     super.didUpdateWidget(oldWidget);

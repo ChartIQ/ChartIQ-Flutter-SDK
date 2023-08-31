@@ -1,6 +1,5 @@
 /// A list of possible Chart types
 enum ChartType {
-
   /// Like bar charts, candle charts represent OHLC except in the form of colored rectangles called ‘candles’.When the open is lower than the close, the candle is shaded green.
   ///
   /// When the open is higher than the close, the candle is shaded red.

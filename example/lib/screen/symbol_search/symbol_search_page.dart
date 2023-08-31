@@ -66,7 +66,8 @@ class _SymbolSearchPageState extends State<SymbolSearchPage> {
                   hasScrollBody: false,
                   child: EmptyView(
                     title: 'Symbols not found',
-                    subtitle: 'Try another symbol to type in or apply current request',
+                    subtitle:
+                        'Try another symbol to type in or apply current request',
                     onButtonPressed: () {
                       Navigator.of(context, rootNavigator: true).pop(
                         SymbolModel(symbol: vm.searchText),

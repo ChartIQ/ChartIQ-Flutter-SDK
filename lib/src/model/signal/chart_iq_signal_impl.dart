@@ -12,8 +12,8 @@ class ChartIQSignalImpl extends ChartIQSignal {
 
   @override
   Future<Study> addSignalStudy(Study study) async {
-    final res = await channel
-        .invokeMethod('addSignalStudy', jsonEncode(study.toJson()));
+    final res = await channel.invokeMethod(
+        'addSignalStudy', jsonEncode(study.toJson()));
     return Study.fromJson(jsonDecode(res));
   }
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AppBarControlButtonsWrapper extends StatelessWidget {
-  const AppBarControlButtonsWrapper({Key? key, required this.children}) : super(key: key);
+  const AppBarControlButtonsWrapper({Key? key, required this.children})
+      : super(key: key);
 
   final List<Widget> children;
 

@@ -29,7 +29,7 @@ enum SignalMarkerType {
   }
 
   String getPrettyTitle() {
-    switch(this) {
+    switch (this) {
       case SignalMarkerType.marker:
         return 'Chart Marker';
       case SignalMarkerType.paintbar:

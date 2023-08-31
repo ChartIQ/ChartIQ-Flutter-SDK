@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/utils/bottom_sheet_scroll_physics.dart';
 import 'package:example/common/utils/extensions.dart';
@@ -29,25 +29,23 @@ class AddStudiesPage extends StatefulWidget {
 
 class _AddStudiesPageState extends State<AddStudiesPage> {
   bool _isLoading = false;
-  List<Study> studies = [],
-      selectedStudies = [];
+  List<Study> studies = [], selectedStudies = [];
 
   bool get isAddStudyAvailable => selectedStudies.isNotEmpty;
 
   String? _searchText;
 
-  List<String> get _filteredStudies =>
-      studies
-          .where(
-            (element) =>
-        (element.displayName)
-            .toLowerCase()
-            .contains(_searchText?.toLowerCase() ?? '') &&
+  List<String> get _filteredStudies => studies
+      .where(
+        (element) =>
+            (element.displayName)
+                .toLowerCase()
+                .contains(_searchText?.toLowerCase() ?? '') &&
             (widget.singleChoice ? !element.signalIQExclude : true),
       )
-          .map((e) => e.displayName)
-          .sorted((a, b) => a.toLowerCase().compareTo(b.toLowerCase()))
-          .toList();
+      .map((e) => e.displayName)
+      .sorted((a, b) => a.toLowerCase().compareTo(b.toLowerCase()))
+      .toList();
 
   void _onTextChanged(String? text) {
     setState(() {
@@ -67,7 +65,7 @@ class _AddStudiesPageState extends State<AddStudiesPage> {
     setState(() {
       studies = studiesList
         ..sort(
-              (a, b) => a.displayName.compareTo(b.displayName),
+          (a, b) => a.displayName.compareTo(b.displayName),
         );
     });
   }
@@ -101,8 +99,7 @@ class _AddStudiesPageState extends State<AddStudiesPage> {
       });
       await Future.wait(
         selectedStudies.map(
-              (e) async =>
-          await widget.chartIQController?.study.addStudy(e, false),
+          (e) async => await widget.chartIQController?.study.addStudy(e, false),
         ),
       );
       setState(() {
@@ -147,7 +144,7 @@ class _AddStudiesPageState extends State<AddStudiesPage> {
                       trailing: selectedStudies.any(
                               (e) => e.displayName == _filteredStudies[index])
                           ? const Icon(Icons.check,
-                          color: ColorName.mountainMeadow)
+                              color: ColorName.mountainMeadow)
                           : null,
                       onTap: () => _onStudyTap(index),
                     );

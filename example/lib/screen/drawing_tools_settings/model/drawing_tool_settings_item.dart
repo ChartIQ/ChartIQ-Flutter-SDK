@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/data/model/drawing_tool/line/line_types_enum.dart';
 import 'package:example/data/model/picker_color.dart';
 import 'package:example/data/model/option_item_model.dart';
@@ -53,7 +53,6 @@ class DrawingToolSettingsItem {
     required String title,
     required List<DrawingToolSettingsItem> settings,
   }) = DrawingToolSettingsItemDeviation;
-
 }
 
 class DrawingToolSettingsItemColor extends DrawingToolSettingsItem {
@@ -126,7 +125,6 @@ class DrawingToolSettingsItemSwitch extends DrawingToolSettingsItem {
   final bool isChecked;
   final DrawingParameterType param;
 }
-
 
 class DrawingToolSettingsItemNumber extends DrawingToolSettingsItem {
   DrawingToolSettingsItemNumber({

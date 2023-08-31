@@ -18,7 +18,6 @@ class IntervalsPage extends StatefulWidget {
 }
 
 class _IntervalsPageState extends State<IntervalsPage> {
-
   final List<List<ChartInterval>> _defaultIntervals = [
     [
       ChartInterval(period: 1, interval: 1, timeUnit: ChartIQTimeUnit.day),

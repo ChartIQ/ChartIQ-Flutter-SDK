@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 
 abstract class DrawingManager {
   /// Checks if a drawing tool supports `fill color` setting.
@@ -51,4 +51,3 @@ abstract class DrawingManager {
   /// Returns `true` if the [drawingTool] supports the setting, `false` otherwise.
   Future<bool> isSupportingVolumeProfile(DrawingTool drawingTool);
 }
-

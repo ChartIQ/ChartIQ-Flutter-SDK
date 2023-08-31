@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:flutter/widgets.dart';
 
 class CompareSeriesVM extends ChangeNotifier {

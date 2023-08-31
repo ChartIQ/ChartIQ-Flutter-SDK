@@ -32,11 +32,11 @@ class CustomTrailingListTile extends StatelessWidget {
       additionalInfo: trailingText == null
           ? null
           : DefaultTextStyle(
-            style: Theme.of(context).textTheme.labelMedium!,
-            overflow: TextOverflow.ellipsis,
-            textAlign: TextAlign.end,
-            child: trailingText!,
-          ),
+              style: Theme.of(context).textTheme.labelMedium!,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.end,
+              child: trailingText!,
+            ),
       subtitle: subtitle != null
           ? Text(
               subtitle!,

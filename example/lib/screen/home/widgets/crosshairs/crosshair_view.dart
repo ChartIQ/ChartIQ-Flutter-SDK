@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/widgets/custom_expandable_body.dart';
 import 'package:example/common/widgets/spacing.dart';

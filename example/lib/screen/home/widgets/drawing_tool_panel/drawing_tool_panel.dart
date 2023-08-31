@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:defer_pointer/defer_pointer.dart';
 import 'package:example/common/widgets/animations/custom_fade_in_container.dart';
 import 'package:example/common/widgets/custom_expandable_body.dart';
@@ -60,9 +60,10 @@ class _DrawingToolSettingsPanelState extends State<DrawingToolSettingsPanel> {
                 child: CustomFadeInContainer(
                   child: PanelColorPicker(
                     key: const ValueKey(InstrumentColor),
-                    selectedColor: (vm.selectedInstrument! as InstrumentColor).color,
-                    onColorSelected: (color) =>
-                        vm.updateColorParameter(DrawingParameterType.lineColor, color),
+                    selectedColor:
+                        (vm.selectedInstrument! as InstrumentColor).color,
+                    onColorSelected: (color) => vm.updateColorParameter(
+                        DrawingParameterType.lineColor, color),
                   ),
                 ),
               ),
@@ -74,9 +75,10 @@ class _DrawingToolSettingsPanelState extends State<DrawingToolSettingsPanel> {
                 child: CustomFadeInContainer(
                   child: PanelColorPicker(
                     key: const ValueKey(InstrumentFill),
-                    selectedColor: (vm.selectedInstrument! as InstrumentFill).color,
-                    onColorSelected: (color) =>
-                        vm.updateColorParameter(DrawingParameterType.fillColor, color),
+                    selectedColor:
+                        (vm.selectedInstrument! as InstrumentFill).color,
+                    onColorSelected: (color) => vm.updateColorParameter(
+                        DrawingParameterType.fillColor, color),
                   ),
                 ),
               ),

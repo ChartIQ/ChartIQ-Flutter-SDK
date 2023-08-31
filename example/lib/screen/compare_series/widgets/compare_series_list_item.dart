@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/common/widgets/buttons/custom_slidable_button.dart';
@@ -27,9 +27,9 @@ class CompareSeriesListItem extends StatefulWidget {
 
 class _CompareSeriesListItemState extends State<CompareSeriesListItem> {
   Future<void> _openColorPicker(
-      BuildContext context, {
-        required PickerColor currentColor,
-      }) async {
+    BuildContext context, {
+    required PickerColor currentColor,
+  }) async {
     final newColor = await showAppBottomSheet<PickerColor>(
       context: context,
       builder: (context) {

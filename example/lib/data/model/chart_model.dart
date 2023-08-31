@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'chart_model.g.dart';

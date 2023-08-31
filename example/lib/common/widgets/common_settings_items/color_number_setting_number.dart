@@ -20,13 +20,15 @@ class ColorNumberListSettingItem extends StatefulWidget {
   final ValueChanged<PickerColor> onColorChanged;
 
   @override
-  State<ColorNumberListSettingItem> createState() => _ColorNumberListSettingItemState();
+  State<ColorNumberListSettingItem> createState() =>
+      _ColorNumberListSettingItemState();
 }
 
-class _ColorNumberListSettingItemState extends State<ColorNumberListSettingItem> {
+class _ColorNumberListSettingItemState
+    extends State<ColorNumberListSettingItem> {
   void _openColorPicker(
-      BuildContext context,
-      ) async {
+    BuildContext context,
+  ) async {
     final newColor = await showAppBottomSheet<PickerColor>(
       context: context,
       useRootNavigator: true,

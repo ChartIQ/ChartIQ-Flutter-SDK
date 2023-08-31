@@ -18,7 +18,7 @@ enum SignalPosition {
   /// Returns a [SignalPosition] from a [String] value
   static SignalPosition fromString(String title) {
     return values.firstWhere(
-          (element) => element.value.toLowerCase() == title.toLowerCase(),
+      (element) => element.value.toLowerCase() == title.toLowerCase(),
       orElse: () => onCandle,
     );
   }

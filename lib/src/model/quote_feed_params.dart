@@ -40,12 +40,12 @@ class QuoteFeedParams {
     this.callbackId,
   });
 
-  QuoteFeedParams.fromJson(Map<String, dynamic> json) :
-    symbol = json['symbol'],
-    period = json['period'],
-    interval = json['interval'],
-    start = json['start'] ?? json['startDate'],
-    end = json['end'] ?? json['endDate'],
-    meta = json['meta'],
-    callbackId = json['callbackId'];
+  QuoteFeedParams.fromJson(Map<String, dynamic> json)
+      : symbol = json['symbol'],
+        period = json['period'],
+        interval = json['interval'],
+        start = json['start'] ?? json['startDate'],
+        end = json['end'] ?? json['endDate'],
+        meta = json['meta'],
+        callbackId = json['callbackId'];
 }

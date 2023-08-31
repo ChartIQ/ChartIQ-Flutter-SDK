@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/widgets/custom_separated_list_view.dart';
 import 'package:example/common/widgets/list_tiles/custom_text_list_tile.dart';
 import 'package:example/common/widgets/modals/app_bottom_sheet.dart';
@@ -44,7 +44,8 @@ class _StudySectionState extends State<StudySection> {
     if (!mounted) return;
     if (newStudy != null && newStudy.isNotEmpty) {
       if (SignalStudyInfoModel.instance.studies.isNotEmpty) {
-        await vm.chartIQController.study.removeStudy(SignalStudyInfoModel.instance.studies.first);
+        await vm.chartIQController.study
+            .removeStudy(SignalStudyInfoModel.instance.studies.first);
       }
       final study =
           await vm.chartIQController.signal.addSignalStudy(newStudy[0]);

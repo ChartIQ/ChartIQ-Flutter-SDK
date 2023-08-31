@@ -30,8 +30,8 @@ class AttentionLabel extends StatelessWidget {
             child: Text(
               'Paintbar doen\'t work with this chart type.',
               style: Theme.of(context).textTheme.labelMedium!.copyWith(
-                color: ColorName.coralRed,
-              ),
+                    color: ColorName.coralRed,
+                  ),
             ),
           ),
         ],

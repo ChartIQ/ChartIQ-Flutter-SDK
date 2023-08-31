@@ -18,7 +18,7 @@ enum SignalShape {
   /// Returns a [SignalShape] from a [String] value
   static SignalShape fromString(String title) {
     return values.firstWhere(
-          (element) => element.value.toLowerCase() == title.toLowerCase(),
+      (element) => element.value.toLowerCase() == title.toLowerCase(),
       orElse: () => circle,
     );
   }

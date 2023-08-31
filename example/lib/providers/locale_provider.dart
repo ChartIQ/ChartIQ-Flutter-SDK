@@ -1,10 +1,9 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/app_preferences.dart';
 import 'package:example/data/model/chartiq_language_enum.dart';
 import 'package:flutter/material.dart';
 
 class LocaleProvider extends ChangeNotifier {
-
   LocaleProvider(this._locale);
   ChartIQLanguage _locale;
 

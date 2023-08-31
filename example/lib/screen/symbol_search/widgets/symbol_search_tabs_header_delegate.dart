@@ -1,4 +1,3 @@
-
 // to allow floating filter above the list
 import 'package:example/common/widgets/custom_choice_chip.dart';
 import 'package:example/screen/symbol_search/symbol_filter_enum.dart';

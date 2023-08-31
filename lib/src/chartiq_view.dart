@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:chart_iq/src/model/chart_available_model.dart';
 import 'package:chart_iq/src/model/data_pull_model.dart';
 import 'package:chart_iq/src/model/measure_model.dart';

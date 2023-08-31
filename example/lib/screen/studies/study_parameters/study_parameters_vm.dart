@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/data/model/option_item_model.dart';
 import 'package:example/screen/studies/extensions/study_parameter_extension.dart';
 import 'package:flutter/cupertino.dart';
@@ -80,7 +80,8 @@ class StudyParametersVM extends ChangeNotifier {
 
     if (parameterIndex == -1) return;
 
-    final localValue = (value != null && value.isNotEmpty ? value : null)?.replaceAll(",", ".");
+    final localValue = (value != null && value.isNotEmpty ? value : null)
+        ?.replaceAll(",", ".");
     final localDoubleValue = double.tryParse(localValue ?? "0.0") ?? 0.0;
     if (parameters[parameterIndex] is StudyParameterNumber) {
       parameters[parameterIndex] =

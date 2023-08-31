@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/common/utils/parse_string_or_double_to_int.dart';
 import 'package:example/data/model/drawing_tool/drawing_tool_item_model.dart';

@@ -6,18 +6,18 @@ class ApiProvider with DioMixin {
   final String _baseUrl;
 
   ApiProvider(this._baseUrl) {
-    httpClientAdapter = IOHttpClientAdapter()..onHttpClientCreate = (client) {
-      client.badCertificateCallback = (cert, host, port) => true;
-    };
+    httpClientAdapter = IOHttpClientAdapter()
+      ..onHttpClientCreate = (client) {
+        client.badCertificateCallback = (cert, host, port) => true;
+      };
 
     options = BaseOptions(
-      baseUrl: _baseUrl,
-      // connectTimeout: 5000,
-      // receiveTimeout: 3000,
+        baseUrl: _baseUrl,
+        // connectTimeout: 5000,
+        // receiveTimeout: 3000,
         headers: {
           "Accept": "application/json",
-        }
-    );
+        });
     interceptors.addAll([
       CustomDioLogger(
         requestBody: true,

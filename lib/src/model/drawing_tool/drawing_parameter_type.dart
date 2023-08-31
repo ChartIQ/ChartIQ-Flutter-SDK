@@ -1,4 +1,3 @@
-
 /// An enumeration of available drawing tool parameters types
 enum DrawingParameterType {
   fillColor('fillColor'),

@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 
 abstract class ChartIQStudy {
   /// Gets a list of available studies [Study]
@@ -25,8 +25,7 @@ abstract class ChartIQStudy {
   /// [StudyParameter.name] + [StudyParameter.StudyParameterNamePostfix]
   ///
   /// For example, for the color parameter with a original name `line` a generated name should be `lineColor`
-  Future<void> setStudyParameter(
-      Study study, StudyParameterModel parameter);
+  Future<void> setStudyParameter(Study study, StudyParameterModel parameter);
 
   /// Modifies a selected study [Study] with a list of parameters
   /// [study] A study to change

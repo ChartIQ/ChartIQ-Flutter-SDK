@@ -1,6 +1,5 @@
 import 'package:example/common/widgets/list_tiles/custom_trailing_list_tile.dart';
 import 'package:example/data/model/option_item_model.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 

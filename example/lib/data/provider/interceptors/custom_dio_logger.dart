@@ -106,7 +106,7 @@ class CustomDioLogger extends Interceptor {
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
     if (checkExceptions(err.requestOptions.path)) {
-     return super.onError(err, handler);
+      return super.onError(err, handler);
     }
 
     logPrint = getOneLogger().e;

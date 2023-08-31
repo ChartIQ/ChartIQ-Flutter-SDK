@@ -39,8 +39,6 @@ enum SignalOperator {
 
   const SignalOperator(this.value);
 
-
-
   /// Returns a [SignalOperator] from a [String] value
   static SignalOperator fromMarkValue(String title) {
     switch (title) {

@@ -1,4 +1,4 @@
-import '../../chartiq_flutter_sdk.dart';
+import '../../chart_iq.dart';
 
 class DataPullModel {
   final String? type;

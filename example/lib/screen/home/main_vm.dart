@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:example/app_preferences.dart';
@@ -164,7 +164,7 @@ class MainVM extends ChangeNotifier {
     isAppBarCollapsed = value ?? !isAppBarCollapsed;
     isCrosshairEnabled = false;
     await chartIQController?.disableCrosshairs();
-    if(disableDrawingTool ?? false) {
+    if (disableDrawingTool ?? false) {
       onDrawingToolSelected(null);
     }
     notifyListeners();

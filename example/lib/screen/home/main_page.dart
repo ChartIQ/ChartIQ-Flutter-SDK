@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/utils/confirmation_dialog.dart';
 import 'package:example/providers/locale_provider.dart';
 import 'package:example/screen/home/widgets/drawing_action_buttons.dart';
@@ -85,8 +85,7 @@ class _MainPageState extends State<MainPage> {
         children: [
           OrientationBuilder(builder: (context, _) {
             WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-              final orientation =
-                  MediaQuery.orientationOf(context);
+              final orientation = MediaQuery.orientationOf(context);
               if (_prevOrientation != orientation) {
                 _prevOrientation = orientation;
                 if (vm.selectedDrawingTool == null) {
@@ -97,7 +96,8 @@ class _MainPageState extends State<MainPage> {
 
             return MainAppBar(
               isCollapsed: isPortrait ? false : vm.isAppBarCollapsed,
-              onExpandButtonPressed: () => vm.collapseAppBar(disableDrawingTool: true),
+              onExpandButtonPressed: () =>
+                  vm.collapseAppBar(disableDrawingTool: true),
             );
           }),
           CrosshairView(

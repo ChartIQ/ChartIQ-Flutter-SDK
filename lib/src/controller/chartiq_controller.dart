@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:chart_iq/src/model/data_method.dart';
 import 'package:chart_iq/src/model/drawing_tool/chartiq_drawing_tool.dart';
 import 'package:chart_iq/src/model/drawing_tool/drawing_manager.dart';
@@ -153,7 +153,8 @@ abstract class ChartIQController {
   /// [symbolName] A symbol to set.
   /// [parameterName] The property you want to change.
   /// [value] The value to change to property to.
-  Future<void> setSeriesParameter(String symbolName, String parameterName, String value);
+  Future<void> setSeriesParameter(
+      String symbolName, String parameterName, String value);
 
   /// Modifies a property of an existing series.
   /// [symbol] The string symbol you want to display on the chart.

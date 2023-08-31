@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/data/model/drawing_tool/drawing_tool_category.dart';
 import 'package:example/data/model/drawing_tool/drawing_tool_section.dart';
 

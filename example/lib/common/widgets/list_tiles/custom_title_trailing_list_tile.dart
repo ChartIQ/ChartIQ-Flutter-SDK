@@ -48,11 +48,11 @@ class CustomTitleTrailingListTile extends StatelessWidget {
       ),
       subtitle: subtitle != null
           ? Text(
-        subtitle!,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 2,
-        style: Theme.of(context).textTheme.titleSmall,
-      )
+              subtitle!,
+              overflow: TextOverflow.ellipsis,
+              maxLines: 2,
+              style: Theme.of(context).textTheme.titleSmall,
+            )
           : null,
       trailing: trailing,
     );

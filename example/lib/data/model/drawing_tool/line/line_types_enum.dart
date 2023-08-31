@@ -38,7 +38,7 @@ enum LineTypes {
     return LineTypes.values.firstWhere(
       (element) => element.type == lineType && element.width == lineWidth,
       orElse: () {
-        if(lineType != null) {
+        if (lineType != null) {
           return [
             LineTypes.solid,
             LineTypes.dotted,

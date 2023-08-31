@@ -1,1 +1,8 @@
-enum MessageType { pullInitialData, pullUpdateData, pullPaginationData, chartAvailable, chartReady, measure }
+enum MessageType {
+  pullInitialData,
+  pullUpdateData,
+  pullPaginationData,
+  chartAvailable,
+  chartReady,
+  measure
+}

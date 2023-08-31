@@ -41,7 +41,6 @@ class CrosshairValueContainer extends StatelessWidget {
               context.translateWatch(firstTranslationKey),
             ).toUpperCase(),
             style: textStyleTheme.labelTextStyle,
-
           ),
         ),
         Expanded(

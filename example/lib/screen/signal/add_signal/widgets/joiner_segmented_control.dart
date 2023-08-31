@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/const/const.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/theme/app_colors.dart';

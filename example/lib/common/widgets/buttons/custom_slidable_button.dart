@@ -30,11 +30,13 @@ class CustomSlidableButton extends StatelessWidget {
               borderRadius: BorderRadius.zero,
             ),
           ),
-          icon: icon != null ? Icon(
-            icon!,
-            color: ColorName.white,
-            size: 18,
-          ) : const SizedBox.shrink(),
+          icon: icon != null
+              ? Icon(
+                  icon!,
+                  color: ColorName.white,
+                  size: 18,
+                )
+              : const SizedBox.shrink(),
           label: Text(
             text,
             style: Theme.of(context)

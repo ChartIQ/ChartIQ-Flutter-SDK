@@ -41,7 +41,6 @@ class AddStudiesSearchDelegate extends SliverPersistentHeaderDelegate {
   @override
   double get minExtent => 56;
 
-
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
       true;

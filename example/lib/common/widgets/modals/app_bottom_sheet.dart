@@ -21,10 +21,10 @@ Future<T?> showAppBottomSheet<T>({
       isDismissible: true,
       builder: builder,
       containerBuilder: (
-          BuildContext context,
-          Animation<double> animation,
-          Widget child,
-          ) {
+        BuildContext context,
+        Animation<double> animation,
+        Widget child,
+      ) {
         return Navigator(
           onGenerateRoute: (settings) {
             return MaterialWithModalsPageRoute(

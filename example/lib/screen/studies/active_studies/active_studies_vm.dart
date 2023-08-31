@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 
@@ -28,7 +28,6 @@ class ActiveStudiesVM extends ChangeNotifier {
     isLoading = true;
     studies.removeWhere((element) => element.name == study.name);
     notifyListeners();
-
 
     await chartIQController!.study.removeStudy(study);
     isLoading = false;

@@ -29,7 +29,8 @@ class DrawingToolsPage extends StatefulWidget {
   State<DrawingToolsPage> createState() => _DrawingToolsPageState();
 }
 
-class _DrawingToolsPageState extends State<DrawingToolsPage> with SingleTickerProviderStateMixin {
+class _DrawingToolsPageState extends State<DrawingToolsPage>
+    with SingleTickerProviderStateMixin {
   DrawingToolCategory _selectedCategory = DrawingToolCategory.all;
 
   List<DrawingToolItemModel> _currentItems = DefaultDrawingTools.items;

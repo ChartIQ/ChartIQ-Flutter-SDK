@@ -29,9 +29,9 @@ class InstrumentItemModel {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is InstrumentItemModel &&
-              runtimeType == other.runtimeType &&
-              instrument == other.instrument;
+      other is InstrumentItemModel &&
+          runtimeType == other.runtimeType &&
+          instrument == other.instrument;
 
   @override
   int get hashCode => instrument.hashCode;

@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/const/locale_keys.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/common/widgets/buttons/custom_slidable_button.dart';
@@ -20,7 +20,8 @@ class ActiveStudyListItem extends StatelessWidget {
   final Study study;
   final StudyCallback onRemoveStudy, onCloneStudy, onStudyTap;
 
-  List<String> get _studySplitted => StudyExtension.splitName(study.displayName);
+  List<String> get _studySplitted =>
+      StudyExtension.splitName(study.displayName);
 
   String get _studyName => _studySplitted[0];
 

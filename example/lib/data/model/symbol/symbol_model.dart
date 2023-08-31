@@ -13,5 +13,4 @@ class SymbolModel {
             runtimeType == other.runtimeType &&
             symbol == other.symbol;
   }
-
 }

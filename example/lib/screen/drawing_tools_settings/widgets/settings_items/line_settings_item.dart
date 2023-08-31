@@ -1,4 +1,4 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/widgets/list_tiles/custom_text_list_tile.dart';
 import 'package:example/common/widgets/modals/app_bottom_sheet.dart';
 import 'package:example/data/model/drawing_tool/line/line_types_enum.dart';
@@ -29,7 +29,6 @@ class LineSettingsItem extends StatefulWidget {
 }
 
 class _LineSettingsItemState extends State<LineSettingsItem> {
-
   Future<void> _openLinePicker(
     BuildContext context, {
     required DrawingToolSettingsItemLine item,

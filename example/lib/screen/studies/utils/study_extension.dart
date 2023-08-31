@@ -1,11 +1,10 @@
-import 'package:chart_iq/chartiq_flutter_sdk.dart';
+import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/const/const.dart';
 
 extension StudyExtension on Study {
   static const kZeroWidthNonJoiner = AppConst.kZeroWidthNonJoiner;
 
   static List<String> splitName(String name) {
-
     final nameWithoutLeading = name.replaceFirst(
       kZeroWidthNonJoiner.toString(),
       '',
@@ -43,8 +42,8 @@ extension StudyExtension on Study {
       underlay: underlay,
       display: display,
       range: range,
-      nameParams:  nameParams,
-      originalName:  originalName,
+      nameParams: nameParams,
+      originalName: originalName,
       studyName: studyName,
       uniqueId: uniqueId,
     );

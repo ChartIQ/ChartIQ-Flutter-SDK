@@ -20,8 +20,7 @@ class AppTextFieldTheme extends ThemeExtension<AppTextFieldTheme> {
     TextStyle? placeholderStyle,
   }) {
     return AppTextFieldTheme(
-      iconsColor:
-      iconsColor ?? this.iconsColor,
+      iconsColor: iconsColor ?? this.iconsColor,
       backgroundColor: backgroundColor ?? this.backgroundColor,
       textStyle: textStyle ?? this.textStyle,
       placeholderStyle: placeholderStyle ?? this.placeholderStyle,

@@ -88,11 +88,11 @@ class DrawingToolListItem extends StatelessWidget {
             if (isItemDismissible) onFavouriteSelected(item);
           },
         ),
-        children: [Builder(
-          builder: (context) {
+        children: [
+          Builder(builder: (context) {
             return _buildSlidableAction(context);
-          }
-        )],
+          })
+        ],
       ),
       child: CustomTextListTile.widgetTitle(
         titleWidget: _buildTitle(context),

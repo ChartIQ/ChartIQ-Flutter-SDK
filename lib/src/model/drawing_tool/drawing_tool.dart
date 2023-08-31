@@ -125,5 +125,5 @@ enum DrawingTool {
   final String? _value, _iosValue;
 
   const DrawingTool(this._value, this._iosValue);
-  String? get value => Platform.isIOS ? _iosValue: _value;
+  String? get value => Platform.isIOS ? _iosValue : _value;
 }

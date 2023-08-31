@@ -49,8 +49,7 @@ class DrawingToolTabsHeaderDelegate extends SliverPersistentHeaderDelegate {
                     duration: const Duration(milliseconds: 300),
                     curve: Curves.easeIn,
                     alignment: 0.5,
-                    alignmentPolicy:
-                        ScrollPositionAlignmentPolicy.explicit,
+                    alignmentPolicy: ScrollPositionAlignmentPolicy.explicit,
                   );
                   onSelected(item);
                 },

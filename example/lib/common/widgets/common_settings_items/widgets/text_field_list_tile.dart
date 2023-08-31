@@ -50,7 +50,8 @@ class _TextFieldListTileState extends State<TextFieldListTile> {
 
   static final _negativeFormatter =
           FilteringTextInputFormatter.allow(RegExp(r'[0-9.,-]')),
-      _positiveFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'));
+      _positiveFormatter =
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'));
 
   @override
   void initState() {

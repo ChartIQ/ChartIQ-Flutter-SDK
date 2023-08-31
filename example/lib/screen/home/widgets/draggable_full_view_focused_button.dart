@@ -164,7 +164,8 @@ class _DraggableFullViewFocusedButtonState
       animation: _dragEndController,
       builder: (context, _) {
         return Positioned(
-          left: _positionAnimation?.value.dx ?? widget.lastOffset?.dx ??
+          left: _positionAnimation?.value.dx ??
+              widget.lastOffset?.dx ??
               widget.constraints.maxWidth - _kButtonPadding - _kButtonSize,
           top: _positionAnimation?.value.dy ?? widget.lastOffset?.dy ?? 20,
           child: Draggable(

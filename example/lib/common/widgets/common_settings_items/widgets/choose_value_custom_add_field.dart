@@ -15,7 +15,7 @@ class ChooseValueCustomAddField extends StatefulWidget {
   final ValueChanged<String?> onAdded;
 
   static final _negativeFormatter =
-  FilteringTextInputFormatter.allow(RegExp(r'[0-9.-]')),
+          FilteringTextInputFormatter.allow(RegExp(r'[0-9.-]')),
       _positiveFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9.]'));
 
   @override

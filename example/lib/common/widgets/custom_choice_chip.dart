@@ -21,10 +21,12 @@ class CustomChoiceChip extends StatelessWidget {
       onSelected: onSelected,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
-        side: isSelected ? const BorderSide(
-          color: ColorName.mountainMeadow,
-          width: 1,
-        ) : Theme.of(context).chipTheme.shape!.side,
+        side: isSelected
+            ? const BorderSide(
+                color: ColorName.mountainMeadow,
+                width: 1,
+              )
+            : Theme.of(context).chipTheme.shape!.side,
       ),
     );
   }
