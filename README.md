@@ -10,7 +10,7 @@ Contact us at <support@chartiq.com> to request sample code and guidance on how t
 
 - Version 9.0.1 or later of the ChartIQ library
 
-  Go to our <a href="https://pages.marketintelligence.spglobal.com/ChartIQ-Follow-up-Request.html" target="_blank">download site</a> to obtain a free 30-day trial version of the library, or send us an email at <info@cosaic.io>, and we'll send you an evaluation version.
+  Go to our <a href="https://pages.marketintelligence.spglobal.com/ChartIQ-Follow-up-Request.html" target="_blank">corporate site</a> to obtain a free 30-day trial version of the library, or send us an email at <info@cosaic.io>, and we'll send you an evaluation version.
 
 - Flutter 3.10.6 or later
 - Dart 3.0.6 or later
