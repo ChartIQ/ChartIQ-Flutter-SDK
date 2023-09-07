@@ -1,3 +1,7 @@
+## 0.0.11
+
+* Add CONTRIBUTING.md.
+
 ## 0.0.10
 
 * Example file update.
