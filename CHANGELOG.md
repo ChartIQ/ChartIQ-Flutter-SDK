@@ -1,3 +1,7 @@
+## 0.0.12
+
+* Change android dependency.
+
 ## 0.0.11
 
 * Add CONTRIBUTING.md.
