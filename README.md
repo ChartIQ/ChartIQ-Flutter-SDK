@@ -8,9 +8,9 @@ Contact us at <support@chartiq.com> to request sample code and guidance on how t
 
 ## Requirements
 
-- Version 8.8.0 or later of the ChartIQ library
+- Version 9.0.1 or later of the ChartIQ library
 
-  Go to our <a href="https://cosaic.io/chartiq-sdk-library-download/" target="_blank">download site</a> to obtain a free 30-day trial version of the library, or send us an email at <info@cosaic.io>, and we'll send you an evaluation version.
+  Go to our <a href="https://pages.marketintelligence.spglobal.com/ChartIQ-Follow-up-Request.html" target="_blank">corporate site</a> to obtain a free 30-day trial version of the library, or send us an email at <info@cosaic.io>, and we'll send you an evaluation version.
 
 - Flutter 3.10.6 or later
 - Dart 3.0.6 or later
@@ -19,7 +19,7 @@ Contact us at <support@chartiq.com> to request sample code and guidance on how t
 
 ## App
 
-The [demo](https://github.com/ChartIQ/ChartIQ-Flutter-SDK/tree/main/example) folder of this repository contains an app that was built using the SDK. Customize the app to quickly create your own Flutter charting application.
+The [example](https://github.com/ChartIQ/ChartIQ-Flutter-SDK/tree/main/example) folder of this repository contains both Android and iOS app that was built using the SDK. Customize the apps to quickly create your own Flutter charting application.
 
 **App screen shots**
 
@@ -33,31 +33,54 @@ The [demo](https://github.com/ChartIQ/ChartIQ-Flutter-SDK/tree/main/example) fol
 
 ## Getting started
 
-Depend on it
-Run this command:
-
 With Flutter:
 
 ```bash
 $ flutter pub add chart_iq
 ```
 
-This will add a line to your package's pubspec.yaml (and run an implicit flutter pub get):
+This will add a line to your package's pubspec.yaml (and run an implicit flutter pub get).
 
 Alternatively, your editor might support flutter pub get. Check the docs for your editor to learn more.
 
-Import it
 Now in your Dart code, you can use:
 
 ```dart
 import 'package:chart_iq/chart_iq.dart';
+
+ChartIQView(
+  chartIQUrl: _chartIQUrl, // url to ChartIQ library
+  onPullInitialData: (dataCallback) {
+    // Provide initial data for chart
+  },
+  onPullUpdateData: (dataCallback) {
+    // Provide update data for chart
+  },
+  onPullPaginationData: (dataCallback) {
+    // Provide pagination data for chart
+  },
+  onChartIQViewCreated: (controller) {
+    // ChartIQView created and ready to use
+  },
+)
 ```
 
-See the [Getting Started on Mobile: Flutter](https://documentation.chartiq.com/tutorial-Starting%20on%20Flutter.html) tutorial for instructions on installing the app and using the SDK.
+## IOS installation additional step
+
+Go to the example/ios folder and run pod install
+
+```sh
+cd example/ios
+pod install
+```
 
 ## API documentation
 
-- [App/SDK](https://documentation.chartiq.com/flutter-sdk/chartiq/)
+The Flutter sdk utilizes the existing mobile sdk that we have to offer.
+
+- [Android SDK](https://documentation.chartiq.com/android-sdk/)
+
+- [iOS SDK](https://documentation.chartiq.com/ios-sdk/)
 
 - [ChartIQ JavaScript library](https://documentation.chartiq.com)
 
@@ -65,6 +88,10 @@ See the [Getting Started on Mobile: Flutter](https://documentation.chartiq.com/t
 
 Contact our development support team at <support@chartiq.com>.
 
-## Contributing to this project
+## Contributing
 
-Contribute to this project. Fork it and send us a pull request. We'd love to see what you can do with our charting tools on Flutter!
+See the [contributing guide](CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
+
+## License
+
+Apache2
