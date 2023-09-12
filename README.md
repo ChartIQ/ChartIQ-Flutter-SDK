@@ -65,6 +65,15 @@ ChartIQView(
 )
 ```
 
+## IOS installation additional step
+
+Go to the example/ios folder and run pod install
+
+```sh
+cd example/ios
+pod install
+```
+
 ## API documentation
 
 The Flutter sdk utilizes the existing mobile sdk that we have to offer.
