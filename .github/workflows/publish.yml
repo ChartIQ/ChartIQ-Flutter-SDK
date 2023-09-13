@@ -1,22 +1,33 @@
-# .github/workflows/publish.yml
-name: Publish to pub.dev
+name: Release
 
 on:
   push:
     tags:
-      # must align with the tag-pattern configured on pub.dev, often just replace
-      #  with [0-9]+.[0-9]+.[0-9]+*
-      - 'v[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: 'v'
-    # If you prefer tags like '1.2.3', without the 'v' prefix, then use:
-    # - '[0-9]+.[0-9]+.[0-9]+*' # tag-pattern on pub.dev: ''
-    # If your repository contains multiple packages consider a pattern like:
-    # - 'my_package_name-v[0-9]+.[0-9]+.[0-9]+*'
+      - 'v[0-9]+.[0-9]+.[0-9]+'
 
-# Publish using the reusable workflow from dart-lang.
 jobs:
-  publish:
+  release:
     permissions:
-      id-token: write # Required for authentication using OIDC
-    uses: dart-lang/setup-dart/.github/workflows/publish.yml@v1
-    # with:
-    #   working-directory: path/to/package/within/repository
+      contents: write
+      pull-requests: write
+      id-token: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get semantic version
+        id: semver
+        run: echo "::set-output name=version::${GITHUB_REF#refs/tags/v}"
+
+      - uses: actions/checkout@v3
+        with:
+          ref: v$
+
+      # For Flutter package
+      - uses: dart-lang/setup-dart@v1
+      - uses: subosito/flutter-action@v2.10.0
+        with:
+          flutter-version: '3.13.1'
+      - name: Install dependencies
+        run: flutter pub get
+
+      - name: Publish
+        run: flutter pub publish --force
