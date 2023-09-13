@@ -78,6 +78,8 @@ pod install
 
 The Flutter sdk utilizes the existing mobile sdk that we have to offer.
 
+- [Flutter SDK](https://pub.dev/documentation/chart_iq/latest/)
+
 - [Android SDK](https://documentation.chartiq.com/android-sdk/)
 
 - [iOS SDK](https://documentation.chartiq.com/ios-sdk/)
