@@ -13,6 +13,10 @@ jobs:
       id-token: write
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       # For Flutter package
       - uses: dart-lang/setup-dart@v1
       - uses: subosito/flutter-action@v2.10.0
