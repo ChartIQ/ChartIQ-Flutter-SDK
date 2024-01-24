@@ -182,6 +182,13 @@ class DefaultDrawingTools {
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(
+      tool: DrawingTool.measurementLine,
+      icon: Assets.icons.drawingTools.measurementLine.path,
+      name: RemoteLocaleKeys.measurementLine,
+      category: DrawingToolCategory.statistics,
+      section: DrawingToolSection.main,
+    ),
+    DrawingToolItemModel(
       tool: DrawingTool.pitchfork,
       icon: Assets.icons.drawingTools.pitchfork.path,
       name: RemoteLocaleKeys.pitchfork,

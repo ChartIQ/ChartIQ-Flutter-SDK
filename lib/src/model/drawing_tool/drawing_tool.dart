@@ -71,6 +71,9 @@ enum DrawingTool {
   /// A drawing tool for a line
   line('line', 'line'),
 
+  /// A drawing tool for a measurement line
+  measurementLine('measurementline', 'measurementline'),
+
   /// A drawing tool for a measure
   measure('measure', 'measure'),
 
