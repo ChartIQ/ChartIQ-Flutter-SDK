@@ -269,7 +269,7 @@ class DefaultDrawingTools {
       tool: DrawingTool.trendLine,
       icon: Assets.icons.drawingTools.trendLine.path,
       name: RemoteLocaleKeys.trendLine,
-      category: DrawingToolCategory.text,
+      category: DrawingToolCategory.lines,
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(
