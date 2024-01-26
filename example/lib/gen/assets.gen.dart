@@ -420,10 +420,6 @@ class $AssetsIconsDrawingToolsGen {
   SvgGenImage get resistanceLine =>
       const SvgGenImage('assets/icons/drawing_tools/resistance_line.svg');
 
-  /// File path: assets/icons/drawing_tools/segment.svg
-  SvgGenImage get segment =>
-      const SvgGenImage('assets/icons/drawing_tools/segment.svg');
-
   /// File path: assets/icons/drawing_tools/star.svg
   SvgGenImage get star =>
       const SvgGenImage('assets/icons/drawing_tools/star.svg');
@@ -482,7 +478,6 @@ class $AssetsIconsDrawingToolsGen {
         regressionLine,
         resistanceArc,
         resistanceLine,
-        segment,
         star,
         timeCycle,
         tironeLevels,

@@ -224,13 +224,6 @@ class DefaultDrawingTools {
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(
-      tool: DrawingTool.segment,
-      icon: Assets.icons.drawingTools.segment.path,
-      name: RemoteLocaleKeys.segment,
-      category: DrawingToolCategory.lines,
-      section: DrawingToolSection.main,
-    ),
-    DrawingToolItemModel(
       tool: DrawingTool.speedResistanceArc,
       icon: Assets.icons.drawingTools.resistanceArc.path,
       name: RemoteLocaleKeys.speedResistanceArc,
