@@ -225,6 +225,9 @@ class FLNativeView: NSObject, FlutterPlatformView {
             case "isSupportingVolumeProfile":
                 self.isSupportingVolumeProfile(methodCall: call, result: result)
                 break
+            case "isSupportingShowCallOut":
+                self.isSupportingShowCallOut(methodCall: call, result: result)
+                break
                 // DrawingTool
             case "disableDrawing":
                 self.disableDrawing(methodCall: call, result: result)
@@ -670,6 +673,12 @@ class FLNativeView: NSObject, FlutterPlatformView {
         let arguments = methodCall.arguments as! String
         let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
         result(drawingManager.isSupportingVolumeProfile(drawing))
+    }
+    
+    private func isSupportingShowCallOut(methodCall: FlutterMethodCall, result: FlutterResult) {
+        let arguments = methodCall.arguments as! String
+        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
+        result(drawingManager.isSupportingShowCallout(drawing))
     }
 
     private func clearDrawing(methodCall: FlutterMethodCall, result: FlutterResult) {

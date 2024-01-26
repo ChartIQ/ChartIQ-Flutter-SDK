@@ -9,71 +9,67 @@ class DrawingManagerImpl implements DrawingManager {
 
   @override
   Future<bool> isSupportingAxisLabel(DrawingTool drawingTool) async {
-    final res =
-        await channel.invokeMethod('isSupportingAxisLabel', drawingTool.value);
+    final res = await channel.invokeMethod('isSupportingAxisLabel', drawingTool.value);
     return res;
   }
 
   @override
   Future<bool> isSupportingDeviations(DrawingTool drawingTool) async {
-    final res =
-        await channel.invokeMethod('isSupportingDeviations', drawingTool.value);
+    final res = await channel.invokeMethod('isSupportingDeviations', drawingTool.value);
     return res;
   }
 
   @override
   Future<bool> isSupportingElliottWave(DrawingTool drawingTool) async {
-    final res = await channel.invokeMethod(
-        'isSupportingElliottWave', drawingTool.value);
+    final res = await channel.invokeMethod('isSupportingElliottWave', drawingTool.value);
     return res;
   }
 
   @override
   Future<bool> isSupportingFibonacci(DrawingTool drawingTool) async {
-    final res =
-        await channel.invokeMethod('isSupportingFibonacci', drawingTool.value);
+    final res = await channel.invokeMethod('isSupportingFibonacci', drawingTool.value);
     return res;
   }
 
   @override
   Future<bool> isSupportingFillColor(DrawingTool drawingTool) async {
-    final res =
-        await channel.invokeMethod('isSupportingFillColor', drawingTool.value);
+    final res = await channel.invokeMethod('isSupportingFillColor', drawingTool.value);
     return res;
   }
 
   @override
   Future<bool> isSupportingFont(DrawingTool drawingTool) async {
-    final res =
-        await channel.invokeMethod('isSupportingFont', drawingTool.value);
+    final res = await channel.invokeMethod('isSupportingFont', drawingTool.value);
     return res;
   }
 
   @override
   Future<bool> isSupportingLineColor(DrawingTool drawingTool) async {
-    final res =
-        await channel.invokeMethod('isSupportingLineColor', drawingTool.value);
+    final res = await channel.invokeMethod('isSupportingLineColor', drawingTool.value);
     return res;
   }
 
   @override
   Future<bool> isSupportingLineType(DrawingTool drawingTool) async {
-    final res =
-        await channel.invokeMethod('isSupportingLineType', drawingTool.value);
+    final res = await channel.invokeMethod('isSupportingLineType', drawingTool.value);
     return res;
   }
 
   @override
   Future<bool> isSupportingSettings(DrawingTool drawingTool) async {
-    final res =
-        await channel.invokeMethod('isSupportingSettings', drawingTool.value);
+    final res = await channel.invokeMethod('isSupportingSettings', drawingTool.value);
     return res;
   }
 
   @override
   Future<bool> isSupportingVolumeProfile(DrawingTool drawingTool) async {
-    final res = await channel.invokeMethod(
-        'isSupportingVolumeProfile', drawingTool.value);
+    final res = await channel.invokeMethod('isSupportingVolumeProfile', drawingTool.value);
+    return res;
+  }
+
+  @override
+  Future<bool> isSupportingShowCallOut(DrawingTool drawingTool) async {
+    final res = await channel.invokeMethod('isSupportingShowCallOut', drawingTool.value);
     return res;
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'package:chart_iq/chart_iq.dart';
 import 'package:example/common/utils/extensions.dart';
 import 'package:example/common/utils/parse_string_or_double_to_int.dart';
@@ -42,8 +43,7 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
   }
 
   Future<void> setupScreen() async {
-    final drawingToolParameters =
-        await chartIQController.chartIQDrawingTool.getDrawingParameters(
+    final drawingToolParameters = await chartIQController.chartIQDrawingTool.getDrawingParameters(
       drawingTool.tool,
     );
     final manager = chartIQController.drawingManager;
@@ -58,6 +58,7 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
       manager.isSupportingFibonacci(drawingTool.tool),
       manager.isSupportingElliottWave(drawingTool.tool),
       manager.isSupportingVolumeProfile(drawingTool.tool),
+      manager.isSupportingShowCallOut(drawingTool.tool),
     ]);
 
     settingsList.clear();
@@ -107,11 +108,15 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
     if (futures[8]) {
       settingsList.add(_getVolumeProfileFromParams(drawingToolParameters));
     }
+
+    // show callout
+    if (futures[9]) {
+      settingsList.add(_getSowCalloutFromParams(drawingToolParameters));
+    }
     notifyListeners();
   }
 
-  Future<void> updateParameter(
-      DrawingParameterType parameter, dynamic value) async {
+  Future<void> updateParameter(DrawingParameterType parameter, dynamic value) async {
     if (value is bool) {
       await chartIQController.chartIQDrawingTool.setDrawingParameter(
         parameter,
@@ -210,8 +215,7 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
     );
   }
 
-  List<DrawingToolSettingsItem> _getFontModelsFromParams(
-      Map<String, dynamic> params) {
+  List<DrawingToolSettingsItem> _getFontModelsFromParams(Map<String, dynamic> params) {
     final result = List<DrawingToolSettingsItem>.empty(growable: true);
     final font = FontModel.fromJson(params['font']);
 
@@ -230,8 +234,7 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
       ),
     );
 
-    final isBold = font.weight == 'bold' ||
-        (int.tryParse(font.weight) ?? _keyBoldOff) > _keyBoldOff;
+    final isBold = font.weight == 'bold' || (int.tryParse(font.weight) ?? _keyBoldOff) > _keyBoldOff;
 
     result.add(
       DrawingToolSettingsItem.style(
@@ -261,16 +264,16 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
 
   DrawingToolSettingsItem _getAxisLabelFromParams(Map<String, dynamic> params) {
     final axisLabel = params[DrawingParameterType.axisLabel.value];
+    final parsedValue = axisLabel is int ? axisLabel == 1 : axisLabel;
     return DrawingToolSettingsItem.switchValue(
       title: "Axis Label",
-      isChecked: axisLabel,
+      isChecked: parsedValue,
       param: DrawingParameterType.axisLabel,
     );
   }
 
   DrawingToolSettingsItem _getFibonacciFromParams(Map<String, dynamic> params) {
-    final fibonacci = (params[DrawingParameterType.fibs.value] as List)
-        .map((e) => FibModel.fromJson(e));
+    final fibonacci = (params[DrawingParameterType.fibs.value] as List).map((e) => FibModel.fromJson(e));
     return DrawingToolSettingsItem.chooseValue(
       title: "Fibonacci Settings",
       options: fibonacci
@@ -287,20 +290,16 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
     );
   }
 
-  DrawingToolSettingsItem _getVolumeProfileFromParams(
-      Map<String, dynamic> params) {
+  DrawingToolSettingsItem _getVolumeProfileFromParams(Map<String, dynamic> params) {
     final volumeParams = params[_keyVolumeProfile];
     return DrawingToolSettingsItem.number(
       title: "Volume Profile",
-      number: parseStringOrDoubleToInt(
-          volumeParams[DrawingParameterType.priceBuckets.value])!,
+      number: parseStringOrDoubleToInt(volumeParams[DrawingParameterType.priceBuckets.value])!,
     );
   }
 
-  List<DrawingToolSettingsItem> _getElliotWaveFromParams(
-      Map<String, dynamic> params) {
-    final List<DrawingToolSettingsItem> result =
-        List<DrawingToolSettingsItem>.empty(growable: true);
+  List<DrawingToolSettingsItem> _getElliotWaveFromParams(Map<String, dynamic> params) {
+    final List<DrawingToolSettingsItem> result = List<DrawingToolSettingsItem>.empty(growable: true);
 
     final waveParams = params[_keyWaveParameters];
 
@@ -334,8 +333,7 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
       ),
     );
 
-    final decorationValue =
-        waveParams[DrawingParameterType.decoration.value].toString();
+    final decorationValue = waveParams[DrawingParameterType.decoration.value].toString();
     result.add(
       DrawingToolSettingsItem.chooseValue(
         title: "Decoration",
@@ -343,17 +341,14 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
         options: WaveDecoration.values
             .map((e) => OptionItemModel(
                   title: e.value,
-                  isChecked:
-                      e.value.toLowerCase() == decorationValue.toLowerCase(),
+                  isChecked: e.value.toLowerCase() == decorationValue.toLowerCase(),
                 ))
             .toList(),
         param: DrawingParameterType.decoration,
       ),
     );
 
-    final showLines =
-        waveParams[DrawingParameterType.showLines.value]?.toString().toBool() ??
-            false;
+    final showLines = waveParams[DrawingParameterType.showLines.value]?.toString().toBool() ?? false;
     result.add(
       DrawingToolSettingsItem.switchValue(
         title: "Show Lines",
@@ -365,10 +360,9 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
     return result;
   }
 
-  DrawingToolSettingsItem _getDeviationsFromParams(
-      Map<String, dynamic> params) {
-    final deviationItem = DrawingToolSettingsItemDeviation(
-        title: 'STD Deviations', settings: List.empty(growable: true));
+  DrawingToolSettingsItem _getDeviationsFromParams(Map<String, dynamic> params) {
+    final deviationItem =
+        DrawingToolSettingsItemDeviation(title: 'STD Deviations', settings: List.empty(growable: true));
 
     void addSwitchModel(DrawingParameterType boolParam, String title) {
       final isActive = params[boolParam.value]?.toString().toBool() ?? false;
@@ -388,8 +382,7 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
       ));
     }
 
-    void addLineModel(DrawingParameterType typeParam,
-        DrawingParameterType widthParam, String title) {
+    void addLineModel(DrawingParameterType typeParam, DrawingParameterType widthParam, String title) {
       final type = params[typeParam.value];
       final width = params[widthParam.value];
       deviationItem.settings.add(
@@ -434,5 +427,16 @@ class DrawingToolsSettingsVM extends ChangeNotifier {
     deviationSetting = deviationItem;
 
     return deviationItem;
+  }
+
+  DrawingToolSettingsItem _getSowCalloutFromParams(Map<String, dynamic> params) {
+    final calloutParams = params[DrawingParameterType.showCallout.value];
+    final parsedValue = calloutParams is int ? calloutParams == 1 : calloutParams;
+
+    return DrawingToolSettingsItem.switchValue(
+      title: "Show Callout",
+      param: DrawingParameterType.showCallout,
+      isChecked: parsedValue,
+    );
   }
 }

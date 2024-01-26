@@ -24,7 +24,6 @@ import com.chartiq.sdk.model.TimeUnit
 import com.chartiq.sdk.model.charttype.ChartAggregationType
 import com.chartiq.sdk.model.charttype.ChartType
 import com.chartiq.sdk.model.drawingtool.ChartIQDrawingTool
-import com.chartiq.sdk.model.drawingtool.DrawingParameterType
 import com.chartiq.sdk.model.drawingtool.DrawingTool
 import com.chartiq.sdk.model.drawingtool.drawingmanager.ChartIQDrawingManager
 import com.chartiq.sdk.model.signal.ChartIQSignal
@@ -143,6 +142,7 @@ class ChartIQWebView(
             "isSupportingLineType" -> isSupportingLineType(methodCall, result)
             "isSupportingSettings" -> isSupportingSettings(methodCall, result)
             "isSupportingVolumeProfile" -> isSupportingVolumeProfile(methodCall, result)
+            "isSupportingShowCallOut" -> isSupportingShowCallOut(methodCall, result)
             // ChartIQDrawingTool methods
             "clearDrawing" -> clearDrawing(methodCall, result)
             "cloneDrawing" -> cloneDrawing(methodCall, result)
@@ -608,6 +608,13 @@ class ChartIQWebView(
         val arguments = methodCall.arguments as String
         result.success(
             chartIQDrawingManager.isSupportingVolumeProfile(
+                DrawingTool.values().first { it.value == arguments })
+        )
+    }
+    private fun isSupportingShowCallOut(methodCall: MethodCall, result: MethodChannel.Result) {
+        val arguments = methodCall.arguments as String
+        result.success(
+            chartIQDrawingManager.isSupportingShowCallOut(
                 DrawingTool.values().first { it.value == arguments })
         )
     }
