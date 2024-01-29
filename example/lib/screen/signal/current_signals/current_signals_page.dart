@@ -34,7 +34,7 @@ class _CurrentSignalsPageState extends State<CurrentSignalsPage> {
 
     if (!mounted) return;
 
-    _clearAllUnnecessaryStudies(context, signalStudyInfo.studies);
+    await _clearAllUnnecessaryStudies(context, signalStudyInfo.studies);
 
     vm.getSignals();
   }
@@ -81,8 +81,7 @@ class _CurrentSignalsPageState extends State<CurrentSignalsPage> {
     );
   }
 
-  Future<void> _clearAllUnnecessaryStudies(
-      BuildContext context, List<Study> studies) async {
+  Future<void> _clearAllUnnecessaryStudies(BuildContext context, List<Study> studies) async {
     final vm = context.read<CurrentSignalsVM>();
     if (studies.isEmpty) return;
     Future.wait(

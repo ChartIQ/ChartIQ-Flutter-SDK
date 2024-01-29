@@ -26,8 +26,7 @@ class StudySection extends StatefulWidget {
 }
 
 class _StudySectionState extends State<StudySection> {
-  String get buttonText =>
-      '${widget.selectedStudy != null ? 'Change' : 'Select'} Study';
+  String get buttonText => '${widget.selectedStudy != null ? 'Change' : 'Select'} Study';
 
   Future<void> _onChangeStudy(BuildContext context) async {
     final vm = context.read<AddSignalVM>();
@@ -44,11 +43,10 @@ class _StudySectionState extends State<StudySection> {
     if (!mounted) return;
     if (newStudy != null && newStudy.isNotEmpty) {
       if (SignalStudyInfoModel.instance.studies.isNotEmpty) {
-        await vm.chartIQController.study
-            .removeStudy(SignalStudyInfoModel.instance.studies.first);
+        await vm.chartIQController.study.removeStudy(SignalStudyInfoModel.instance.studies.first);
+        SignalStudyInfoModel.instance.studies.remove(SignalStudyInfoModel.instance.studies.first);
       }
-      final study =
-          await vm.chartIQController.signal.addSignalStudy(newStudy[0]);
+      final study = await vm.chartIQController.signal.addSignalStudy(newStudy[0]);
       SignalStudyInfoModel.instance.studies.add(study);
       vm.selectedStudy = study;
       vm.clearConditions();
