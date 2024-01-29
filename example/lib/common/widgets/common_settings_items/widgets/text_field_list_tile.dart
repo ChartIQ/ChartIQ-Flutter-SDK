@@ -48,10 +48,8 @@ class _TextFieldListTileState extends State<TextFieldListTile> {
   final _controller = TextEditingController();
   final _focusNode = FocusNode();
 
-  static final _negativeFormatter =
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9.,-]')),
-      _positiveFormatter =
-          FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'));
+  static final _negativeFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9.,-]')),
+      _positiveFormatter = FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'));
 
   @override
   void initState() {
@@ -107,28 +105,21 @@ class _TextFieldListTileState extends State<TextFieldListTile> {
               focusNode: _focusNode,
               textAlign: TextAlign.end,
               cursorColor: ColorName.mountainMeadow,
-              style: Theme.of(context)
-                  .extension<AppTextFieldTheme>()
-                  ?.placeholderStyle,
+              style: Theme.of(context).extension<AppTextFieldTheme>()?.placeholderStyle,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.zero,
                 border: InputBorder.none,
                 hintText: widget.placeholder,
-                hintStyle: Theme.of(context)
-                    .extension<AppTextFieldTheme>()
-                    ?.placeholderStyle,
+                hintStyle: Theme.of(context).extension<AppTextFieldTheme>()?.placeholderStyle,
               ),
               keyboardType: widget.isNumber
                   ? TextInputType.numberWithOptions(
                       decimal: true,
                       signed: widget.supportsNegativeValues,
                     )
-                  : TextInputType.name,
+                  : TextInputType.text,
               inputFormatters: [
-                if (widget.isNumber)
-                  widget.supportsNegativeValues
-                      ? _negativeFormatter
-                      : _positiveFormatter,
+                if (widget.isNumber) widget.supportsNegativeValues ? _negativeFormatter : _positiveFormatter,
               ],
               onChanged: (value) => _debouncer.run(
                 () => widget.onChanged(value),

@@ -34,11 +34,10 @@ class Signal {
 
   factory Signal.fromJson(Map<String, dynamic> json) => Signal(
         uniqueId: json['uniqueId'],
-        name: json['name'],
-        conditions: List<Condition>.from(
-            json['conditions'].map((x) => Condition.fromJson(x))),
+        name: Uri.decodeComponent(json['name']),
+        conditions: List<Condition>.from(json['conditions'].map((x) => Condition.fromJson(x))),
         joiner: SignalJoiner.getPlatformJoiner(json['joiner']),
-        description: json['description'],
+        description: Uri.decodeComponent(json['description']),
         disabled: json['disabled'],
         study: Study.fromJson(json['study']),
       );
@@ -70,8 +69,7 @@ class Signal {
           runtimeType == other.runtimeType &&
           uniqueId == other.uniqueId &&
           name == other.name &&
-          const DeepCollectionEquality.unordered()
-              .equals(conditions, other.conditions) &&
+          const DeepCollectionEquality.unordered().equals(conditions, other.conditions) &&
           joiner == other.joiner &&
           description == other.description &&
           disabled == other.disabled &&
