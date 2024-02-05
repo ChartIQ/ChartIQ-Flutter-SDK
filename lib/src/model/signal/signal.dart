@@ -32,23 +32,37 @@ class Signal {
     required this.study,
   });
 
-  factory Signal.fromJson(Map<String, dynamic> json) => Signal(
-        uniqueId: json['uniqueId'],
-        name: json['name'],
-        conditions: List<Condition>.from(
-            json['conditions'].map((x) => Condition.fromJson(x))),
-        joiner: SignalJoiner.getPlatformJoiner(json['joiner']),
-        description: json['description'],
-        disabled: json['disabled'],
-        study: Study.fromJson(json['study']),
-      );
+  factory Signal.fromJson(Map<String, dynamic> json) {
+    String name = "";
+    String description = "";
+    try {
+      name = Uri.decodeComponent(json['name']);
+    } catch (e) {
+      name = json['name'];
+    }
+    try {
+      description = Uri.decodeComponent(json['description']);
+    } catch (e) {
+      description = json['description'];
+    }
+
+    return Signal(
+      uniqueId: json['uniqueId'],
+      name: name,
+      conditions: List<Condition>.from(json['conditions'].map((x) => Condition.fromJson(x))),
+      joiner: SignalJoiner.getPlatformJoiner(json['joiner']),
+      description: description,
+      disabled: json['disabled'],
+      study: Study.fromJson(json['study']),
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         'uniqueId': uniqueId,
-        'name': name,
+        'name': Uri.encodeComponent(name),
         'conditions': List<dynamic>.from(conditions.map((x) => x.toJson())),
         'joiner': joiner.value,
-        'description': description,
+        'description': Uri.encodeComponent(description),
         'disabled': disabled,
         'study': study.toJson(),
       };
@@ -70,8 +84,7 @@ class Signal {
           runtimeType == other.runtimeType &&
           uniqueId == other.uniqueId &&
           name == other.name &&
-          const DeepCollectionEquality.unordered()
-              .equals(conditions, other.conditions) &&
+          const DeepCollectionEquality.unordered().equals(conditions, other.conditions) &&
           joiner == other.joiner &&
           description == other.description &&
           disabled == other.disabled &&

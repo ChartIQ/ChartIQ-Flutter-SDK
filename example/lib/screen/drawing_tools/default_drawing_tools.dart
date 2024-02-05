@@ -182,6 +182,13 @@ class DefaultDrawingTools {
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(
+      tool: DrawingTool.measurementLine,
+      icon: Assets.icons.drawingTools.measurementLine.path,
+      name: RemoteLocaleKeys.measurementLine,
+      category: DrawingToolCategory.statistics,
+      section: DrawingToolSection.main,
+    ),
+    DrawingToolItemModel(
       tool: DrawingTool.pitchfork,
       icon: Assets.icons.drawingTools.pitchfork.path,
       name: RemoteLocaleKeys.pitchfork,
@@ -214,13 +221,6 @@ class DefaultDrawingTools {
       icon: Assets.icons.drawingTools.regressionLine.path,
       name: RemoteLocaleKeys.regressionLine,
       category: DrawingToolCategory.statistics,
-      section: DrawingToolSection.main,
-    ),
-    DrawingToolItemModel(
-      tool: DrawingTool.segment,
-      icon: Assets.icons.drawingTools.segment.path,
-      name: RemoteLocaleKeys.segment,
-      category: DrawingToolCategory.lines,
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(
@@ -262,7 +262,7 @@ class DefaultDrawingTools {
       tool: DrawingTool.trendLine,
       icon: Assets.icons.drawingTools.trendLine.path,
       name: RemoteLocaleKeys.trendLine,
-      category: DrawingToolCategory.text,
+      category: DrawingToolCategory.lines,
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(

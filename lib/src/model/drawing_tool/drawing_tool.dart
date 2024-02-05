@@ -71,6 +71,9 @@ enum DrawingTool {
   /// A drawing tool for a line
   line('line', 'line'),
 
+  /// A drawing tool for a measurement line
+  measurementLine('measurementline', 'measurementline'),
+
   /// A drawing tool for a measure
   measure('measure', 'measure'),
 
@@ -91,9 +94,6 @@ enum DrawingTool {
 
   /// A drawing tool for a regressionLine
   regressionLine('regression', 'regression'),
-
-  /// A drawing tool for a segment
-  segment('segment', 'segment'),
 
   /// A drawing tool for a speedResistanceArc
   speedResistanceArc('speedarc', 'speedarc'),
@@ -125,5 +125,6 @@ enum DrawingTool {
   final String? _value, _iosValue;
 
   const DrawingTool(this._value, this._iosValue);
+
   String? get value => Platform.isIOS ? _iosValue : _value;
 }

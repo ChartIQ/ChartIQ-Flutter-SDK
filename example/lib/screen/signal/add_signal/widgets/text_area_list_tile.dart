@@ -64,21 +64,17 @@ class _TextAreaListTileState extends State<TextAreaListTile> {
             controller: _controller,
             cursorColor: ColorName.mountainMeadow,
             maxLines: 3,
-            style: Theme.of(context)
-                .extension<AppTextFieldTheme>()
-                ?.placeholderStyle,
+            style: Theme.of(context).extension<AppTextFieldTheme>()?.placeholderStyle,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.zero,
               border: InputBorder.none,
               floatingLabelBehavior: FloatingLabelBehavior.never,
               label: Text(
                 widget.placeholder ?? "",
-                style: Theme.of(context)
-                    .extension<AppTextFieldTheme>()
-                    ?.placeholderStyle,
+                style: Theme.of(context).extension<AppTextFieldTheme>()?.placeholderStyle,
               ),
             ),
-            keyboardType: TextInputType.name,
+            keyboardType: TextInputType.text,
             onChanged: (value) => _debouncer.run(
               () => widget.onChanged(value),
             ),

@@ -69,6 +69,7 @@ class RemoteLocaleKeys {
   static const heart = 'Heart';
   static const horizontalLine = 'Horizontal Line';
   static const line = 'Line';
+  static const measurementLine = 'Measurement Line';
   static const pitchfork = 'Pitchfork';
   static const quadrantLines = 'Quadrant Lines';
   static const ray = 'Ray';

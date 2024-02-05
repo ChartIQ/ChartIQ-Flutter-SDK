@@ -20,10 +20,10 @@ class _SymbolsApi implements SymbolsApi {
 
   @override
   Future<SymbolResponse> fetchSymbols(
-    symbol, {
-    maxResult = ApiConst.defaultMaxResult,
-    fund = ApiConst.defaultFunds,
-    filter,
+    String symbol, {
+    String maxResult = ApiConst.defaultMaxResult,
+    String fund = ApiConst.defaultFunds,
+    String? filter,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{

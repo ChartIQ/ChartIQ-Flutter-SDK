@@ -20,13 +20,13 @@ class _ChartApi implements ChartApi {
 
   @override
   Future<List<ChartModel>> fetchDataFeed({
-    identifier,
-    startDate,
-    endDate,
-    interval,
-    period,
-    extended = ApiConst.defaultExtended,
-    session,
+    String? identifier,
+    String? startDate,
+    String? endDate,
+    String? interval,
+    String? period,
+    String? extended = ApiConst.defaultExtended,
+    String? session,
   }) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{

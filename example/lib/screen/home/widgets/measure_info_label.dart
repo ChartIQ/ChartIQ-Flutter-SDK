@@ -24,8 +24,7 @@ class _MeasureInfoLabelState extends State<MeasureInfoLabel> {
   @override
   void initState() {
     super.initState();
-    measureListener =
-        widget.chartIQController.addMeasureListener().listen((event) {
+    measureListener = widget.chartIQController.addMeasureListener().listen((event) {
       setState(() {
         if (event.isEmpty) return;
         info = event;

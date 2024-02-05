@@ -27,7 +27,8 @@ enum DrawingParameterType {
   pattern1("pattern1"),
   pattern2("pattern2"),
   pattern3("pattern3"),
-  priceBuckets('priceBuckets');
+  priceBuckets('priceBuckets'),
+  showCallout('showCallout');
 
   final String value;
 

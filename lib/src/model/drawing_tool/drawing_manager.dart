@@ -50,4 +50,9 @@ abstract class DrawingManager {
   ///
   /// Returns `true` if the [drawingTool] supports the setting, `false` otherwise.
   Future<bool> isSupportingVolumeProfile(DrawingTool drawingTool);
+
+  /// Checks if a drawing tool supports `Callout` parameters.
+  ///
+  /// Returns `true` if the [drawingTool] supports the setting, `false` otherwise.
+  Future<bool> isSupportingShowCallOut(DrawingTool drawingTool);
 }

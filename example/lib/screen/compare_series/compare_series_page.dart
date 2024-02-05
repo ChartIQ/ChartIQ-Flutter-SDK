@@ -46,9 +46,7 @@ class _CompareSeriesPageState extends State<CompareSeriesPage> {
     vm.addCompareSeries(
       Series(
         symbolName: newSymbol.symbol,
-        color: _defaultSeriesColors[
-                (vm.series?.length ?? 0) % _defaultSeriesColors.length]
-            .hexValueWithHash,
+        color: vm.nextColor(),
       ),
     );
   }
@@ -82,9 +80,7 @@ class _CompareSeriesPageState extends State<CompareSeriesPage> {
             ? AppBarTextButton(
                 onPressed: () => _openSelectSymbolPage(context),
                 child: Text(
-                  context
-                      .read<LocaleProvider>()
-                      .translate(RemoteLocaleKeys.add),
+                  context.read<LocaleProvider>().translate(RemoteLocaleKeys.add),
                 ),
               )
             : null,
@@ -122,21 +118,4 @@ class _CompareSeriesPageState extends State<CompareSeriesPage> {
       }),
     );
   }
-
-  static const _defaultSeriesColors = [
-    PickerColor("#8ec648"),
-    PickerColor("#00afed"),
-    PickerColor("#ee652e"),
-    PickerColor("#912a8e"),
-    PickerColor("#fff126"),
-    PickerColor("#e9088c"),
-    PickerColor("#ea1d2c"),
-    PickerColor("#00a553"),
-    PickerColor("#00a99c"),
-    PickerColor("#0056a4"),
-    PickerColor("#f4932f"),
-    PickerColor("#0073ba"),
-    PickerColor("#66308f"),
-    PickerColor("#323390"),
-  ];
 }

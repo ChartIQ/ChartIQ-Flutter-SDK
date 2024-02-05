@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:dio/io.dart';
+
 import 'interceptors/custom_dio_logger.dart';
 
 class ApiProvider with DioMixin {
@@ -9,6 +10,7 @@ class ApiProvider with DioMixin {
     httpClientAdapter = IOHttpClientAdapter()
       ..onHttpClientCreate = (client) {
         client.badCertificateCallback = (cert, host, port) => true;
+        return null;
       };
 
     options = BaseOptions(
