@@ -1,3 +1,21 @@
+## 0.0.16
+### Enhancements to Drawing Tools:
+- Added measurement line drawing tool with specific icons.
+- Introduced callout option for trend line drawing tool and updated its icon.
+- Changed trend line category from text to lines for better organization.
+
+### UI and Usability Improvements:
+- Improved name and description parsing, including support for special symbols in signal name and description fields.
+- Enhanced visual clarity by fixing comparison colors.
+
+### Bug Fixes:
+- Fixed a bug where signals would go missing in case of study changes.
+- Addressed an issue with the measure bar to ensure accurate functionality.
+
+### Application Updates:
+- Removed the segment drawing tool from the application to streamline the toolset.
+- Upgraded SDK dependencies for enhanced performance and compatibility.
+
 ## 0.0.15
 
 * Change workflow.
