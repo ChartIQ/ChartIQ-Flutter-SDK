@@ -92,7 +92,6 @@ Contact our development support team at <support@chartiq.com>.
 ## Contributing
 
 See the [contributing guide](https://github.com/ChartIQ/ChartIQ-Flutter-SDK/tree/main/CONTRIBUTING.md) to learn how to contribute to the repository and the development workflow.
-https://github.com/ChartIQ/ChartIQ-Flutter-SDK/blob/main/CONTRIBUTING.md
 
 ## License
 
