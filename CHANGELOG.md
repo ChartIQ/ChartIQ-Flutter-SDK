@@ -1,3 +1,7 @@
+## 0.0.17
+
+* Change Readme.
+
 ## 0.0.16
 ### Enhancements to Drawing Tools:
 - Added measurement line drawing tool with specific icons.
