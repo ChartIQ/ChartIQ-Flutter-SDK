@@ -26,7 +26,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   late final StreamSubscription<bool> internetSubscription;
   bool previousInternetAvailability = true;
-  final String _chartIQUrl = 'https://mobile.demo.chartiq.com/android/3.5.0/sample-template-native-sdk.html';
+  final String _chartIQUrl = 'https://mobile.demo.chartiq.com/android/3.6.0/sample-template-native-sdk.html';
 
   Offset? _exitFullScreenButtonLastOffset;
 
