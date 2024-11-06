@@ -11,7 +11,7 @@ enum ChartIQLanguage {
   hu("Hungarian", "hu", "HU"),
   zh("Chinese", "zh", "CN"),
   ja("Japanese", "ja", "JP"),
-  ar("Arabic", "ar", "EG");
+  ar("Arabic", "ar", "EG-u-nu-latn");
 
   final String name, languageCode, countryCode;
 
