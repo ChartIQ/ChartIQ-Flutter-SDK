@@ -688,8 +688,9 @@ class FLNativeView: NSObject, FlutterPlatformView {
 
     private func enableDrawing(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
-        chartIQView?.enableDrawing(drawing)
+        if let drawing = ChartIQDrawingTool.init(stringValue: arguments) {
+            chartIQView?.enableDrawing(drawing)
+        }
         result(nil)
     }
 
@@ -711,8 +712,11 @@ class FLNativeView: NSObject, FlutterPlatformView {
 
     private func getDrawingParameters(methodCall: FlutterMethodCall, result: FlutterResult) {
         let arguments = methodCall.arguments as! String
-        let drawing = ChartIQDrawingTool.init(stringValue: arguments)!
-        result(chartIQView?.getDrawingParameters(drawing)?.toJSONString())
+        if let drawing = ChartIQDrawingTool.init(stringValue: arguments) {
+            result(chartIQView?.getDrawingParameters(drawing)?.toJSONString())
+        } else {
+            result(nil)
+        }
     }
 
     private func deleteDrawing(methodCall: FlutterMethodCall, result: FlutterResult) {
@@ -758,8 +762,9 @@ class FLNativeView: NSObject, FlutterPlatformView {
         let arguments = methodCall.arguments as! [Any]
         let drawingString = arguments[0] as! String
         let all = arguments[1] as! Bool
-        let drawing = ChartIQDrawingTool.init(stringValue: drawingString)!
-        chartIQView?.restoreDefaultDrawingConfig(drawing, all: all)
+        if let drawing = ChartIQDrawingTool.init(stringValue: drawingString) {
+            chartIQView?.restoreDefaultDrawingConfig(drawing, all: all)
+        }
         result(nil)
     }
 

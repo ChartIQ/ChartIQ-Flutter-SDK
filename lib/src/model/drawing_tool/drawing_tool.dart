@@ -6,7 +6,7 @@ enum DrawingTool {
   annotation('annotation', 'annotation'),
 
   /// A drawing tool for a arrow
-  arrow('arrow', 'arrow'),
+  arrow('arrowline', 'arrowline'),
 
   /// A drawing tool for a averageLine
   averageLine('average', 'average'),
