@@ -1,6 +1,6 @@
 PODS:
   - chart_iq (0.0.1):
-    - ChartIQ (= 4.3.0)
+    - ChartIQ
     - Flutter
   - ChartIQ (4.3.0)
   - connectivity_plus (0.0.1):
@@ -34,7 +34,7 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/shared_preferences_foundation/darwin"
 
 SPEC CHECKSUMS:
-  chart_iq: f10e3c81370fe682533086b72788bdcd62baf7e8
+  chart_iq: 248bfdc06aa264a729aa91209928a82cc7ddafd1
   ChartIQ: 4a12adb06d79aa50f63b312bd077dc45ddb3f8e6
   connectivity_plus: 481668c94744c30c53b8895afb39159d1e619bdf
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
