@@ -24,7 +24,7 @@ dependencies:
   json_annotation: ^4.8.0
   retrofit: ^4.0.1
   logger: any
-  shared_preferences: ^2.1.0
+  shared_preferences: ^2.5.3
   uuid: ^3.0.7
   connectivity_plus: ^5.0.2
   defer_pointer: ^0.0.2
