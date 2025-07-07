@@ -27,7 +27,7 @@ class _MainPageState extends State<MainPage> {
   late final StreamSubscription<bool> internetSubscription;
   bool previousInternetAvailability = true;
   final String _chartIQUrl =
-      'http://192.168.29.14:8080/sample-template-native-sdk.html';
+      'https://mobile.demo.chartiq.com/android/3.6.0/sample-template-native-sdk.html';
 
   Offset? _exitFullScreenButtonLastOffset;
 
