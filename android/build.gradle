@@ -32,11 +32,11 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 21
+        minSdkVersion 24
     }
 
     dependencies {
-        implementation group: 'io.github.chartiq', name: 'sdk', version: '3.3.1'
+        implementation group: 'io.github.chartiq', name: 'sdk', version: '+'
         implementation "com.google.code.gson:gson:2.8.6"
         api "commons-lang:commons-lang:2.6"
     }
