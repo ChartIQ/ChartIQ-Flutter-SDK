@@ -58,7 +58,7 @@
   "selectColor": "Select Color",
   "delete": "Delete",
   "clone": "Clone",
-  "chartStyle": "Chart Style",
+  "chartStyle": "Chart Types",
   "drawingToolCategoryTitle": "{category, select, all {All} favorites {Favourites} text {Text} statistics {Statistics} technicals {Technicals} fibonacci {Fibonacci} markings {Markings} lines {Lines} other {-}}",
   "@drawingToolCategoryTitle": {
     "placeholders": {

@@ -106,7 +106,7 @@ class RemoteLocaleKeys {
   static const deleteStudy = 'Delete Study';
 
   // Chart types
-  static const chartStyle = 'Chart Style';
+  static const chartStyle = 'Chart Types';
   static const candle = 'Candle';
   static const bar = 'Bar';
   static const coloredBar = 'Colored Bar';
@@ -117,7 +117,7 @@ class RemoteLocaleKeys {
   static const hollowCandle = 'Hollow Candle';
   static const volumeCandle = 'Volume Candle';
   static const coloredHLCBar = 'Colored HLC Bar';
-  static const scatterPlot = 'Scatterplot';
+  static const scatterPlot = 'Data Points';
   static const histogram = 'Histogram';
   static const heikinAshi = 'Heikin Ashi';
   static const kagi = 'Kagi';

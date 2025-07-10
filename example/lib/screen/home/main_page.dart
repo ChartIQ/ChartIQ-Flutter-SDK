@@ -26,7 +26,8 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   late final StreamSubscription<bool> internetSubscription;
   bool previousInternetAvailability = true;
-  final String _chartIQUrl = 'https://mobile.demo.chartiq.com/android/3.6.0/sample-template-native-sdk.html';
+  final String _chartIQUrl =
+      'https://mobile.demo.chartiq.com/android/3.8.0/sample-template-native-sdk.html';
 
   Offset? _exitFullScreenButtonLastOffset;
 
@@ -76,7 +77,8 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     final vm = Provider.of<MainVM>(context);
-    final isPortrait = MediaQuery.orientationOf(context) == Orientation.portrait;
+    final isPortrait =
+        MediaQuery.orientationOf(context) == Orientation.portrait;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Column(
@@ -94,7 +96,8 @@ class _MainPageState extends State<MainPage> {
 
             return MainAppBar(
               isCollapsed: isPortrait ? false : vm.isAppBarCollapsed,
-              onExpandButtonPressed: () => vm.collapseAppBar(disableDrawingTool: true),
+              onExpandButtonPressed: () =>
+                  vm.collapseAppBar(disableDrawingTool: true),
             );
           }),
           CrosshairView(
@@ -152,7 +155,8 @@ class _MainPageState extends State<MainPage> {
                 drawingTool: vm.selectedDrawingTool,
                 isDrawingToolReset: vm.isDrawingToolReset,
               ),
-              update: (_, mainVM, drawingToolPanelVM) => drawingToolPanelVM!..updateVM(mainVM),
+              update: (_, mainVM, drawingToolPanelVM) =>
+                  drawingToolPanelVM!..updateVM(mainVM),
               child: const DrawingToolSettingsPanel(),
             ),
         ],

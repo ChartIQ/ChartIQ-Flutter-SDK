@@ -908,7 +908,7 @@ class ChartIQWebView(
                 params: QuoteFeedParams,
                 callback: DataSourceCallback,
             ) {
-                pullInitialDataLastCallBack.addFirst(callback)
+                pullInitialDataLastCallBack.add(callback)
                 Handler(Looper.getMainLooper()).post {
                     eventSink?.success(
                         gson.toJson(
@@ -925,7 +925,7 @@ class ChartIQWebView(
                 params: QuoteFeedParams,
                 callback: DataSourceCallback,
             ) {
-                pullUpdateDataLastCallBack.addFirst(callback)
+                pullUpdateDataLastCallBack.add(callback)
                 Handler(Looper.getMainLooper()).post {
                     eventSink?.success(
                         gson.toJson(
@@ -942,7 +942,7 @@ class ChartIQWebView(
                 params: QuoteFeedParams,
                 callback: DataSourceCallback,
             ) {
-                pullPaginationDataLastCallBack.addFirst(callback)
+                pullPaginationDataLastCallBack.add(callback)
                 Handler(Looper.getMainLooper()).post {
                     eventSink?.success(
                         gson.toJson(
