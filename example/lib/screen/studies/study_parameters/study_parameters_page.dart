@@ -24,6 +24,14 @@ import 'package:provider/provider.dart';
 
 import 'study_parameters_vm.dart';
 
+class KeyedOptionItemModel {
+  final String key;
+  final String title;
+  final bool isChecked;
+  const KeyedOptionItemModel(
+      {required this.key, required this.title, required this.isChecked});
+}
+
 class StudyParametersPage extends StatefulWidget {
   const StudyParametersPage({
     Key? key,
@@ -198,11 +206,20 @@ class _StudyParametersPageState extends State<StudyParametersPage> {
           options: item.options.entries
               .map((e) => OptionItemModel(
                     title: e.value,
-                    isChecked:
-                        e.value.toLowerCase() == item.value.toLowerCase(),
+                    isChecked: e.key == item.value,
                   ))
               .toList(),
-          onChanged: (value) => vm.onSelectParamChanged(parameter, value[0]),
+          onChanged: (value) => vm.onSelectParamChanged(
+              parameter,
+              KeyedOptionItemModel(
+                key: item.options.entries
+                    .elementAt(value[0].title == null
+                        ? 0
+                        : item.options.values.toList().indexOf(value[0].title))
+                    .key,
+                title: value[0].title,
+                isChecked: value[0].isChecked,
+              )),
         );
       case StudyParameterTextColor:
         final item = parameter as StudyParameterTextColor;

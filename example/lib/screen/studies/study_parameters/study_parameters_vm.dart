@@ -4,6 +4,7 @@ import 'package:chart_iq/chart_iq.dart';
 import 'package:example/data/model/option_item_model.dart';
 import 'package:example/screen/studies/extensions/study_parameter_extension.dart';
 import 'package:flutter/cupertino.dart';
+import 'study_parameters_page.dart';
 
 class StudyParametersVM extends ChangeNotifier {
   StudyParametersVM({
@@ -132,20 +133,21 @@ class StudyParametersVM extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onSelectParamChanged(
-      StudyParameterSelect parameter, OptionItemModel value) {
+  void onSelectParamChanged(StudyParameterSelect parameter, dynamic value) {
     final parameterIndex = getParameterIndex(parameter);
 
     if (parameterIndex == -1) return;
 
+    // If value is KeyedOptionItemModel, use key, else fallback to title (for OptionItemModel)
+    final selectedKey = value is KeyedOptionItemModel ? value.key : value.title;
     parameters[parameterIndex] = parameter.copyWithNewValue(
-      value: value.title,
+      value: selectedKey,
     );
 
     final name = getParameterName(parameter, StudyParameterPostfix.value);
     parametersToSave[name] = StudyParameterModel(
       fieldName: name,
-      fieldSelectedValue: value.title,
+      fieldSelectedValue: selectedKey,
     );
 
     notifyListeners();
@@ -167,8 +169,10 @@ class StudyParametersVM extends ChangeNotifier {
       } else if (element is StudyParameterSelect) {
         onSelectParamChanged(
           element,
-          OptionItemModel(
-            title: element.defaultValue,
+          KeyedOptionItemModel(
+            key: element.defaultValue,
+            title:
+                element.options[element.defaultValue] ?? element.defaultValue,
             isChecked: true,
           ),
         );
