@@ -31,13 +31,14 @@ dependencies:
 
 dev_dependencies:
   flutter_lints: ^2.0.1
-  retrofit_generator: ^6.0.0+2
-  build_runner: any
+  retrofit_generator: ^9.7.0
+  build_runner: ^2.4.13
   json_serializable: ^6.6.1
-  flutter_gen_runner: ^5.3.0
+  flutter_gen_runner: ^5.9.0
 
 dependency_overrides:
   win32: ^5.5.4
+  dart_style: ^3.1.1
 
 flutter_gen:
   colors:

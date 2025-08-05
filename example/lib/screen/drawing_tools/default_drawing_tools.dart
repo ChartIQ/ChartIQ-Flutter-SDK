@@ -56,24 +56,10 @@ class DefaultDrawingTools {
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(
-      tool: DrawingTool.check,
-      icon: Assets.icons.drawingTools.check.path,
-      name: RemoteLocaleKeys.check,
-      category: DrawingToolCategory.markings,
-      section: DrawingToolSection.main,
-    ),
-    DrawingToolItemModel(
       tool: DrawingTool.continuousLine,
       icon: Assets.icons.drawingTools.continiousLine.path,
       name: RemoteLocaleKeys.continuous,
       category: DrawingToolCategory.lines,
-      section: DrawingToolSection.main,
-    ),
-    DrawingToolItemModel(
-      tool: DrawingTool.cross,
-      icon: Assets.icons.drawingTools.cross.path,
-      name: RemoteLocaleKeys.cross,
-      category: DrawingToolCategory.markings,
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(
@@ -140,13 +126,6 @@ class DefaultDrawingTools {
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(
-      tool: DrawingTool.focus,
-      icon: Assets.icons.drawingTools.focus.path,
-      name: RemoteLocaleKeys.focus,
-      category: DrawingToolCategory.markings,
-      section: DrawingToolSection.main,
-    ),
-    DrawingToolItemModel(
       tool: DrawingTool.gannFan,
       icon: Assets.icons.drawingTools.gannFan.path,
       name: RemoteLocaleKeys.gannFan,
@@ -158,13 +137,6 @@ class DefaultDrawingTools {
       icon: Assets.icons.drawingTools.gartley.path,
       name: RemoteLocaleKeys.gartley,
       category: DrawingToolCategory.technicals,
-      section: DrawingToolSection.main,
-    ),
-    DrawingToolItemModel(
-      tool: DrawingTool.heart,
-      icon: Assets.icons.drawingTools.heart.path,
-      name: RemoteLocaleKeys.heart,
-      category: DrawingToolCategory.markings,
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(
@@ -235,13 +207,6 @@ class DefaultDrawingTools {
       icon: Assets.icons.drawingTools.resistanceLine.path,
       name: RemoteLocaleKeys.speedResistanceLine,
       category: DrawingToolCategory.technicals,
-      section: DrawingToolSection.main,
-    ),
-    DrawingToolItemModel(
-      tool: DrawingTool.star,
-      icon: Assets.icons.drawingTools.star.path,
-      name: RemoteLocaleKeys.star,
-      category: DrawingToolCategory.markings,
       section: DrawingToolSection.main,
     ),
     DrawingToolItemModel(
