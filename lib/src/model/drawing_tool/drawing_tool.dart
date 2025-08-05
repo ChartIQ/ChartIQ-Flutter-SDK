@@ -17,14 +17,8 @@ enum DrawingTool {
   /// A drawing tool for a channel
   channel('channel', 'channel'),
 
-  /// A drawing tool for a check
-  check('check', 'check'),
-
   /// A drawing tool for a continuousLine
   continuousLine('continuous', 'continuous'),
-
-  /// A drawing tool for a cross
-  cross('xcross', 'xcross'),
 
   /// A drawing tool for a crossLine
   crossLine('crossline', 'crossline'),
@@ -48,22 +42,16 @@ enum DrawingTool {
   fibProjection('fibprojection', 'fibprojection'),
 
   /// A drawing tool for a fibRetracement
-  fibRetracement('retracement', 'fibonacci'),
+  fibRetracement('retracement', 'retracement'),
 
   /// A drawing tool for a fibTimeZone
   fibTimeZone('fibtimezone', 'fibtimezone'),
-
-  /// A drawing tool for a focus
-  focus('focusarrow', 'focusarrow'),
 
   /// A drawing tool for a gannFan
   gannFan('gannfan', 'gannfan'),
 
   /// A drawing tool for a gartley
   gartley('gartley', 'gartley'),
-
-  /// A drawing tool for a heart
-  heart('heart', 'heart'),
 
   /// A drawing tool for a horizontalLine
   horizontalLine('horizontal', 'horizontal'),
@@ -100,9 +88,6 @@ enum DrawingTool {
 
   /// A drawing tool for a speedResistanceLine
   speedResistanceLine('speedline', 'speedline'),
-
-  /// A drawing tool for a star
-  star('star', 'star'),
 
   /// A drawing tool for a timeCycle
   timeCycle('timecycle', 'timecycle'),

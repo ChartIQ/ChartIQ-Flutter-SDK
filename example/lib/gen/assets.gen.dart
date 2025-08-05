@@ -7,9 +7,10 @@
 // ignore_for_file: type=lint
 // ignore_for_file: directives_ordering,unnecessary_import,implicit_dynamic_list_literal,deprecated_member_use
 
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_svg/flutter_svg.dart' as _svg;
+import 'package:vector_graphics/vector_graphics.dart' as _vg;
 
 class $AssetsIconsGen {
   const $AssetsIconsGen();
@@ -41,6 +42,7 @@ class $AssetsIconsGen {
   SvgGenImage get chartStudy =>
       const SvgGenImage('assets/icons/chart_study.svg');
 
+  /// Directory path: assets/icons/chart_style
   $AssetsIconsChartStyleGen get chartStyle => const $AssetsIconsChartStyleGen();
 
   /// File path: assets/icons/check.svg
@@ -82,6 +84,7 @@ class $AssetsIconsGen {
   SvgGenImage get drawingToolLight =>
       const SvgGenImage('assets/icons/drawing_tool_light.svg');
 
+  /// Directory path: assets/icons/drawing_tools
   $AssetsIconsDrawingToolsGen get drawingTools =>
       const $AssetsIconsDrawingToolsGen();
 
@@ -104,6 +107,7 @@ class $AssetsIconsGen {
   SvgGenImage get fullViewFocusedLight =>
       const SvgGenImage('assets/icons/full_view_focused_light.svg');
 
+  /// Directory path: assets/icons/line_types
   $AssetsIconsLineTypesGen get lineTypes => const $AssetsIconsLineTypesGen();
 
   /// File path: assets/icons/more.svg
@@ -183,7 +187,7 @@ class $AssetsIconsGen {
         splashDark,
         splashLight,
         undoDark,
-        undoLight
+        undoLight,
       ];
 }
 
@@ -285,7 +289,7 @@ class $AssetsIconsChartStyleGen {
         scatterPlot,
         step,
         vertexLine,
-        volumeCandle
+        volumeCandle,
       ];
 }
 
@@ -312,17 +316,9 @@ class $AssetsIconsDrawingToolsGen {
   SvgGenImage get channel =>
       const SvgGenImage('assets/icons/drawing_tools/channel.svg');
 
-  /// File path: assets/icons/drawing_tools/check.svg
-  SvgGenImage get check =>
-      const SvgGenImage('assets/icons/drawing_tools/check.svg');
-
   /// File path: assets/icons/drawing_tools/continious_line.svg
   SvgGenImage get continiousLine =>
       const SvgGenImage('assets/icons/drawing_tools/continious_line.svg');
-
-  /// File path: assets/icons/drawing_tools/cross.svg
-  SvgGenImage get cross =>
-      const SvgGenImage('assets/icons/drawing_tools/cross.svg');
 
   /// File path: assets/icons/drawing_tools/cross_line.svg
   SvgGenImage get crossLine =>
@@ -360,10 +356,6 @@ class $AssetsIconsDrawingToolsGen {
   SvgGenImage get fibTimeZone =>
       const SvgGenImage('assets/icons/drawing_tools/fib_time_zone.svg');
 
-  /// File path: assets/icons/drawing_tools/focus.svg
-  SvgGenImage get focus =>
-      const SvgGenImage('assets/icons/drawing_tools/focus.svg');
-
   /// File path: assets/icons/drawing_tools/gann_fan.svg
   SvgGenImage get gannFan =>
       const SvgGenImage('assets/icons/drawing_tools/gann_fan.svg');
@@ -371,10 +363,6 @@ class $AssetsIconsDrawingToolsGen {
   /// File path: assets/icons/drawing_tools/gartley.svg
   SvgGenImage get gartley =>
       const SvgGenImage('assets/icons/drawing_tools/gartley.svg');
-
-  /// File path: assets/icons/drawing_tools/heart.svg
-  SvgGenImage get heart =>
-      const SvgGenImage('assets/icons/drawing_tools/heart.svg');
 
   /// File path: assets/icons/drawing_tools/horizontal_line.svg
   SvgGenImage get horizontalLine =>
@@ -420,10 +408,6 @@ class $AssetsIconsDrawingToolsGen {
   SvgGenImage get resistanceLine =>
       const SvgGenImage('assets/icons/drawing_tools/resistance_line.svg');
 
-  /// File path: assets/icons/drawing_tools/star.svg
-  SvgGenImage get star =>
-      const SvgGenImage('assets/icons/drawing_tools/star.svg');
-
   /// File path: assets/icons/drawing_tools/time_cycle.svg
   SvgGenImage get timeCycle =>
       const SvgGenImage('assets/icons/drawing_tools/time_cycle.svg');
@@ -451,9 +435,7 @@ class $AssetsIconsDrawingToolsGen {
         averageLine,
         callout,
         channel,
-        check,
         continiousLine,
-        cross,
         crossLine,
         doodle,
         eliottWave,
@@ -463,10 +445,8 @@ class $AssetsIconsDrawingToolsGen {
         fibProjection,
         fibRetracement,
         fibTimeZone,
-        focus,
         gannFan,
         gartley,
-        heart,
         horizontalLine,
         line,
         measure,
@@ -478,12 +458,11 @@ class $AssetsIconsDrawingToolsGen {
         regressionLine,
         resistanceArc,
         resistanceLine,
-        star,
         timeCycle,
         tironeLevels,
         trendLine,
         verticalLine,
-        volumeProfile
+        volumeProfile,
       ];
 }
 
@@ -518,22 +497,36 @@ class $AssetsIconsLineTypesGen {
       const SvgGenImage('assets/icons/line_types/solid_boldest.svg');
 
   /// List of all assets
-  List<SvgGenImage> get values =>
-      [dash, dashBold, dotted, dottedBold, solid, solidBold, solidBoldest];
+  List<SvgGenImage> get values => [
+        dash,
+        dashBold,
+        dotted,
+        dottedBold,
+        solid,
+        solidBold,
+        solidBoldest,
+      ];
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const $AssetsIconsGen icons = $AssetsIconsGen();
 }
 
 class SvgGenImage {
-  const SvgGenImage(this._assetName);
+  const SvgGenImage(this._assetName, {this.size, this.flavors = const {}})
+      : _isVecFormat = false;
+
+  const SvgGenImage.vec(this._assetName, {this.size, this.flavors = const {}})
+      : _isVecFormat = true;
 
   final String _assetName;
+  final Size? size;
+  final Set<String> flavors;
+  final bool _isVecFormat;
 
-  SvgPicture svg({
+  _svg.SvgPicture svg({
     Key? key,
     bool matchTextDirection = false,
     AssetBundle? bundle,
@@ -546,19 +539,32 @@ class SvgGenImage {
     WidgetBuilder? placeholderBuilder,
     String? semanticsLabel,
     bool excludeFromSemantics = false,
-    SvgTheme theme = const SvgTheme(),
+    _svg.SvgTheme? theme,
     ColorFilter? colorFilter,
     Clip clipBehavior = Clip.hardEdge,
     @deprecated Color? color,
     @deprecated BlendMode colorBlendMode = BlendMode.srcIn,
     @deprecated bool cacheColorFilter = false,
   }) {
-    return SvgPicture.asset(
-      _assetName,
+    final _svg.BytesLoader loader;
+    if (_isVecFormat) {
+      loader = _vg.AssetBytesLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+      );
+    } else {
+      loader = _svg.SvgAssetLoader(
+        _assetName,
+        assetBundle: bundle,
+        packageName: package,
+        theme: theme,
+      );
+    }
+    return _svg.SvgPicture(
+      loader,
       key: key,
       matchTextDirection: matchTextDirection,
-      bundle: bundle,
-      package: package,
       width: width,
       height: height,
       fit: fit,
@@ -567,10 +573,8 @@ class SvgGenImage {
       placeholderBuilder: placeholderBuilder,
       semanticsLabel: semanticsLabel,
       excludeFromSemantics: excludeFromSemantics,
-      theme: theme,
-      colorFilter: colorFilter,
-      color: color,
-      colorBlendMode: colorBlendMode,
+      colorFilter: colorFilter ??
+          (color == null ? null : ColorFilter.mode(color, colorBlendMode)),
       clipBehavior: clipBehavior,
       cacheColorFilter: cacheColorFilter,
     );

@@ -51,9 +51,7 @@ class RemoteLocaleKeys {
   static const averageLine = 'Average Line';
   static const callout = 'Callout';
   static const channel = 'Channel';
-  static const check = 'Check';
   static const continuous = 'Continuous';
-  static const cross = 'Cross';
   static const crossline = 'Crossline';
   static const doodle = 'Doodle';
   static const elliottWave = 'Elliot wave';
@@ -63,10 +61,8 @@ class RemoteLocaleKeys {
   static const fibProjection = 'Fib Projection';
   static const fibRetracement = 'Fib Retracement';
   static const fibTimeZone = 'Fib Time Zone';
-  static const focus = 'Focus';
   static const gannFan = 'Gann Fan';
   static const gartley = 'Gartley';
-  static const heart = 'Heart';
   static const horizontalLine = 'Horizontal Line';
   static const line = 'Line';
   static const measurementLine = 'Measurement Line';
@@ -76,7 +72,6 @@ class RemoteLocaleKeys {
   static const rectangle = 'Rectangle';
   static const regressionLine = 'Regression Line';
   static const segment = 'Segment';
-  static const star = 'Star';
   static const speedResistanceArc = 'Speed Resistance Arc';
   static const speedResistanceLine = 'Speed Resistance Line';
   static const timeCycle = 'Time Cycle';
