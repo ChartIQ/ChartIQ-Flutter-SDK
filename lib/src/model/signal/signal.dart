@@ -59,10 +59,10 @@ class Signal {
 
   Map<String, dynamic> toJson() => {
         'uniqueId': uniqueId,
-        'name': Uri.encodeComponent(name),
+        'name': name,
         'conditions': List<dynamic>.from(conditions.map((x) => x.toJson())),
         'joiner': joiner.value,
-        'description': Uri.encodeComponent(description),
+        'description': description,
         'disabled': disabled,
         'study': study.toJson(),
       };
