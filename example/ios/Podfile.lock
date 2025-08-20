@@ -2,7 +2,7 @@ PODS:
   - chart_iq (0.0.1):
     - ChartIQ
     - Flutter
-  - ChartIQ (4.3.0)
+  - ChartIQ (4.4.0)
   - connectivity_plus (0.0.1):
     - Flutter
     - ReachabilitySwift
@@ -35,7 +35,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   chart_iq: 248bfdc06aa264a729aa91209928a82cc7ddafd1
-  ChartIQ: 4a12adb06d79aa50f63b312bd077dc45ddb3f8e6
+  ChartIQ: 2f4b3a18b3272dd7b570ddaee35f9f7ab68079e1
   connectivity_plus: 481668c94744c30c53b8895afb39159d1e619bdf
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
   ReachabilitySwift: 32793e867593cfc1177f5d16491e3a197d2fccda
