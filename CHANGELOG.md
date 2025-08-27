@@ -6,8 +6,8 @@
 
 ### Bug Fixes:
 
-- Fixed issue where studies were not getting shown when Update Type field is changed
-- Addressed an issue where SignalIQ name and description fields are showing encoded characters on the chart
+- Fixed an issue where studies were not displayed when the Update Type field was changed.
+- Resolved an issue where the SignalIQ name and description fields appeared with encoded characters on the chart
 
 ## 0.0.18
 
