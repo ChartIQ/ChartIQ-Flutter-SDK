@@ -1,3 +1,14 @@
+## 0.0.19
+
+### Removed Deprecated Drawing Tools:
+
+- Removed CHECK, CROSS, FOCUS, HEART, and STAR drawing tools from the SDK
+
+### Bug Fixes:
+
+- Fixed issue where studies were not getting shown when Update Type field is changed
+- Addressed an issue where SignalIQ name and description fields are showing encoded characters on the chart
+
 ## 0.0.18
 
 * Change Readme.
