@@ -159,7 +159,7 @@ class StudyParameterCheckbox extends StudyParameter {
   }) : super(heading: heading, name: name, parameterType: parameterType);
 
   factory StudyParameterCheckbox.fromJson(Map<String, dynamic> json) {
-    // Helper function to convert various types to boolean
+    // adnroid sdk gives "value": true, "defaultValue": false and ios sdk gives "value": 1, "defaultValue": 1
     bool convertToBool(dynamic value) {
       if (value is bool) return value;
       if (value is int) return value != 0;
