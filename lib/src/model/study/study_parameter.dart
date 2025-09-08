@@ -42,8 +42,8 @@ class StudyParameterText extends StudyParameter {
       name: json['name'],
       parameterType: StudyParameterType.values.firstWhereOrNull(
           (element) => element.value == json['parameterType']),
-      defaultValue: json['defaultValue'],
-      value: json['value'],
+      defaultValue: json['defaultValue']?.toString() ?? '',
+      value: json['value']?.toString() ?? '',
     );
   }
 }
@@ -159,13 +159,24 @@ class StudyParameterCheckbox extends StudyParameter {
   }) : super(heading: heading, name: name, parameterType: parameterType);
 
   factory StudyParameterCheckbox.fromJson(Map<String, dynamic> json) {
+    // Helper function to convert various types to boolean
+    bool convertToBool(dynamic value) {
+      if (value is bool) return value;
+      if (value is int) return value != 0;
+      if (value is String) {
+        final lowerValue = value.toLowerCase();
+        return lowerValue == 'true' || lowerValue == '1';
+      }
+      return false;
+    }
+
     return StudyParameterCheckbox(
       heading: json['heading'],
       name: json['name'],
       parameterType: StudyParameterType.values.firstWhereOrNull(
           (element) => element.value == json['parameterType']),
-      defaultValue: json['defaultValue'],
-      value: json['value'],
+      defaultValue: convertToBool(json['defaultValue']),
+      value: convertToBool(json['value']),
     );
   }
 }
@@ -196,8 +207,8 @@ class StudyParameterSelect extends StudyParameter {
         name: json['name'],
         parameterType: StudyParameterType.values.firstWhereOrNull(
             (element) => element.value == json['parameterType']),
-        defaultValue: json['defaultValue'],
-        value: json['value'],
+        defaultValue: json['defaultValue']?.toString() ?? '',
+        value: json['value']?.toString() ?? '',
         options: (json['options'] as Map<String, dynamic>).map(
           (key, value) => MapEntry(
             key.toString(),
