@@ -72,21 +72,21 @@ extension [String:Any] {
                 type: "color",
                 value: FlutterStudyParameterValueModel(
                     value: parameter,
-                    name: self["name"] as! String,
-                    defaultInput: self["defaultOutput"]!,
-                    heading: self["heading"] as! String,
+                    name: self["name"] as? String ?? "",
+                    defaultInput: self["defaultOutput"] ?? "",
+                    heading: self["heading"] as? String ?? "",
                     options: nil
                 )
             )
         }
         return FlutterStudyParameterModel(
-            type: self["type"] as! String,
+            type: self["type"] as? String ?? "unknown",
             value: FlutterStudyParameterValueModel(
-                value: self["value"]!,
-                name: self["name"] as! String,
-                defaultInput: self["defaultInput"]!,
-                heading: self["heading"] as! String,
-                options: self["options"] as! [String : Any]?
+                value: self["value"] ?? "",
+                name: self["name"] as? String ?? "",
+                defaultInput: self["defaultInput"] ?? "",
+                heading: self["heading"] as? String ?? "",
+                options: self["options"] as? [String : Any]
             )
         )
     }
