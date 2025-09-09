@@ -1,3 +1,9 @@
+## 0.0.20
+
+### Bug Fixes:
+
+- Fixed casting issue for a few studies.
+
 ## 0.0.19
 
 ### Removed Deprecated Drawing Tools:
